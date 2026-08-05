@@ -1,8 +1,861 @@
+--[[
+	rmk Hub - MM2 v1.6
+	• Интро с загрузкой перед запуском
+	• Перетаскивание за верхнюю панель
+	• Открытие/закрытие по K
+	• Категории: Main, General, Movement, Teleport
+	• ESP с ролями: Murder (красный), Sheriff (синий), Innocent (зелёный)
+	• ESP для монеток
+	• Auto Farm - быстрый телепорт к монеткам (бесконечный, все карты)
+	• Speed Hack с настраиваемой скоростью (16-50)
+	• NoClip - прохождение сквозь стены
+	• Fly - полёт
+	• Teleport с кнопками
+	• Кнопка DestroyGUI
+--]]
+
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Список всех карт в MM2
+local mapNames = {
+	"Bank2", "BioLab", "Factory", "Hospital3", "Hotel2", "House2",
+	"Mansion2", "MilBase", "Office3", "PoliceStation", "ResearchFacility",
+	"Workplace", "BeachResort", "Yacht", "Pier",
+}
+
+-- ================== СОЗДАНИЕ ИНТРО ==================
+local introGui = Instance.new("ScreenGui")
+introGui.Name = "rmkHub_Intro"
+introGui.ResetOnSpawn = false
+introGui.Parent = playerGui
+
+local introBox = Instance.new("Frame")
+introBox.Name = "IntroBox"
+introBox.Size = UDim2.new(0, 350, 0, 150)
+introBox.Position = UDim2.new(0.5, -175, 0.5, -75)
+introBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+introBox.BorderSizePixel = 0
+introBox.BackgroundTransparency = 1
+introBox.Parent = introGui
+
+local introCorner = Instance.new("UICorner")
+introCorner.CornerRadius = UDim.new(0, 10)
+introCorner.Parent = introBox
+
+local introShadow = Instance.new("Frame")
+introShadow.Name = "IntroShadow"
+introShadow.Size = UDim2.new(1, 4, 1, 4)
+introShadow.Position = UDim2.new(0, -2, 0, -2)
+introShadow.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+introShadow.BorderSizePixel = 0
+introShadow.ZIndex = 0
+introShadow.BackgroundTransparency = 1
+introShadow.Parent = introBox
+
+local introShadowCorner = Instance.new("UICorner")
+introShadowCorner.CornerRadius = UDim.new(0, 10)
+introShadowCorner.Parent = introShadow
+
+local titleText = Instance.new("TextLabel")
+titleText.Name = "TitleText"
+titleText.Size = UDim2.new(1, -20, 0, 40)
+titleText.Position = UDim2.new(0, 10, 0, 15)
+titleText.BackgroundTransparency = 1
+titleText.Font = Enum.Font.GothamBlack
+titleText.Text = "rmk Hub"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.TextSize = 36
+titleText.TextTransparency = 1
+titleText.Parent = introBox
+
+local subtitleText = Instance.new("TextLabel")
+subtitleText.Name = "SubtitleText"
+subtitleText.Size = UDim2.new(1, -20, 0, 20)
+subtitleText.Position = UDim2.new(0, 10, 0, 55)
+subtitleText.BackgroundTransparency = 1
+subtitleText.Font = Enum.Font.GothamSemibold
+subtitleText.Text = "Murder Mystery 2"
+subtitleText.TextColor3 = Color3.fromRGB(200, 50, 50)
+subtitleText.TextSize = 16
+subtitleText.TextTransparency = 1
+subtitleText.Parent = introBox
+
+local loadingBarBg = Instance.new("Frame")
+loadingBarBg.Name = "LoadingBarBg"
+loadingBarBg.Size = UDim2.new(1, -40, 0, 4)
+loadingBarBg.Position = UDim2.new(0, 20, 0, 90)
+loadingBarBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+loadingBarBg.BorderSizePixel = 0
+loadingBarBg.BackgroundTransparency = 1
+loadingBarBg.Parent = introBox
+
+local loadingBarBgCorner = Instance.new("UICorner")
+loadingBarBgCorner.CornerRadius = UDim.new(0, 2)
+loadingBarBgCorner.Parent = loadingBarBg
+
+local loadingBarFill = Instance.new("Frame")
+loadingBarFill.Name = "LoadingBarFill"
+loadingBarFill.Size = UDim2.new(0, 0, 1, 0)
+loadingBarFill.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+loadingBarFill.BorderSizePixel = 0
+loadingBarFill.Parent = loadingBarBg
+
+local loadingBarFillCorner = Instance.new("UICorner")
+loadingBarFillCorner.CornerRadius = UDim.new(0, 2)
+loadingBarFillCorner.Parent = loadingBarFill
+
+local loadingText = Instance.new("TextLabel")
+loadingText.Name = "LoadingText"
+loadingText.Size = UDim2.new(1, -20, 0, 18)
+loadingText.Position = UDim2.new(0, 10, 0, 100)
+loadingText.BackgroundTransparency = 1
+loadingText.Font = Enum.Font.Gotham
+loadingText.Text = "Loading... 0%"
+loadingText.TextColor3 = Color3.fromRGB(150, 150, 150)
+loadingText.TextSize = 13
+loadingText.TextTransparency = 1
+loadingText.Parent = introBox
+
+local versionText = Instance.new("TextLabel")
+versionText.Name = "VersionText"
+versionText.Size = UDim2.new(1, -20, 0, 16)
+versionText.Position = UDim2.new(0, 10, 0, 125)
+versionText.BackgroundTransparency = 1
+versionText.Font = Enum.Font.Gotham
+versionText.Text = "v1.6"
+versionText.TextColor3 = Color3.fromRGB(100, 100, 100)
+versionText.TextSize = 11
+versionText.TextTransparency = 1
+versionText.Parent = introBox
+
+-- ================== ОСНОВНОЕ МЕНЮ ==================
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "rmkHub"
+screenGui.ResetOnSpawn = false
+screenGui.Enabled = false
+screenGui.Parent = playerGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 420, 0, 540)
+mainFrame.Position = UDim2.new(0.5, -210, 0.5, -270)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+mainFrame.Parent = screenGui
+
+local shadow = Instance.new("Frame")
+shadow.Name = "Shadow"
+shadow.Size = UDim2.new(1, 4, 1, 4)
+shadow.Position = UDim2.new(0, -2, 0, -2)
+shadow.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+shadow.BorderSizePixel = 0
+shadow.ZIndex = 0
+shadow.Parent = mainFrame
+
+local topBar = Instance.new("Frame")
+topBar.Name = "TopBar"
+topBar.Size = UDim2.new(1, 0, 0, 40)
+topBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+topBar.BorderSizePixel = 0
+topBar.Parent = mainFrame
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "Title"
+titleLabel.Size = UDim2.new(1, -80, 1, 0)
+titleLabel.Position = UDim2.new(0, 15, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.Text = "rmk Hub - MM2"
+titleLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+titleLabel.TextSize = 18
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.Parent = topBar
+
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 40, 0, 40)
+closeButton.Position = UDim2.new(1, -40, 0, 0)
+closeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+closeButton.BorderSizePixel = 0
+closeButton.Font = Enum.Font.GothamBold
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(180, 180, 180)
+closeButton.TextSize = 18
+closeButton.Parent = topBar
+
+closeButton.MouseEnter:Connect(function()
+	closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+	closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+end)
+
+closeButton.MouseLeave:Connect(function()
+	closeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	closeButton.TextColor3 = Color3.fromRGB(180, 180, 180)
+end)
+
+closeButton.MouseButton1Click:Connect(function()
+	mainFrame.Visible = false
+end)
+
+local divider = Instance.new("Frame")
+divider.Name = "Divider"
+divider.Size = UDim2.new(1, 0, 0, 1)
+divider.Position = UDim2.new(0, 0, 0, 40)
+divider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+divider.BorderSizePixel = 0
+divider.Parent = mainFrame
+
+-- ================== КАТЕГОРИИ ==================
+local categories = {"Main", "General", "Movement", "Teleport"}
+local categoryButtons = {}
+local categoryFrames = {}
+local currentCategory = "Main"
+
+local categoryPanel = Instance.new("Frame")
+categoryPanel.Name = "CategoryPanel"
+categoryPanel.Size = UDim2.new(1, 0, 0, 35)
+categoryPanel.Position = UDim2.new(0, 0, 0, 41)
+categoryPanel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+categoryPanel.BorderSizePixel = 0
+categoryPanel.Parent = mainFrame
+
+local categoryDivider = Instance.new("Frame")
+categoryDivider.Name = "CategoryDivider"
+categoryDivider.Size = UDim2.new(1, 0, 0, 1)
+categoryDivider.Position = UDim2.new(0, 0, 0, 76)
+categoryDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+categoryDivider.BorderSizePixel = 0
+categoryDivider.Parent = mainFrame
+
+local contentContainer = Instance.new("Frame")
+contentContainer.Name = "ContentContainer"
+contentContainer.Size = UDim2.new(1, 0, 1, -77)
+contentContainer.Position = UDim2.new(0, 0, 0, 77)
+contentContainer.BackgroundTransparency = 1
+contentContainer.BorderSizePixel = 0
+contentContainer.Parent = mainFrame
+
+local function switchCategory(categoryName)
+	if currentCategory == categoryName then return end
+	
+	for _, frame in pairs(categoryFrames) do
+		frame.Visible = false
+	end
+	
+	for _, button in pairs(categoryButtons) do
+		button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+		button.TextColor3 = Color3.fromRGB(150, 150, 150)
+	end
+	
+	if categoryFrames[categoryName] then
+		categoryFrames[categoryName].Visible = true
+	end
+	
+	if categoryButtons[categoryName] then
+		categoryButtons[categoryName].BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+		categoryButtons[categoryName].TextColor3 = Color3.fromRGB(255, 255, 255)
+	end
+	
+	currentCategory = categoryName
+end
+
+for i, categoryName in ipairs(categories) do
+	local catButton = Instance.new("TextButton")
+	catButton.Name = categoryName .. "_Button"
+	catButton.Size = UDim2.new(1 / #categories, -2, 1, -4)
+	catButton.Position = UDim2.new((i - 1) / #categories, 0, 0, 2)
+	catButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	catButton.BorderSizePixel = 0
+	catButton.Font = Enum.Font.GothamSemibold
+	catButton.Text = categoryName
+	catButton.TextColor3 = Color3.fromRGB(150, 150, 150)
+	catButton.TextSize = 13
+	catButton.AutoButtonColor = false
+	catButton.Parent = categoryPanel
+	
+	local catFrame = Instance.new("Frame")
+	catFrame.Name = categoryName .. "_Frame"
+	catFrame.Size = UDim2.new(1, 0, 1, 0)
+	catFrame.BackgroundTransparency = 1
+	catFrame.BorderSizePixel = 0
+	catFrame.Visible = false
+	catFrame.Parent = contentContainer
+	
+	local uiListLayout = Instance.new("UIListLayout")
+	uiListLayout.Padding = UDim.new(0, 8)
+	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uiListLayout.Parent = catFrame
+	
+	local uiPadding = Instance.new("UIPadding")
+	uiPadding.PaddingTop = UDim.new(0, 10)
+	uiPadding.PaddingLeft = UDim.new(0, 10)
+	uiPadding.PaddingRight = UDim.new(0, 10)
+	uiPadding.PaddingBottom = UDim.new(0, 10)
+	uiPadding.Parent = catFrame
+	
+	categoryButtons[categoryName] = catButton
+	categoryFrames[categoryName] = catFrame
+	
+	catButton.MouseButton1Click:Connect(function()
+		switchCategory(categoryName)
+	end)
+	
+	catButton.MouseEnter:Connect(function()
+		if currentCategory ~= categoryName then
+			catButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		end
+	end)
+	
+	catButton.MouseLeave:Connect(function()
+		if currentCategory ~= categoryName then
+			catButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+		end
+	end)
+end
+
+switchCategory("Main")
+
+-- ================== ПЕРЕТАСКИВАНИЕ ==================
+local dragging = false
+local dragStartPos = nil
+local frameStartPos = nil
+
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStartPos = input.Position
+		frameStartPos = mainFrame.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStartPos
+		mainFrame.Position = UDim2.new(
+			frameStartPos.X.Scale,
+			frameStartPos.X.Offset + delta.X,
+			frameStartPos.Y.Scale,
+			frameStartPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+-- ================== ФУНКЦИЯ СОЗДАНИЯ ТОГГЛ-СЕКЦИИ ==================
+local function createToggleSection(categoryName, name, defaultState, callback)
+	local targetFrame = categoryFrames[categoryName]
+	if not targetFrame then return end
+	
+	local sectionFrame = Instance.new("Frame")
+	sectionFrame.Name = name .. "_Section"
+	sectionFrame.Size = UDim2.new(1, -20, 0, 40)
+	sectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	sectionFrame.BorderSizePixel = 0
+	sectionFrame.Parent = targetFrame
+
+	local nameLabel = Instance.new("TextLabel")
+	nameLabel.Size = UDim2.new(1, -110, 1, 0)
+	nameLabel.Position = UDim2.new(0, 12, 0, 0)
+	nameLabel.BackgroundTransparency = 1
+	nameLabel.Font = Enum.Font.GothamSemibold
+	nameLabel.Text = name
+	nameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+	nameLabel.TextSize = 15
+	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	nameLabel.Parent = sectionFrame
+
+	local toggleButton = Instance.new("TextButton")
+	toggleButton.Name = "Toggle"
+	toggleButton.Size = UDim2.new(0, 50, 0, 24)
+	toggleButton.Position = UDim2.new(1, -58, 0.5, -12)
+	toggleButton.BackgroundColor3 = defaultState and Color3.fromRGB(0, 170, 100) or Color3.fromRGB(80, 80, 80)
+	toggleButton.BorderSizePixel = 0
+	toggleButton.Font = Enum.Font.GothamBold
+	toggleButton.Text = ""
+	toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	toggleButton.TextSize = 11
+	toggleButton.AutoButtonColor = false
+	toggleButton.Parent = sectionFrame
+
+	local toggleFrame = Instance.new("Frame")
+	toggleFrame.Name = "ToggleKnob"
+	toggleFrame.Size = UDim2.new(0, 20, 0, 20)
+	toggleFrame.Position = defaultState and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
+	toggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	toggleFrame.BorderSizePixel = 0
+	toggleFrame.Parent = toggleButton
+
+	local statusLabel = Instance.new("TextLabel")
+	statusLabel.Size = UDim2.new(0, 45, 0, 16)
+	statusLabel.Position = UDim2.new(1, -110, 0.5, -8)
+	statusLabel.BackgroundTransparency = 1
+	statusLabel.Font = Enum.Font.Gotham
+	statusLabel.Text = defaultState and "ON" or "OFF"
+	statusLabel.TextColor3 = defaultState and Color3.fromRGB(0, 170, 100) or Color3.fromRGB(150, 150, 150)
+	statusLabel.TextSize = 12
+	statusLabel.TextXAlignment = Enum.TextXAlignment.Right
+	statusLabel.Parent = sectionFrame
+
+	local state = defaultState
+
+	local function updateVisual()
+		if state then
+			toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 100)
+			statusLabel.Text = "ON"
+			statusLabel.TextColor3 = Color3.fromRGB(0, 170, 100)
+			toggleFrame:TweenPosition(
+				UDim2.new(1, -22, 0.5, -10),
+				Enum.EasingDirection.Out,
+				Enum.EasingStyle.Quad,
+				0.15,
+				true
+			)
+		else
+			toggleButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+			statusLabel.Text = "OFF"
+			statusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+			toggleFrame:TweenPosition(
+				UDim2.new(0, 2, 0.5, -10),
+				Enum.EasingDirection.Out,
+				Enum.EasingStyle.Quad,
+				0.15,
+				true
+			)
+		end
+	end
+
+	toggleButton.MouseButton1Click:Connect(function()
+		state = not state
+		updateVisual()
+		if callback then
+			callback(state)
+		end
+	end)
+
+	return {
+		ToggleButton = toggleButton,
+		ToggleFrame = toggleFrame,
+		StatusLabel = statusLabel,
+		GetState = function() return state end,
+		SetState = function(newState)
+			state = newState
+			updateVisual()
+		end,
+	}
+end
+
+-- ================== ФУНКЦИЯ СОЗДАНИЯ СЕКЦИИ С ВВОДОМ ==================
+local function createInputSection(categoryName, name, defaultValue, minValue, maxValue, callback)
+	local targetFrame = categoryFrames[categoryName]
+	if not targetFrame then return end
+	
+	local sectionFrame = Instance.new("Frame")
+	sectionFrame.Name = name .. "_Section"
+	sectionFrame.Size = UDim2.new(1, -20, 0, 40)
+	sectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	sectionFrame.BorderSizePixel = 0
+	sectionFrame.Parent = targetFrame
+
+	local nameLabel = Instance.new("TextLabel")
+	nameLabel.Size = UDim2.new(0, 140, 1, 0)
+	nameLabel.Position = UDim2.new(0, 12, 0, 0)
+	nameLabel.BackgroundTransparency = 1
+	nameLabel.Font = Enum.Font.GothamSemibold
+	nameLabel.Text = name
+	nameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+	nameLabel.TextSize = 15
+	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	nameLabel.Parent = sectionFrame
+
+	local inputBox = Instance.new("TextBox")
+	inputBox.Name = "InputBox"
+	inputBox.Size = UDim2.new(0, 70, 0, 24)
+	inputBox.Position = UDim2.new(1, -80, 0.5, -12)
+	inputBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	inputBox.BorderSizePixel = 0
+	inputBox.Font = Enum.Font.Gotham
+	inputBox.Text = tostring(defaultValue)
+	inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	inputBox.TextSize = 14
+	inputBox.PlaceholderText = minValue .. "-" .. maxValue
+	inputBox.PlaceholderColor3 = Color3.fromRGB(100, 100, 100)
+	inputBox.Parent = sectionFrame
+
+	local currentValue = defaultValue
+
+	inputBox:GetPropertyChangedSignal("Text"):Connect(function()
+		local num = tonumber(inputBox.Text)
+		if num and num >= minValue and num <= maxValue then
+			currentValue = num
+			inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+			if callback then
+				callback(num)
+			end
+		end
+	end)
+
+	inputBox.FocusLost:Connect(function(enterPressed)
+		local num = tonumber(inputBox.Text)
+		if not num or num < minValue or num > maxValue then
+			inputBox.Text = tostring(currentValue)
+			inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
+	end)
+
+	return {
+		InputBox = inputBox,
+		GetValue = function() return currentValue end,
+		SetValue = function(val)
+			if val >= minValue and val <= maxValue then
+				currentValue = val
+				inputBox.Text = tostring(val)
+			end
+		end,
+	}
+end
+
+-- ================== ФУНКЦИЯ СОЗДАНИЯ КНОПКИ ==================
+local function createButtonSection(categoryName, name, callback)
+	local targetFrame = categoryFrames[categoryName]
+	if not targetFrame then return end
+	
+	local button = Instance.new("TextButton")
+	button.Name = name .. "_Button"
+	button.Size = UDim2.new(1, -20, 0, 42)
+	button.BackgroundColor3 = Color3.fromRGB(0, 140, 200)
+	button.BorderSizePixel = 0
+	button.Font = Enum.Font.GothamSemibold
+	button.Text = name
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextSize = 15
+	button.AutoButtonColor = false
+	button.Parent = targetFrame
+
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = Color3.fromRGB(0, 160, 220)
+	end)
+
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = Color3.fromRGB(0, 140, 200)
+	end)
+
+	button.MouseButton1Click:Connect(function()
+		if callback then
+			callback()
+		end
+		button.BackgroundColor3 = Color3.fromRGB(0, 120, 180)
+		task.wait(0.1)
+		button.BackgroundColor3 = Color3.fromRGB(0, 160, 220)
+	end)
+
+	return button
+end
+
+-- ================== ESP СИСТЕМА С РОЛЯМИ ==================
+local espEnabled = false
+local espFolder = Instance.new("Folder")
+espFolder.Name = "ESP_Folder"
+espFolder.Parent = workspace
+
+local espObjects = {}
+
+local function getPlayerRole(targetPlayer)
+	local character = targetPlayer.Character
+	if not character then return "Innocent" end
+	
+	for _, child in ipairs(character:GetChildren()) do
+		if child:IsA("Tool") then
+			local toolName = child.Name:lower()
+			if toolName:find("knife") then return "Murder" end
+			if toolName:find("gun") then return "Sheriff" end
+		end
+	end
+	
+	local backpack = targetPlayer:FindFirstChild("Backpack")
+	if backpack then
+		for _, child in ipairs(backpack:GetChildren()) do
+			if child:IsA("Tool") then
+				local toolName = child.Name:lower()
+				if toolName:find("knife") then return "Murder" end
+				if toolName:find("gun") then return "Sheriff" end
+			end
+		end
+	end
+	
+	return "Innocent"
+end
+
+local function getRoleColor(role)
+	if role == "Murder" then return Color3.fromRGB(255, 50, 50)
+	elseif role == "Sheriff" then return Color3.fromRGB(50, 100, 255)
+	else return Color3.fromRGB(50, 255, 50) end
+end
+
+local function updateESP(targetPlayer)
+	local objects = espObjects[targetPlayer]
+	if not objects then return end
+	
+	local role = getPlayerRole(targetPlayer)
+	local color = getRoleColor(role)
+	
+	if objects.Highlight and objects.Highlight.Parent then
+		objects.Highlight.OutlineColor = color
+		objects.Highlight.FillColor = color
+	end
+	
+	if objects.NameLabel and objects.NameLabel.Parent then
+		objects.NameLabel.Text = targetPlayer.Name .. " [" .. role .. "]"
+		objects.NameLabel.TextColor3 = color
+	end
+	
+	objects.CurrentRole = role
+end
+
+local function createESP(targetPlayer)
+	if targetPlayer == player then return end
+	
+	if espObjects[targetPlayer] then
+		local oldData = espObjects[targetPlayer]
+		if oldData.Highlight and oldData.Highlight.Parent then
+			updateESP(targetPlayer)
+			return
+		else
+			if oldData.Highlight then oldData.Highlight:Destroy() end
+			if oldData.BillboardGui then oldData.BillboardGui:Destroy() end
+			if oldData.Connections then
+				for _, connection in ipairs(oldData.Connections) do
+					connection:Disconnect()
+				end
+			end
+			espObjects[targetPlayer] = nil
+		end
+	end
+	
+	local character = targetPlayer.Character
+	if not character then return end
+	
+	local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+	local head = character:FindFirstChild("Head")
+	local humanoid = character:FindFirstChild("Humanoid")
+	
+	if not humanoidRootPart or not head or not humanoid then return end
+	
+	local role = getPlayerRole(targetPlayer)
+	local color = getRoleColor(role)
+	
+	local highlight = Instance.new("Highlight")
+	highlight.Name = "ESP_Highlight"
+	highlight.FillColor = color
+	highlight.FillTransparency = 1
+	highlight.OutlineColor = color
+	highlight.OutlineTransparency = 0
+	highlight.Adornee = character
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+	highlight.Parent = espFolder
+	
+	local billboardGui = Instance.new("BillboardGui")
+	billboardGui.Name = "ESP_NameTag"
+	billboardGui.Size = UDim2.new(0, 300, 0, 30)
+	billboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
+	billboardGui.AlwaysOnTop = true
+	billboardGui.MaxDistance = 1000
+	billboardGui.Adornee = head
+	billboardGui.Parent = espFolder
+	
+	local nameLabel = Instance.new("TextLabel")
+	nameLabel.Size = UDim2.new(1, 0, 1, 0)
+	nameLabel.BackgroundTransparency = 1
+	nameLabel.Font = Enum.Font.GothamBold
+	nameLabel.Text = targetPlayer.Name .. " [" .. role .. "]"
+	nameLabel.TextColor3 = color
+	nameLabel.TextSize = 14
+	nameLabel.TextStrokeTransparency = 0.5
+	nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+	nameLabel.Parent = billboardGui
+	
+	local connections = {}
+	
+	table.insert(connections, humanoid.Died:Connect(function()
+		removeESP(targetPlayer)
+	end))
+	
+	local function onToolChanged()
+		task.wait(0.1)
+		if espObjects[targetPlayer] then
+			updateESP(targetPlayer)
+		end
+	end
+	
+	table.insert(connections, character.ChildAdded:Connect(function(child)
+		if child:IsA("Tool") then onToolChanged() end
+	end))
+	
+	table.insert(connections, character.ChildRemoved:Connect(function(child)
+		if child:IsA("Tool") then onToolChanged() end
+	end))
+	
+	local backpack = targetPlayer:FindFirstChild("Backpack")
+	if backpack then
+		table.insert(connections, backpack.ChildAdded:Connect(function(child)
+			if child:IsA("Tool") then onToolChanged() end
+		end))
+		table.insert(connections, backpack.ChildRemoved:Connect(function(child)
+			if child:IsA("Tool") then onToolChanged() end
+		end))
+	end
+	
+	espObjects[targetPlayer] = {
+		Highlight = highlight,
+		BillboardGui = billboardGui,
+		NameLabel = nameLabel,
+		Connections = connections,
+		Character = character,
+		CurrentRole = role,
+	}
+end
+
+local function removeESP(targetPlayer)
+	local objects = espObjects[targetPlayer]
+	if not objects then return end
+	
+	if objects.Connections then
+		for _, connection in ipairs(objects.Connections) do
+			connection:Disconnect()
+		end
+	end
+	
+	if objects.Highlight then objects.Highlight:Destroy() end
+	if objects.BillboardGui then objects.BillboardGui:Destroy() end
+	
+	espObjects[targetPlayer] = nil
+end
+
+local function removeAllESP()
+	for targetPlayer, _ in pairs(espObjects) do
+		removeESP(targetPlayer)
+	end
+end
+
+local function toggleESP(state)
+	espEnabled = state
+	
+	if state then
+		for _, targetPlayer in ipairs(Players:GetPlayers()) do
+			if targetPlayer ~= player then
+				createESP(targetPlayer)
+			end
+		end
+	else
+		removeAllESP()
+	end
+end
+
+-- ================== ESP ДЛЯ МОНЕТОК ==================
+local coinESPEnabled = false
+local coinHighlights = {}
+local coinESPConnection = nil
+
+local function highlightCoin(coin)
+	if not coin:IsA("BasePart") then return end
+	
+	if coin.Name:lower():find("coin") then
+		if not coinHighlights[coin] then
+			local highlightColor = Color3.fromRGB(255, 215, 0)
+			
+			local highlight = Instance.new("Highlight")
+			highlight.Name = "CoinESP"
+			highlight.FillColor = highlightColor
+			highlight.FillTransparency = 0.5
+			highlight.OutlineColor = highlightColor
+			highlight.OutlineTransparency = 0
+			highlight.Adornee = coin
+			highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			highlight.Parent = espFolder
+			
+			local billboardGui = Instance.new("BillboardGui")
+			billboardGui.Name = "CoinESP_Label"
+			billboardGui.Size = UDim2.new(0, 100, 0, 20)
+			billboardGui.StudsOffset = Vector3.new(0, 1, 0)
+			billboardGui.AlwaysOnTop = true
+			billboardGui.MaxDistance = 500
+			billboardGui.Adornee = coin
+			billboardGui.Parent = espFolder
+			
+			local nameLabel = Instance.new("TextLabel")
+			nameLabel.Size = UDim2.new(1, 0, 1, 0)
+			nameLabel.BackgroundTransparency = 1
+			nameLabel.Font = Enum.Font.GothamBold
+			nameLabel.Text = "Coin"
+			nameLabel.TextColor3 = highlightColor
+			nameLabel.TextSize = 12
+			nameLabel.TextStrokeTransparency = 0.5
+			nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+			nameLabel.Parent = billboardGui
+			
+			coinHighlights[coin] = {
+				Highlight = highlight,
+				BillboardGui = billboardGui,
+			}
+		end
+	end
+end
+
+local function scanForCoins()
+	for _, object in ipairs(workspace:GetDescendants()) do
+		if object:IsA("BasePart") and object.Name:lower():find("coin") then
+			highlightCoin(object)
+		end
+	end
+end
+
+local function removeAllCoinHighlights()
+	for coin, data in pairs(coinHighlights) do
+		if data.Highlight then data.Highlight:Destroy() end
+		if data.BillboardGui then data.BillboardGui:Destroy() end
+	end
+	coinHighlights = {}
+end
+
+local function toggleCoinESP(state)
+	coinESPEnabled = state
+	
+	if state then
+		scanForCoins()
+		if coinESPConnection then coinESPConnection:Disconnect() end
+		
+		coinESPConnection = workspace.DescendantAdded:Connect(function(descendant)
+			if not coinESPEnabled then return end
+			if descendant:IsA("BasePart") and descendant.Name:lower():find("coin") then
+				task.wait(0.1)
+				highlightCoin(descendant)
+			end
+		end)
+	else
+		removeAllCoinHighlights()
+		if coinESPConnection then
+			coinESPConnection:Disconnect()
+			coinESPConnection = nil
+		end
+	end
+end
+
 -- ================== AUTO FARM (ТЕЛЕПОРТ, БЕСКОНЕЧНЫЙ, БЫСТРЫЙ) ==================
 local autoFarmEnabled = false
 local autoFarmConnection = nil
 local collectedCoins = 0
-local farmDelay = 0.03 -- Задержка между телепортами (было 0.1)
+local farmDelay = 0.03
 
 local function findCoinContainer()
 	for _, mapName in ipairs(mapNames) do
@@ -100,7 +953,6 @@ local function toggleAutoFarm(state)
 			if nearestCoin then
 				local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
 				if rootPart then
-					-- Телепорт к монетке
 					rootPart.CFrame = nearestCoin.CFrame + Vector3.new(0, 3, 0)
 					
 					collectedCoins = collectedCoins + 1
@@ -109,11 +961,9 @@ local function toggleAutoFarm(state)
 						print("[rmk Hub] Собрано монеток: " .. collectedCoins)
 					end
 					
-					-- Минимальная задержка для скорости
 					task.wait(farmDelay)
 				end
 			else
-				-- Монеток нет, телепорт в лобби
 				print("[rmk Hub] Монетки закончились! Собрано: " .. collectedCoins .. ". Телепорт в лобби...")
 				teleportToLobby()
 				task.wait(2)
@@ -127,3 +977,567 @@ local function toggleAutoFarm(state)
 		print("[rmk Hub] Auto Farm остановлен. Всего собрано: " .. collectedCoins .. " монеток")
 	end
 end
+
+-- ================== ОБРАБОТЧИКИ ИГРОКОВ ==================
+local lastRoleUpdate = 0
+local roleUpdateConnection = RunService.Heartbeat:Connect(function()
+	if not espEnabled then return end
+	
+	local currentTime = tick()
+	if currentTime - lastRoleUpdate >= 2 then
+		lastRoleUpdate = currentTime
+		
+		for targetPlayer, objects in pairs(espObjects) do
+			if targetPlayer and targetPlayer.Parent then
+				updateESP(targetPlayer)
+			end
+		end
+	end
+end)
+
+local function onPlayerAdded(targetPlayer)
+	if targetPlayer == player then return end
+	
+	targetPlayer.ChildAdded:Connect(function(child)
+		if child.Name == "Backpack" and espEnabled then
+			task.wait(0.1)
+			if espObjects[targetPlayer] then
+				updateESP(targetPlayer)
+				
+				local objects = espObjects[targetPlayer]
+				if objects and objects.Connections then
+					table.insert(objects.Connections, child.ChildAdded:Connect(function(item)
+						if item:IsA("Tool") then
+							task.wait(0.1)
+							updateESP(targetPlayer)
+						end
+					end))
+					
+					table.insert(objects.Connections, child.ChildRemoved:Connect(function(item)
+						if item:IsA("Tool") then
+							task.wait(0.1)
+							updateESP(targetPlayer)
+						end
+					end))
+				end
+			end
+		end
+	end)
+	
+	local function onCharacterAdded(character)
+		if not espEnabled then return end
+		task.wait(0.3)
+		removeESP(targetPlayer)
+		if character and character.Parent then
+			createESP(targetPlayer)
+		end
+	end
+	
+	if targetPlayer.Character and espEnabled then
+		onCharacterAdded(targetPlayer.Character)
+	end
+	
+	targetPlayer.CharacterAdded:Connect(onCharacterAdded)
+end
+
+local function onPlayerRemoving(targetPlayer)
+	removeESP(targetPlayer)
+end
+
+local playerAddedConnection = Players.PlayerAdded:Connect(onPlayerAdded)
+local playerRemovingConnection = Players.PlayerRemoving:Connect(onPlayerRemoving)
+
+local localCharacterConnection = player.CharacterAdded:Connect(function()
+	if espEnabled then
+		task.wait(0.5)
+		removeAllESP()
+		for _, targetPlayer in ipairs(Players:GetPlayers()) do
+			if targetPlayer ~= player then
+				createESP(targetPlayer)
+			end
+		end
+	end
+end)
+
+-- ================== SPEED HACK ==================
+local speedHackEnabled = false
+local currentSpeed = 16
+local speedConnection = nil
+local toolConnections = {}
+local speedUpdateConnection = nil
+
+local function applySpeed(speed)
+	local targetSpeed = speed or currentSpeed
+	currentSpeed = targetSpeed
+	
+	if player.Character then
+		local humanoid = player.Character:FindFirstChild("Humanoid")
+		if humanoid then
+			humanoid.WalkSpeed = targetSpeed
+		end
+	end
+end
+
+local function updateSpeed(speed)
+	currentSpeed = speed
+	applySpeed(speed)
+end
+
+local function clearToolConnections()
+	for _, connection in ipairs(toolConnections) do
+		connection:Disconnect()
+	end
+	toolConnections = {}
+end
+
+local function setupToolTracking(character)
+	if not character then return end
+	
+	clearToolConnections()
+	
+	local childAddedConn = character.ChildAdded:Connect(function(child)
+		if child:IsA("Tool") and speedHackEnabled then
+			local startTime = tick()
+			local restoreConnection
+			restoreConnection = RunService.Heartbeat:Connect(function()
+				if tick() - startTime > 0.5 then
+					restoreConnection:Disconnect()
+					return
+				end
+				if speedHackEnabled and player.Character then
+					local humanoid = player.Character:FindFirstChild("Humanoid")
+					if humanoid and humanoid.WalkSpeed ~= currentSpeed then
+						humanoid.WalkSpeed = currentSpeed
+					end
+				end
+			end)
+		end
+	end)
+	
+	local childRemovedConn = character.ChildRemoved:Connect(function(child)
+		if child:IsA("Tool") and speedHackEnabled then
+			local startTime = tick()
+			local restoreConnection
+			restoreConnection = RunService.Heartbeat:Connect(function()
+				if tick() - startTime > 0.5 then
+					restoreConnection:Disconnect()
+					return
+				end
+				if speedHackEnabled and player.Character then
+					local humanoid = player.Character:FindFirstChild("Humanoid")
+					if humanoid and humanoid.WalkSpeed ~= currentSpeed then
+						humanoid.WalkSpeed = currentSpeed
+					end
+				end
+			end)
+		end
+	end)
+	
+	table.insert(toolConnections, childAddedConn)
+	table.insert(toolConnections, childRemovedConn)
+end
+
+local function toggleSpeedHack(state, speed)
+	speedHackEnabled = state
+	
+	if state then
+		local targetSpeed = speed or currentSpeed
+		currentSpeed = targetSpeed
+		
+		applySpeed(targetSpeed)
+		
+		if player.Character then
+			setupToolTracking(player.Character)
+		end
+		
+		if speedUpdateConnection then speedUpdateConnection:Disconnect() end
+		
+		speedUpdateConnection = RunService.Heartbeat:Connect(function()
+			if not speedHackEnabled then
+				speedUpdateConnection:Disconnect()
+				return
+			end
+			
+			if player.Character then
+				local humanoid = player.Character:FindFirstChild("Humanoid")
+				if humanoid and humanoid.WalkSpeed ~= currentSpeed then
+					humanoid.WalkSpeed = currentSpeed
+				end
+			end
+		end)
+		
+		if speedConnection then speedConnection:Disconnect() end
+		
+		speedConnection = player.CharacterAdded:Connect(function(character)
+			task.wait(0.1)
+			if speedHackEnabled then
+				applySpeed(currentSpeed)
+				setupToolTracking(character)
+			end
+		end)
+	else
+		if player.Character then
+			local humanoid = player.Character:FindFirstChild("Humanoid")
+			if humanoid then humanoid.WalkSpeed = 16 end
+		end
+		
+		clearToolConnections()
+		
+		if speedUpdateConnection then
+			speedUpdateConnection:Disconnect()
+			speedUpdateConnection = nil
+		end
+		
+		if speedConnection then
+			speedConnection:Disconnect()
+			speedConnection = nil
+		end
+	end
+end
+
+-- ================== NOCLIP ==================
+local noclipEnabled = false
+local noclipConnection = nil
+
+local function toggleNoclip(state)
+	noclipEnabled = state
+	
+	if state then
+		if player.Character then
+			for _, part in ipairs(player.Character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.CanCollide = false
+				end
+			end
+		end
+		
+		if noclipConnection then noclipConnection:Disconnect() end
+		
+		noclipConnection = RunService.Stepped:Connect(function()
+			if not noclipEnabled then
+				noclipConnection:Disconnect()
+				return
+			end
+			
+			if player.Character then
+				for _, part in ipairs(player.Character:GetDescendants()) do
+					if part:IsA("BasePart") and part.CanCollide == true then
+						part.CanCollide = false
+					end
+				end
+			end
+		end)
+	else
+		if player.Character then
+			for _, part in ipairs(player.Character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.CanCollide = true
+				end
+			end
+		end
+		
+		if noclipConnection then
+			noclipConnection:Disconnect()
+			noclipConnection = nil
+		end
+	end
+end
+
+-- ================== FLY ==================
+local flyEnabled = false
+local flyConnection = nil
+local flySpeed = 50
+
+local function toggleFly(state)
+	flyEnabled = state
+	
+	if state then
+		if player.Character then
+			local humanoid = player.Character:FindFirstChild("Humanoid")
+			local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
+			
+			if humanoid and rootPart then
+				humanoid.PlatformStand = true
+				
+				flyConnection = RunService.Heartbeat:Connect(function()
+					if not flyEnabled then
+						flyConnection:Disconnect()
+						return
+					end
+					
+					if player.Character then
+						local currentRoot = player.Character:FindFirstChild("HumanoidRootPart")
+						local currentHumanoid = player.Character:FindFirstChild("Humanoid")
+						
+						if currentRoot and currentHumanoid then
+							currentHumanoid.PlatformStand = true
+							
+							local moveDirection = Vector3.new(0, 0, 0)
+							
+							if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+								moveDirection = moveDirection + (workspace.CurrentCamera.CFrame.LookVector * Vector3.new(1, 0, 1)).Unit
+							end
+							if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+								moveDirection = moveDirection + (-workspace.CurrentCamera.CFrame.LookVector * Vector3.new(1, 0, 1)).Unit
+							end
+							if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+								moveDirection = moveDirection + (-workspace.CurrentCamera.CFrame.RightVector * Vector3.new(1, 0, 1)).Unit
+							end
+							if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+								moveDirection = moveDirection + (workspace.CurrentCamera.CFrame.RightVector * Vector3.new(1, 0, 1)).Unit
+							end
+							if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+								moveDirection = moveDirection + Vector3.new(0, 1, 0)
+							end
+							if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+								moveDirection = moveDirection + Vector3.new(0, -1, 0)
+							end
+							
+							if moveDirection.Magnitude > 0 then
+								currentRoot.Velocity = moveDirection.Unit * flySpeed
+							else
+								currentRoot.Velocity = Vector3.new(0, 0, 0)
+							end
+						end
+					end
+				end)
+			end
+		end
+	else
+		if player.Character then
+			local humanoid = player.Character:FindFirstChild("Humanoid")
+			if humanoid then humanoid.PlatformStand = false end
+		end
+		
+		if flyConnection then
+			flyConnection:Disconnect()
+			flyConnection = nil
+		end
+	end
+end
+
+-- ================== TELEPORT ФУНКЦИИ ==================
+local function teleportToPlayer()
+	local otherPlayers = {}
+	for _, p in ipairs(Players:GetPlayers()) do
+		if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+			table.insert(otherPlayers, p)
+		end
+	end
+	
+	if #otherPlayers > 0 then
+		local randomPlayer = otherPlayers[math.random(1, #otherPlayers)]
+		if player.Character then
+			player.Character:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
+			print("[rmk Hub] Телепорт к игроку: " .. randomPlayer.Name)
+		end
+	else
+		print("[rmk Hub] Нет доступных игроков для телепорта")
+	end
+end
+
+-- ================== КОНТЕНТ КАТЕГОРИЙ ==================
+
+-- === MAIN ===
+local infoFrame = Instance.new("Frame")
+infoFrame.Name = "InfoFrame"
+infoFrame.Size = UDim2.new(1, -20, 0, 340)
+infoFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+infoFrame.BorderSizePixel = 0
+infoFrame.Parent = categoryFrames["Main"]
+
+local infoTitle = Instance.new("TextLabel")
+infoTitle.Size = UDim2.new(1, -20, 0, 30)
+infoTitle.Position = UDim2.new(0, 12, 0, 12)
+infoTitle.BackgroundTransparency = 1
+infoTitle.Font = Enum.Font.GothamBold
+infoTitle.Text = "rmk Hub v1.6"
+infoTitle.TextColor3 = Color3.fromRGB(0, 170, 255)
+infoTitle.TextSize = 18
+infoTitle.TextXAlignment = Enum.TextXAlignment.Left
+infoTitle.Parent = infoFrame
+
+local infoDivider = Instance.new("Frame")
+infoDivider.Size = UDim2.new(1, -20, 0, 1)
+infoDivider.Position = UDim2.new(0, 10, 0, 48)
+infoDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+infoDivider.BorderSizePixel = 0
+infoDivider.Parent = infoFrame
+
+local lastUpdateTitle = Instance.new("TextLabel")
+lastUpdateTitle.Size = UDim2.new(1, -20, 0, 22)
+lastUpdateTitle.Position = UDim2.new(0, 12, 0, 55)
+lastUpdateTitle.BackgroundTransparency = 1
+lastUpdateTitle.Font = Enum.Font.GothamBold
+lastUpdateTitle.Text = "[Последнее обновление]"
+lastUpdateTitle.TextColor3 = Color3.fromRGB(255, 200, 50)
+lastUpdateTitle.TextSize = 13
+lastUpdateTitle.TextXAlignment = Enum.TextXAlignment.Left
+lastUpdateTitle.Parent = infoFrame
+
+local lastUpdateText = Instance.new("TextLabel")
+lastUpdateText.Size = UDim2.new(1, -20, 0, 20)
+lastUpdateText.Position = UDim2.new(0, 12, 0, 78)
+lastUpdateText.BackgroundTransparency = 1
+lastUpdateText.Font = Enum.Font.Gotham
+lastUpdateText.Text = "+ Auto Farm: быстрый телепорт"
+lastUpdateText.TextColor3 = Color3.fromRGB(150, 255, 150)
+lastUpdateText.TextSize = 11
+lastUpdateText.TextXAlignment = Enum.TextXAlignment.Left
+lastUpdateText.Parent = infoFrame
+
+local lastUpdateText2 = Instance.new("TextLabel")
+lastUpdateText2.Size = UDim2.new(1, -20, 0, 20)
+lastUpdateText2.Position = UDim2.new(0, 12, 0, 98)
+lastUpdateText2.BackgroundTransparency = 1
+lastUpdateText2.Font = Enum.Font.Gotham
+lastUpdateText2.Text = "+ Бесконечный режим (все карты)"
+lastUpdateText2.TextColor3 = Color3.fromRGB(150, 255, 150)
+lastUpdateText2.TextSize = 11
+lastUpdateText2.TextXAlignment = Enum.TextXAlignment.Left
+lastUpdateText2.Parent = infoFrame
+
+local updateDivider = Instance.new("Frame")
+updateDivider.Size = UDim2.new(1, -20, 0, 1)
+updateDivider.Position = UDim2.new(0, 10, 0, 125)
+updateDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+updateDivider.BorderSizePixel = 0
+updateDivider.Parent = infoFrame
+
+local allUpdatesTitle = Instance.new("TextLabel")
+allUpdatesTitle.Size = UDim2.new(1, -20, 0, 22)
+allUpdatesTitle.Position = UDim2.new(0, 12, 0, 132)
+allUpdatesTitle.BackgroundTransparency = 1
+allUpdatesTitle.Font = Enum.Font.GothamBold
+allUpdatesTitle.Text = "[Все функции]"
+allUpdatesTitle.TextColor3 = Color3.fromRGB(200, 200, 200)
+allUpdatesTitle.TextSize = 13
+allUpdatesTitle.TextXAlignment = Enum.TextXAlignment.Left
+allUpdatesTitle.Parent = infoFrame
+
+local updateLog = Instance.new("TextLabel")
+updateLog.Size = UDim2.new(1, -20, 0, 175)
+updateLog.Position = UDim2.new(0, 12, 0, 158)
+updateLog.BackgroundTransparency = 1
+updateLog.Font = Enum.Font.Gotham
+updateLog.Text = [[ESP Players - подсвечивает игроков и роль
+ESP Coins - подсвечивает монетки на карте
+Auto Farm - быстрый телепорт к монеткам
+Speed Hack - меняет скорость от 16 до 50
+Fly - полёт (WASD, Space, Shift)
+NoClip - позволяет проходить сквозь стены
+Teleport - меню телепортаций]]
+updateLog.TextColor3 = Color3.fromRGB(160, 160, 160)
+updateLog.TextSize = 12
+updateLog.TextXAlignment = Enum.TextXAlignment.Left
+updateLog.TextYAlignment = Enum.TextYAlignment.Top
+updateLog.TextWrapped = true
+updateLog.Parent = infoFrame
+
+local versionLabel = Instance.new("TextLabel")
+versionLabel.Size = UDim2.new(1, -20, 0, 18)
+versionLabel.Position = UDim2.new(0, 12, 0, 320)
+versionLabel.BackgroundTransparency = 1
+versionLabel.Font = Enum.Font.Gotham
+versionLabel.Text = "by rmk | Press K to toggle"
+versionLabel.TextColor3 = Color3.fromRGB(100, 100, 100)
+versionLabel.TextSize = 10
+versionLabel.TextXAlignment = Enum.TextXAlignment.Left
+versionLabel.Parent = infoFrame
+
+-- === GENERAL ===
+createToggleSection("General", "ESP Players", false, function(state) toggleESP(state) end)
+createToggleSection("General", "ESP Coin", false, function(state) toggleCoinESP(state) end)
+createToggleSection("General", "Auto Farm", false, function(state) toggleAutoFarm(state) end)
+
+local destroyButton = Instance.new("TextButton")
+destroyButton.Name = "DestroyButton"
+destroyButton.Size = UDim2.new(1, -20, 0, 44)
+destroyButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+destroyButton.BorderSizePixel = 0
+destroyButton.Font = Enum.Font.GothamBold
+destroyButton.Text = "DESTROY GUI"
+destroyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+destroyButton.TextSize = 15
+destroyButton.AutoButtonColor = false
+destroyButton.Parent = categoryFrames["General"]
+
+destroyButton.MouseEnter:Connect(function() destroyButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50) end)
+destroyButton.MouseLeave:Connect(function() destroyButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40) end)
+
+destroyButton.MouseButton1Click:Connect(function()
+	removeAllESP()
+	if coinESPEnabled then toggleCoinESP(false) end
+	if autoFarmEnabled then toggleAutoFarm(false) end
+	if speedHackEnabled then toggleSpeedHack(false) end
+	if flyEnabled then toggleFly(false) end
+	if noclipEnabled then toggleNoclip(false) end
+	if roleUpdateConnection then roleUpdateConnection:Disconnect() end
+	if playerAddedConnection then playerAddedConnection:Disconnect() end
+	if playerRemovingConnection then playerRemovingConnection:Disconnect() end
+	if localCharacterConnection then localCharacterConnection:Disconnect() end
+	if espFolder and espFolder.Parent then espFolder:Destroy() end
+	screenGui:Destroy()
+	print("[rmk Hub] GUI уничтожен, все функции отключены.")
+end)
+
+-- === MOVEMENT ===
+local speedInput = createInputSection("Movement", "Speed", 16, 16, 50, function(value)
+	if speedHackEnabled then updateSpeed(value) end
+end)
+
+createToggleSection("Movement", "Enable Speed", false, function(state)
+	toggleSpeedHack(state, speedInput.GetValue())
+end)
+
+createToggleSection("Movement", "NoClip", false, function(state) toggleNoclip(state) end)
+createToggleSection("Movement", "Fly", false, function(state) toggleFly(state) end)
+
+-- === TELEPORT ===
+createButtonSection("Teleport", "Teleport to Lobby", function() teleportToLobby() end)
+createButtonSection("Teleport", "Teleport to Player", function() teleportToPlayer() end)
+
+-- ================== УПРАВЛЕНИЕ ВИДИМОСТЬЮ ПО K ==================
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == Enum.KeyCode.K then
+		mainFrame.Visible = not mainFrame.Visible
+	end
+end)
+
+mainFrame.Visible = true
+
+-- ================== АНИМАЦИЯ ИНТРО ==================
+TweenService:Create(introBox, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+TweenService:Create(introShadow, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+task.wait(0.3)
+TweenService:Create(titleText, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+task.wait(0.15)
+TweenService:Create(subtitleText, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+task.wait(0.2)
+TweenService:Create(loadingBarBg, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+TweenService:Create(loadingText, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+TweenService:Create(versionText, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+task.wait(0.2)
+
+local totalTime = 1.2
+local steps = 20
+local stepTime = totalTime / steps
+for i = 1, steps do
+	local progress = i / steps
+	loadingBarFill.Size = UDim2.new(progress, 0, 1, 0)
+	loadingText.Text = "Loading... " .. math.floor(progress * 100) .. "%"
+	task.wait(stepTime)
+end
+loadingText.Text = "Complete!"
+task.wait(0.3)
+
+TweenService:Create(introBox, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
+TweenService:Create(introShadow, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
+task.wait(0.4)
+
+introGui:Destroy()
+screenGui.Enabled = true
+
+print("[rmk Hub] Загружено. Нажми K для скрытия/показа.")
+print("[rmk Hub] Auto Farm: быстрый телепорт к монеткам (бесконечный, все карты)")
