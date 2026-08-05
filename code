@@ -1,1516 +1,1579 @@
---[[
-	rmk Hub - MM2 v1.6
-	• Intro with loading before launch
-	• Drag by top bar
-	• Toggle visibility with K
-	• Categories: Main, General, Movement, Teleport
-	• ESP with roles: Murder (red), Sheriff (blue), Innocent (green)
-	• ESP for coins
-	• Auto Farm - fast teleport to coins (infinite, all maps)
-	• Speed Hack with configurable speed (16-50)
-	• NoClip - walk through walls
-	• Fly - flight
-	• Teleport with buttons
-	• DestroyGUI button
---]]
+-[
+rkHb-M2v.
+•Itowt odn eoeluc
+•Da ytpbr	 ogevsblt ihK(ihaiain
+•Ctgre:Mi,Gnrl oeet eeot	 S ihrls udr(e) hrf bu) noet(re)	 S o on
+•At am-fs eeott on ifnt,almp)[LTHD
+•SedHc ihcniual pe 1-0
+•NCi  aktruhwls	 l  lgt	 eeotwt utn
+•DsryU utn	 on fe nr
+-]
+oa srnuSrie=gm:eSrie"srnuSrie)lclPaes=gm:eSrie"lyr"
+oa weSrie=gm:eSrie"weSrie)lclRnevc  aeGtevc(Rnevc"
+oa onSrie=gm:eSrie"onSrie)
+oa lyr=PaesLcllyrlclpaeGi=pae:atoCid"lyru"
+- l M aslclmpae  
+"ak" Boa" Fcoy,"optl" Htl" Hue"
+"aso2,"iBs" Ofc3,"oietto" RsacFclt"
+"oklc" Baheot,"ah" Pe"
 
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
+- =========ITO=========
+oa nrGi=Isac.e(SreGi)itou.ae="mHbIto
+nrGiRstnpw  as
+nrGiPrn  lyru
+lclitoo  ntnenw"rm"
+nrBxNm  Itoo"itoo.ie=Ui2nw0 5,0 5)itoo.oiin=Ui2nw05 15 .,-5
+nrBxBcgonClr  oo3foRB3,3,3)itoo.odrieie  
+nrBxBcgonTasaec  
+nrBxPrn  nrGi
+oa nrCre  ntnenw"Ionr)itoonrCreRdu  Dmnw0 0
+nrCre.aet=itoo
+lclitohdw=Isac.e(Fae)itohdwNm  Itohdw
+nrSao.ie=Ui2nw1 ,1 )itohdwPsto  Dm.e(,-,0 2
+nrSao.akrudoo3=Clr.rmG(5 5 5
+nrSao.odrieie  
+nrSao.Idx=0itohdwBcgonTasaec  
+nrSao.aet=itoo
+lclitohdwonr=Isac.e(UCre"
+nrSaoCre.onrais=Ui.e(,1)itohdwonrPrn  nrSao
+lcltteet=Isac.e(TxLbl)tteetNm  Tteet
+ilTx.ie=Ui2nw1 2,0 0
+ilTx.oiin=Ui2nw0 0 ,1)tteetBcgonTasaec  
+ilTx.ot=Eu.otGtaBaktteetTx  rkHb
+ilTx.etoo3=Clr.rmG(5,25 5)tteetTxSz  6tteetTxTasaec  
+ilTx.aet=itoo
+lclsbilTx  ntnenw"etae"
+utteetNm  SbilTx"sbilTx.ie=Ui2nw1 2,0 0
+utteetPsto  Dm.e(,1,0 5
+utteetBcgonTasaec  
+utteetFn  nmFn.ohmeiodsbilTx.et="udrMsey2
+utteetTxClr  oo3foRB20 0 0
+utteetTxSz  6sbilTx.etrnprny=1sbilTx.aet=itoo
+lcllaigaB  ntnenw"rm"
+odnBrgNm  LaigaB"laigaB.ie=Ui2nw1 4,0 )laigaB.oiin=Ui2nw0 0 ,9)laigaB.akrudoo3=Clr.rmG(0 0 0
+odnBrgBreSzPxl=0laigaB.akrudrnprny=1laigaB.aet=itoo
+lcllaigaBCre  ntnenw"Ionr)laigaBCre.onrais=Ui.e(,2
+odnBrgonrPrn  odnBrg
+oa odnBril=Isac.e(Fae)laigaFl.ae="odnBril
+odnBrilSz  Dm.e(,0 ,0
+odnBrilBcgonClr  oo3foRB20 0 0
+odnBrilBreSzPxl=0laigaFl.aet=laigaB
+lcllaigaFlCre  ntnenw"Ionr)laigaFlCre.onrais=Ui.e(,2
+odnBrilonrPrn  odnBril
+oa odnTx  ntnenw"etae"
+odnTx.ae="odnTx"laigetSz  Dm.e(,-0 ,1)laigetPsto  Dm.e(,1,0 0)laigetBcgonTasaec  
+odnTx.ot=Eu.otGta
+odnTx.et="odn..0"laigetTxClr  oo3foRB10 5,10
+odnTx.etie=1
+odnTx.etrnprny=1laigetPrn  nrBx
+oa esoTx  ntnenw"etae"
+esoTx.ae="esoTx"vrinetSz  Dm.e(,-0 ,1)vrinetPsto  Dm.e(,1,0 2)vrinetBcgonTasaec  
+esoTx.ot=Eu.otGta
+esoTx.et="16
+esoTx.etoo3=Clr.rmG(0,10 0)vrinetTxSz  1vrinetTxTasaec  
+esoTx.aet=itoo
+- =========MI EU=========
+oa cenu  ntnenw"cenu"
+cenu.ae="mHb
+cenu.eeOSan=flesreGiEald=flesreGiPrn  lyru
+lclmiFae=Isac.e(Fae)miFaeNm  MiFae
+anrm.ie=Ui2nw0 2,0 4)miFaePsto  Dm.e(.,-1,05 20
+anrm.akrudoo3=Clr.rmG(0 0 0
+anrm.odrieie  
+anrm.lpDsedns=tu
+anrm.akrudrnprny=1miFaeSz  Dm.e(,0 ,0 -SatsalfraiainmiFaePsto  Dm.e(.,0 .,0 -Cne
+anrm.aet=sreGi
+oa hdw=Isac.e(Fae)sao.ae="hdw
+hdwSz  Dm.e(,4 ,4
+hdwPsto  Dm.e(,-,0 2
+hdwBcgonClr  oo3foRB1,1,1)sao.odrieie  
+hdwZne  
+hdwBcgonTasaec  
+hdwPrn  anrm
+lcltpa  ntnenw"rm"
+oBrNm  Tpa"tpa.ie=Ui2nw1 ,0 0
+oBrBcgonClr  oo3foRB4,4,4)tpa.odrieie  
+oBrPrn  anrm
+lcltteae  ntnenw"etae"
+ilLblNm  Tte
+ilLblSz  Dm.e(,-0 ,0
+ilLblPsto  Dm.e(,1,0 )tteae.akrudrnprny=1tteae.ot=Eu.otGtaBl
+ilLblTx  rkHb-M2
+ilLblTxClr  oo3foRB20 2,20
+ilLblTxSz  8tteae.etAinet=Eu.etAinetLf
+ilLblPrn  oBr
+oa lsBto  ntnenw"etutn)coeutnNm  Coeutn
+lsBto.ie=Ui2nw0 0 ,4)coeutnPsto  Dm.e(,-0 ,0
+lsBto.akrudoo3=Clr.rmG(0 0 0
+lsBto.odrieie  
+lsBto.ot=Eu.otGtaBl
+lsBto.et=""coeutnTxClr  oo3foRB10 8,10
+lsBto.etie=1
+lsBto.aet=tpa
+coeutnMuene:onc(ucin)	lsBto.akrudoo3=Clr.rmG(0,5,5)	lsBto.etoo3=Clr.rmG(5,25 5)ed
+coeutnMueev:onc(ucin)	lsBto.akrudoo3=Clr.rmG(0 0 0
+coeutnTxClr  oo3foRB10 8,10
+n)
+lsBto.osBto1lc:onc(ucin)	anrm.iil  as
+n)
+oa iie  ntnenw"rm"
+iie.ae="iie"dvdrSz  Dm.e(,0 ,1
+iie.oiin=Ui2nw0 ,0 0
+iie.akrudoo3=Clr.rmG(0 0 0
+iie.odrieie  
+iie.aet=miFae
+-========= AEOIS=========
+oa aeois={Mi" Gnrl,"oeet,"eeot}lclctgrBtos={
+oa aeoyrms={
+oa urnCtgr  Mi"
+oa aeoyae  ntnenw"rm"
+aeoyae.ae="aeoyae"ctgrPnlSz  Dm.e(,0 ,3)ctgrPnlPsto  Dm.e(,0 ,4)ctgrPnlBcgonClr  oo3foRB2,2,2)ctgrPnlBreSzPxl=0ctgrPnlPrn  anrm
+lclctgrDvdr=Isac.e(Fae)ctgrDvdrNm  CtgrDvdr
+aeoyiie.ie=Ui2nw1 ,0 )ctgrDvdrPsto  Dm.e(,0 ,7)ctgrDvdrBcgonClr  oo3foRB6,6,6)ctgrDvdrBreSzPxl=0ctgrDvdrPrn  anrm
+lclcnetotie  ntnenw"rm"
+otnCnanrNm  Cnetotie"cnetotie.ie=Ui2nw1 ,1 7)cnetotie.oiin=Ui2nw0 ,0 7
+otnCnanrBcgonTasaec  
+otnCnanrBreSzPxl=0cnetotie.aet=miFae
+oa ucinsicCtgr(aeoyae
+i urnCtgr =ctgrNm hnrtr n
 
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+fr_ rm npisctgrFae)d
+	rm.iil  as
+ed		o ,bto npisctgrBtos o	bto.akrudoo3=Clr.rmG(0 0 0
+	utnTxClr  oo3foRB10 5,10
+ed		fctgrFae[aeoyae hn	ctgrFae[aeoyae.iil  re	n
 
--- All MM2 maps
-local mapNames = {
-	"Bank2", "BioLab", "Factory", "Hospital3", "Hotel2", "House2",
-	"Mansion2", "MilBase", "Office3", "PoliceStation", "ResearchFacility",
-	"Workplace", "BeachResort", "Yacht", "Pier",
-}
+i aeoyutn[aeoyae hn	ctgrBtosctgrNm]BcgonClr  oo3foRB6,6,6)	ctgrBtosctgrNm]TxClr  oo3foRB25 5,25
+ed		urnCtgr  aeoyaeed
+o ,ctgrNm niar(aeois o	oa aBto  ntnenw"etutn)	aBto.ae=ctgrNm ."Bto"	aBto.ie=Ui2nw1/#aeois 2 ,-)	aBto.oiin=Ui2nw(  )/#aeois ,0 )	aBto.akrudoo3=Clr.rmG(0 0 0
+ctutnBreSzPxl=0	aBto.ot=Eu.otGtaSmbl
+ctutnTx  aeoyae	aBto.etoo3=Clr.rmG(5,10 5)	aBto.etie=1
+ctutnAtBtoClr=fle	aBto.aet=ctgrPnl		oa aFae=Isac.e(Fae)	aFaeNm  aeoyae. _rm"	aFaeSz  Dm.e(,0 ,0
+ctrm.akrudrnprny=1	aFaeBreSzPxl=0	aFaeVsbe=fle	aFaePrn  otnCnanr		oa iitaot=Isac.e(ULsLyu"
+uLsLyu.adn  Dmnw0 )	iitaotHrznaAinet=Eu.oiotllgmn.etr	iitaotSrOdr=Eu.otre.aotre
+uLsLyu.aet=ctrm
 
--- ================== INTRO ==================
-local introGui = Instance.new("ScreenGui")
-introGui.Name = "rmkHub_Intro"
-introGui.ResetOnSpawn = false
-introGui.Parent = playerGui
+lcluPdig=Isac.e(UPdig)	iadn.adnTp=Ui.e(,1)	iadn.adnLf  Dmnw0 0
+uPdigPdigih  Dmnw0 0
+uPdigPdigotm=Ui.e(,1)	iadn.aet=ctrm
 
-local introBox = Instance.new("Frame")
-introBox.Name = "IntroBox"
-introBox.Size = UDim2.new(0, 350, 0, 150)
-introBox.Position = UDim2.new(0.5, -175, 0.5, -75)
-introBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-introBox.BorderSizePixel = 0
-introBox.BackgroundTransparency = 1
-introBox.Parent = introGui
+ctgrBtosctgrNm]=ctutn	aeoyrmsctgrNm]=ctrm
 
-local introCorner = Instance.new("UICorner")
-introCorner.CornerRadius = UDim.new(0, 10)
-introCorner.Parent = introBox
+ctutnMueutnCikCnetfnto(
+	wthaeoyctgrNm)	n)		aBto.osEtrCnetfnto(
+	fcretaeoy~ aeoyaete
+	ctutnBcgonClr  oo3foRB5,5,5)	ed	n)		aBto.osLaeCnetfnto(
+	fcretaeoy~ aeoyaete
+	ctutnBcgonClr  oo3foRB4,4,4)	ed	n)ed
+wthaeoy"an)
+-========= EUAIAIN=========
+oa euiil  re
+oa ucinsoMn(
+Tenevc:raemiFae weIf.e(.,Eu.aigtl.ak nmEsnDrcinOt,{	Sz  Dm.e(,40 ,50,	Psto  Dm.e(.,-1,05 20,	BcgonTasaec  
+}:ly)	weSrieCet(hdw weIf.e(.,Eu.aigtl.ak nmEsnDrcinOt,{	BcgonTasaec  
+}:ly)ed
+oa ucinhdMn(
+Tenevc:raemiFae weIf.e(.,Eu.aigtl.ud nmEsnDrcinI) 
+	ie=Ui2nw0 ,0 )
+	oiin=Ui2nw05 ,05 )
+	akrudrnprny=1	)Pa(
+Tenevc:raesao,Tennonw02 nmEsnSyeQa,Eu.aigieto.n,{	BcgonTasaec  
+}:ly)ed
+-========= RGIG=========
+oa rgig=flelcldaSato  i
+oa rmSato  i
+tpa.nuBgnCnetfnto(nu)	fiptUeIptye= nmUeIptyeMueutn hn	dagn  re	daSato  nu.oiin	faetrPs=miFaePsto
+	nu.hne:onc(ucin)		fiptUeIpttt =Eu.srnuSaeEdte
+		rgig=fle		n
+	n)	n
+n)
+srnuSrieIpthne:onc(ucinipt
+i rgigadiptUeIptye= nmUeIptyeMueoeette
+	oa et  nu.oiin-daSato
+	anrm.oiin=Ui2nw
+	faetrPsXSae
+	faetrPsXOfe  et.,		rmSato..cl,		rmSato..fst+dlaY	)	n
+n)
+-========= OGESCINCETR=========
+oa ucincetTglScinctgrNm,nm,dfuttt,clbc,gice)	oa agtrm  aeoyrmsctgrNm]	fnttreFaete euned		oa etoFae=Isac.e(Fae)	etoFaeNm  ae. _eto"	etoFaeSz  Dm.e(,-0 ,4)	etoFaeBcgonClr  oo3foRB4,4,4)	etoFaeBreSzPxl=0	etoFaePrn  agtrm
+	oa aeae  ntnenw"etae"
+nmLblSz  Dm.e(,-1,1 )	aeae.oiin=Ui2nw0 2 ,0
+nmLblBcgonTasaec  
+nmLblFn  nmFn.ohmeiod	aeae.et=nm
+nmLblTxClr  oo3foRB20 2,20
+nmLblTxSz  5	aeae.etAinet=Eu.etAinetLf
+nmLblPrn  etoFae		-Gice ae
+i lthdte
+	oa lthdae  ntnenw"etae"
+	lthdae.ie=Ui2nw0 0 ,1)	giceLblPsto  Dm.e(,1,0 0
+	lthdae.akrudrnprny=1	giceLblFn  nmFn.ohm	giceLblTx  [LTHD"	giceLblTxClr  oo3foRB25 5,5)	giceLblTxSz  0	giceLblTxXlgmn  nmTxXlgmn.et	giceLblPrn  etoFae	n
+	oa ogeutn=Isac.e(TxBto"
+tglBto.ae="oge
+tglBto.ie=Ui2nw0 0 ,2)	ogeutnPsto  Dm.e(,-8 .,-2
+tglBto.akrudoo3=dfuttt n oo3foRB0 7,10 rClr.rmG(0 0 0
+tglBto.odrieie  
+tglBto.ot=Eu.otGtaBl
+tglBto.et="
+tglBto.etoo3=Clr.rmG(5,25 5)	ogeutnTxSz  1	ogeutnAtBtoClr=fle	ogeutnPrn  etoFae
+lcltglFae=Isac.e(Fae)	ogerm.ae="ogenb
+tglFaeSz  Dm.e(,2,0 0
+tglFaePsto  ealSaeadUi2nw1 2,05 1)o Dm.e(,2 .,-0
+tglFaeBcgonClr  oo3foRB25 5,25
+tglFaeBreSzPxl=0	ogerm.aet=tglBto
+	oa ttsae  ntnenw"etae"
+sauLblSz  Dm.e(,4,0 6
+sauLblPsto  Dm.e(,-1,05 8
+sauLblBcgonTasaec  
+sauLblFn  nmFn.ohm	ttsae.et=dfuttt n O"o OF
+sauLblTxClr  ealSaeadClr.rmG(,10 0)o oo3foRB10 5,10
+sauLblTxSz  2	ttsae.etAinet=Eu.etAinetRgt	ttsae.aet=scinrm
+	oa tt  ealSae
+lclfnto paeiul)	i tt hn		ogeutnBcgonClr  oo3foRB0 7,10
+	sauLblTx  O"		ttsae.etoo3=Clr.rmG(,10 0)		ogerm:wePsto(		Ui2nw1 2,05 1)
+		nmEsnDrcinOt
+		nmEsnSyeQa,		01,		tu
+	)	es
+	tglBto.akrudoo3=Clr.rmG(0 0 0
+	sauLblTx  OF
+	sauLblTxClr  oo3foRB10 5,10
+	tglFaeTenoiin
+		Dm.e(,2 .,-0,		Eu.aigieto.u,		Eu.aigtl.ud
+		.5
+		re		
+	n
+ed
+tglBto.osBto1lc:onc(ucin)	sae=ntsae	udtVsa(
+	fclbc hn		alaksae
+	n
+ed
+	eun{	TglBto  ogeutn
+	ogerm  ogerm,	SauLbl=sauLbl
+	eSae=fnto( eunsaeed
+	eSae=fnto(eSae
+	sae=nwtt
+	udtVsa(
+	n,	
+n
+- =========IPTSCINCETR=========
+oa ucincetIpteto(aeoyae ae ealVle iVle aVle alak
+lcltreFae=ctgrFae[aeoyae
+i o agtrm hnrtr n
 
-local introShadow = Instance.new("Frame")
-introShadow.Name = "IntroShadow"
-introShadow.Size = UDim2.new(1, 4, 1, 4)
-introShadow.Position = UDim2.new(0, -2, 0, -2)
-introShadow.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-introShadow.BorderSizePixel = 0
-introShadow.ZIndex = 0
-introShadow.BackgroundTransparency = 1
-introShadow.Parent = introBox
+lclscinrm  ntnenw"rm"
+scinrm.ae=nm ."Scin
+scinrm.ie=Ui2nw1 2,0 0
+scinrm.akrudoo3=Clr.rmG(0 0 0
+scinrm.odrieie  
+scinrm.aet=treFae
+lclnmLbl=Isac.e(TxLbl)	aeae.ie=Ui2nw0 4,1 )	aeae.oiin=Ui2nw0 2 ,0
+nmLblBcgonTasaec  
+nmLblFn  nmFn.ohmeiod	aeae.et=nm
+nmLblTxClr  oo3foRB20 2,20
+nmLblTxSz  5	aeae.etAinet=Eu.etAinetLf
+nmLblPrn  etoFae
+lclipto  ntnenw"eto"
+ipto.ae="nuBx
+ipto.ie=Ui2nw0 0 ,2)	nuBxPsto  Dm.e(,-0 .,-2
+ipto.akrudoo3=Clr.rmG(0 0 0
+ipto.odrieie  
+ipto.ot=Eu.otGta
+ipto.et=tsrn(ealVle
+ipto.etoo3=Clr.rmG(5,25 5)	nuBxTxSz  4	nuBxPaeodret=mnau ."". aVle	nuBxPaeodroo3=Clr.rmG(0,10 0)	nuBxPrn  etoFae
+lclcretau  ealVle
+ipto:ePoetCagdinl"et)Cnetfnto(
+	oa u  oubripto.et
+	fnmadnm> iVleadnm< aVlete
+	cretau  u
+	ipto.etoo3=Clr.rmG(5,25 5)		fclbc hn		clbc(u)		n
+	n
+ed
+	nuBxFcsotCnetfnto(nePesd
+	oa u  oubripto.et
+	fntnmo u  iVleo u  aVlete
+	ipto.et=tsrn(urnVle
+	ipto.etoo3=Clr.rmG(5,25 5)	ed	n)
+rtr 
+	nuBx=ipto,	Gtau  ucin)rtr urnVleed
+	eVle=fnto(a)		fvl> iVleadvl< aVlete
+		urnVle=vl		ipto.et=tsrn(a)		n
+	n,	
+n
+- =========BTO ETO RAO =========lclfnto raeutneto(aeoyae ae alak
+lcltreFae=ctgrFae[aeoyae
+i o agtrm hnrtr n
 
-local introShadowCorner = Instance.new("UICorner")
-introShadowCorner.CornerRadius = UDim.new(0, 10)
-introShadowCorner.Parent = introShadow
+lclbto  ntnenw"etutn)	utnNm  ae. _utn
+bto.ie=Ui2nw1 2,0 2
+bto.akrudoo3=Clr.rmG(,10 0)	utnBreSzPxl=0	utnFn  nmFn.ohmeiod	utnTx  ae	utnTxClr  oo3foRB25 5,25
+bto.etie=1
+bto.uoutnoo  as
+bto.aet=treFae
+bto.osEtrCnetfnto(
+	utnBcgonClr  oo3foRB0 6,20
+ed
+	utnMueev:onc(ucin)	bto.akrudoo3=Clr.rmG(,10 0)	n)
+bto.osBto1lc:onc(ucin)	i alakte
+	clbc(
+	n
+	utnBcgonClr  oo3foRB0 2,10
+	akwi(.)	bto.akrudoo3=Clr.rmG(,10 2)	n)
+rtr utned
+-========= S YTM=========
+oa sEald=flelclepodr=Isac.e(Fle"
+sFle.ae="S_odr
+sFle.aet=wrsae
+oa sOjcs={
+lclfnto ePaeRl(agtlyr
+lclcaatr=trePae.hrce
+i o hrce hnrtr Incn"ed		o ,cidi piscaatrGthlrn) o	i hl:s(To" hn		oa olae=cidNm:oe(
+	i olaefn(kie)te eun"udr n
+	i olaefn(gn)te eun"hrf"ed	ed	n
 
-local titleText = Instance.new("TextLabel")
-titleText.Name = "TitleText"
-titleText.Size = UDim2.new(1, -20, 0, 40)
-titleText.Position = UDim2.new(0, 10, 0, 15)
-titleText.BackgroundTransparency = 1
-titleText.Font = Enum.Font.GothamBlack
-titleText.Text = "rmk Hub"
-titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleText.TextSize = 36
-titleText.TextTransparency = 1
-titleText.Parent = introBox
+lclbcpc  agtlyrFnFrthl(Bcpc"
+i akakte
+	o ,cidi pisbcpc:eCide()d
+	i hl:s(To" hn		lcltoNm  hl.aelwr)		i olaefn(kie)te eun"udr n
+		ftoNm:id"u" hnrtr Seif n
+	ed	ed	n
 
-local subtitleText = Instance.new("TextLabel")
-subtitleText.Name = "SubtitleText"
-subtitleText.Size = UDim2.new(1, -20, 0, 20)
-subtitleText.Position = UDim2.new(0, 10, 0, 55)
-subtitleText.BackgroundTransparency = 1
-subtitleText.Font = Enum.Font.GothamSemibold
-subtitleText.Text = "Murder Mystery 2"
-subtitleText.TextColor3 = Color3.fromRGB(200, 50, 50)
-subtitleText.TextSize = 16
-subtitleText.TextTransparency = 1
-subtitleText.Parent = introBox
+rtr Incn"ed
+oa ucingtoeoo(oe
+i oe= Mre"te eunClr.rmG(5,5,5)	lefrl ="hrf"te eunClr.rmG(0 0,25
+es eunClr.rmG(0 5,5)eded
+oa ucinudtEPtrePae)	oa bet  sOjcstrePae]	fntojcste euned		oa oe=gtlyroetrePae)	oa oo  eRlClrrl)		fojcsHglgtadojcsHglgtPrn hn	ojcsHglgtOtieoo  oo
+	bet.ihih.iloo  oo
+ed		fojcsNmLbladojcsNmLblPrn hn	ojcsNmLblTx  agtlyrNm ."[ .rl .""	ojcsNmLblTxClr  oo
+ed		bet.urnRl  oeed
+oa ucincetEPtrePae)	ftrePae =pae hnrtr n
 
-local loadingBarBg = Instance.new("Frame")
-loadingBarBg.Name = "LoadingBarBg"
-loadingBarBg.Size = UDim2.new(1, -40, 0, 4)
-loadingBarBg.Position = UDim2.new(0, 20, 0, 90)
-loadingBarBg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-loadingBarBg.BorderSizePixel = 0
-loadingBarBg.BackgroundTransparency = 1
-loadingBarBg.Parent = introBox
+i sOjcstrePae]te
+	oa lDt  sOjcstrePae]	i lDt.ihih n lDt.ihih.aette
+	udtEPtrePae)		eun	es
+	i lDt.ihih hnodaaHglgtDsry)ed		fodaaBlbadu hnodaaBlbadu:eto( n
+	i lDt.oncin hn		fr_ oncini pisodaaCnetos o			oncinDsonc(
+		n
+	ed		sOjcstrePae]=nl	ed	n
 
-local loadingBarBgCorner = Instance.new("UICorner")
-loadingBarBgCorner.CornerRadius = UDim.new(0, 2)
-loadingBarBgCorner.Parent = loadingBarBg
+lclcaatr=trePae.hrce
+i o hrce hnrtr n
 
-local loadingBarFill = Instance.new("Frame")
-loadingBarFill.Name = "LoadingBarFill"
-loadingBarFill.Size = UDim2.new(0, 0, 1, 0)
-loadingBarFill.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-loadingBarFill.BorderSizePixel = 0
-loadingBarFill.Parent = loadingBarBg
+lclhmniRoPr  hrce:idisCid"uaodotat)	oa ed=caatrFnFrthl(Ha"
+lclhmni  hrce:idisCid"uaod)		fnthmniRoPr rntha rnthmni hnrtr n
 
-local loadingBarFillCorner = Instance.new("UICorner")
-loadingBarFillCorner.CornerRadius = UDim.new(0, 2)
-loadingBarFillCorner.Parent = loadingBarFill
+lclrl  ePaeRl(agtlyr
+lclclr=gtoeoo(oe
 
-local loadingText = Instance.new("TextLabel")
-loadingText.Name = "LoadingText"
-loadingText.Size = UDim2.new(1, -20, 0, 18)
-loadingText.Position = UDim2.new(0, 10, 0, 100)
-loadingText.BackgroundTransparency = 1
-loadingText.Font = Enum.Font.Gotham
-loadingText.Text = "Loading... 0%"
-loadingText.TextColor3 = Color3.fromRGB(150, 150, 150)
-loadingText.TextSize = 13
-loadingText.TextTransparency = 1
-loadingText.Parent = introBox
+lclhglgt=Isac.e(Hglgt)	ihih.ae="S_ihih"	ihih.iloo  oo
+hglgtFlTasaec  
+hglgtOtieoo  oo
+hglgtOtiernprny=0	ihih.dre  hrce
+hglgtDphoe=Eu.ihihDphoeAwyOTp	ihih.aet=epodr		oa ilorGi=Isac.e(Blbadu"
+blbadu.ae="S_aea"	ilorGiSz  Dm.e(,30 ,3)	ilorGiSusfst=Vco3nw0 .,0
+blbadu.lasno  re	ilorGiMxitne=10
+blbadu.dre  ed	ilorGiPrn  sFle
 
-local versionText = Instance.new("TextLabel")
-versionText.Name = "VersionText"
-versionText.Size = UDim2.new(1, -20, 0, 16)
-versionText.Position = UDim2.new(0, 10, 0, 125)
-versionText.BackgroundTransparency = 1
-versionText.Font = Enum.Font.Gotham
-versionText.Text = "v1.6"
-versionText.TextColor3 = Color3.fromRGB(100, 100, 100)
-versionText.TextSize = 11
-versionText.TextTransparency = 1
-versionText.Parent = introBox
+lclnmLbl=Isac.e(TxLbl)	aeae.ie=Ui2nw1 ,1 )	aeae.akrudrnprny=1	aeae.ot=Eu.otGtaBl
+nmLblTx  agtlyrNm ."[ .rl .""	aeae.etoo3=clr	aeae.etie=1
+nmLblTxSrkTasaec  .
+nmLblTxSrkClr  oo3foRB0 ,0
+nmLblPrn  ilorGi		oa oncin  }		al.netcnetos uaodDe:onc(ucin)	rmvEPtrePae)	n)
 
--- ================== MAIN MENU ==================
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "rmkHub"
-screenGui.ResetOnSpawn = false
-screenGui.Enabled = false
-screenGui.Parent = playerGui
+lclfnto nolhne(
+	akwi(.)	i sOjcstrePae]te
+	udtEPtrePae)	ed	n
 
-local mainFrame = Instance.new("Frame")
-mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 420, 0, 540)
-mainFrame.Position = UDim2.new(0.5, -210, 0.5, -270)
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-mainFrame.BorderSizePixel = 0
-mainFrame.ClipsDescendants = true
-mainFrame.Parent = screenGui
+tbeisr(oncin,caatrCidde:onc(ucincid
+	fcidIA"ol)te nolhne( n
+ed)		al.netcnetos hrce.hlRmvdCnetfnto(hl)	i hl:s(To" hnoToCagd)ed	n)
 
-local shadow = Instance.new("Frame")
-shadow.Name = "Shadow"
-shadow.Size = UDim2.new(1, 4, 1, 4)
-shadow.Position = UDim2.new(0, -2, 0, -2)
-shadow.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-shadow.BorderSizePixel = 0
-shadow.ZIndex = 0
-shadow.Parent = mainFrame
+lclbcpc  agtlyrFnFrthl(Bcpc"
+i akakte
+	al.netcnetos akakCidde:onc(ucincid
+	i hl:s(To" hnoToCagd)ed	ed)	tbeisr(oncin,bcpc.hlRmvdCnetfnto(hl)		fcidIA"ol)te nolhne( n
+	n)
+ed		sOjcstrePae]={	Hglgt=hglgt
+	ilorGi=blbadu,	NmLbl=nmLbl
+	oncin  oncin,	Caatr=caatr
+	urnRl  oe
+}ed
+oa ucinrmvEPtrePae)	oa bet  sOjcstrePae]	fntojcste euned		fojcsCnetoste
+	o ,cneto niar(bet.oncin)d
+	cneto:icnet)	ed	n
 
-local topBar = Instance.new("Frame")
-topBar.Name = "TopBar"
-topBar.Size = UDim2.new(1, 0, 0, 40)
-topBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-topBar.BorderSizePixel = 0
-topBar.Parent = mainFrame
+i bet.ihih hnojcsHglgtDsry)ed	fojcsBlbadu hnojcsBlbadu:eto( n
 
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Name = "Title"
-titleLabel.Size = UDim2.new(1, -80, 1, 0)
-titleLabel.Position = UDim2.new(0, 15, 0, 0)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Font = Enum.Font.GothamBold
-titleLabel.Text = "rmk Hub - MM2"
-titleLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
-titleLabel.TextSize = 18
-titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-titleLabel.Parent = topBar
+epbet[agtlyr  i
+n
+lclfnto eoelEP)	o agtlyr  npisepbet)d
+	eoeS(agtlyr
+eded
+oa ucintglEPsae
+epnbe  tt
 
-local closeButton = Instance.new("TextButton")
-closeButton.Name = "CloseButton"
-closeButton.Size = UDim2.new(0, 40, 0, 40)
-closeButton.Position = UDim2.new(1, -40, 0, 0)
-closeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-closeButton.BorderSizePixel = 0
-closeButton.Font = Enum.Font.GothamBold
-closeButton.Text = "X"
-closeButton.TextColor3 = Color3.fromRGB(180, 180, 180)
-closeButton.TextSize = 18
-closeButton.Parent = topBar
+i tt hn	fr_ agtlyri pisPaesGtlyr()d
+	i agtlyr~ lyrte
+		raeS(agtlyr
+	ed	ed	le	rmvAlS(
+eded
+-========= ONEP=========
+oa onSEald=flelclciHglgt  }lclciEPoncin=nl
+oa ucinhglgtonci)	fntci:s(BsPr" hnrtr n
 
-closeButton.MouseEnter:Connect(function()
-	closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-	closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-end)
+i onNm:oe(:id"on)te
+	fntciHglgt[on hn		oa ihihClr=Clr.rmG(5,25 )				oa ihih  ntnenw"ihih"
+	hglgtNm  CiEP
+	hglgtFlClr=hglgtoo
+	hglgtFlTasaec  .
+	hglgtOtieoo  ihihClr		ihih.ulnTasaec  
+	hglgtAone=ci
+	hglgtDphoe=Eu.ihihDphoeAwyOTp		ihih.aet=epodr				oa ilorGi=Isac.e(Blbadu"
+	blbadu.ae="onS_ae"		ilorGiSz  Dm.e(,10 ,2)		ilorGiSusfst=Vco3nw0 ,0
+	blbadu.lasno  re		ilorGiMxitne=50		ilorGiAone=ci
+	blbadu.aet=epodr				oa aeae  ntnenw"etae"
+	nmLblSz  Dm.e(,0 ,0
+	nmLblBcgonTasaec  
+	nmLblFn  nmFn.ohmod		aeae.et="on
+	nmLblTxClr  ihihClr		aeae.etie=1
+	nmLblTxSrkTasaec  .
+	nmLblTxSrkClr  oo3foRB0 ,0
+	nmLblPrn  ilorGi				onihihsci]={		Hglgt=hglgt
+		ilorGi=blbadu,		
+	n
+eded
+oa ucinsaFron(
+fr_ beti piswrsaeGtecnat()d
+	fojc:s(BsPr" n betNm:oe(:id"on)te
+	hglgtonojc)	ed	n
+n
+lclfnto eoelCiHglgt(
+frci,dt npisciHglgt)d
+	fdt.ihih hndt.ihih:eto( n
+	fdt.ilorGite aaBlbadu:eto( n
+ed	onihihs={
+n
+lclfnto ogeonS(tt)	onSEald=sae		fsaete
+	cnoCis)	i onSCneto hnciEPoncinDsonc( n
+		ciEPoncin=wrsaeDsednAddCnetfnto(ecnat
+	i o onSEaldte euned		fdsedn:s(BsPr" n ecnatNm:oe(:id"on)te
+		akwi(.)		hglgtondsedn)		n
+	n)	le	rmvAlonihihs)	i onSCneto hn		onSCneto:icnet)		onSCneto  i
+	n
+eded
+-========= UOFR =========lclatFrEald=flelclatFrCneto  i
+oa olceCis=0lclfrDly=00
+lclfnto idonotie(
+fr_ aNm niar(aNms o	lclmp=wrsaeFnFrthl(aNm)	i a hn		oa onotie  a:idisCid"onotie"
+	i onotie hn		rtr onotie
+	ed	ed	n
 
-closeButton.MouseLeave:Connect(function()
-	closeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	closeButton.TextColor3 = Color3.fromRGB(180, 180, 180)
-end)
+fr_ beti piswrsaeGtecnat()d
+	fojc.ae= CiCnanr n ojc:s(Fle" rojc:s(Mdl) hn		eunojc
+	n
+ed		eunnled
+oa ucinfnNaeton)	oa onotie  idonotie(
+i o onotie hnrtr i n
 
-closeButton.MouseButton1Click:Connect(function()
-	mainFrame.Visible = false
-end)
+lclnaeton=nl	oa ersDsac  ahhg
 
-local divider = Instance.new("Frame")
-divider.Name = "Divider"
-divider.Size = UDim2.new(1, 0, 0, 1)
-divider.Position = UDim2.new(0, 0, 0, 40)
-divider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-divider.BorderSizePixel = 0
-divider.Parent = mainFrame
+i lyrCaatrte
+	oa otat=pae.hrce:idisCid"uaodotat)	i otatte
+	fr_ oni pisciCnanrGthlrn) o		i onIA"aeat)adci.aefn(Ci" hn			oa itne=(otatPsto  onPsto)Mgiue			fdsac  ersDsac hn			naeton=ci
+			ersDsac  itne			n
+		n
+	ed	ed	n
 
--- ================== CATEGORIES ==================
-local categories = {"Main", "General", "Movement", "Teleport"}
-local categoryButtons = {}
-local categoryFrames = {}
-local currentCategory = "Main"
+rtr ersCi
+n
+lclfnto eeotoob(
+lcllby=wrsaeFnFrthl(Lby)	flbyte
+	oa pw  ob:idisCid"pw"
+	fsante
+	lclsanoain=sanFnFrthl(Sanoain)		fsanoainadpae.hrce hn		pae.hrce:oeosanoainPsto)		rtr re		n
+	n
+		lclaypwLcto  ob:idisCid"pwLcto"
+	faypwLcto n lyrCaatrte
+	pae.hrce:oeoaypwLcto.oiin
+	rtr re	ed	
+	oa at=lbyFnFrthlWihs(Pr" rlbyFnFrthlWihs(BsPr"
+	fpr n lyrCaatrte
+	pae.hrce:oeopr.oiin
+	rtr re	ed	n
 
-local categoryPanel = Instance.new("Frame")
-categoryPanel.Name = "CategoryPanel"
-categoryPanel.Size = UDim2.new(1, 0, 0, 35)
-categoryPanel.Position = UDim2.new(0, 0, 0, 41)
-categoryPanel.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-categoryPanel.BorderSizePixel = 0
-categoryPanel.Parent = mainFrame
-
-local categoryDivider = Instance.new("Frame")
-categoryDivider.Name = "CategoryDivider"
-categoryDivider.Size = UDim2.new(1, 0, 0, 1)
-categoryDivider.Position = UDim2.new(0, 0, 0, 76)
-categoryDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-categoryDivider.BorderSizePixel = 0
-categoryDivider.Parent = mainFrame
-
-local contentContainer = Instance.new("Frame")
-contentContainer.Name = "ContentContainer"
-contentContainer.Size = UDim2.new(1, 0, 1, -77)
-contentContainer.Position = UDim2.new(0, 0, 0, 77)
-contentContainer.BackgroundTransparency = 1
-contentContainer.BorderSizePixel = 0
-contentContainer.Parent = mainFrame
-
-local function switchCategory(categoryName)
-	if currentCategory == categoryName then return end
+rtr as
+n
+lclfnto ogeuoamsae
+atFrEald=sae		fsaete
+	olceCis=0	pit"rkHb uoFr tre tlpr,fs)[LTHD"
+		atFrCneto  uSrieHatetCnetfnto(
+	i o uoamnbe hn		atFrCneto:icnet)		rtr
+	ed				fntpae.hrce hnrtr n
 	
-	for _, frame in pairs(categoryFrames) do
-		frame.Visible = false
-	end
+	lclhmni  lyrCaatrFnFrthl(Hmni"
+	i o uaodo uaodHat =0te euned				oa ersCi  idersCi(
 	
-	for _, button in pairs(categoryButtons) do
-		button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-		button.TextColor3 = Color3.fromRGB(150, 150, 150)
-	end
-	
-	if categoryFrames[categoryName] then
-		categoryFrames[categoryName].Visible = true
-	end
-	
-	if categoryButtons[categoryName] then
-		categoryButtons[categoryName].BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-		categoryButtons[categoryName].TextColor3 = Color3.fromRGB(255, 255, 255)
-	end
-	
-	currentCategory = categoryName
-end
+	i ersCi hn		lclroPr  lyrCaatrFnFrthl(HmniRoPr"
+		froPr hn			otatCrm  ersCi.Fae+Vco3nw0 ,0
+		
+		cletdon  olceCis+1						fcletdon  0=  hn			pit"rkHb on olce:". olceCis
+		ed						akwi(amea)		ed		le		pit"rkHb omr on!Cletd  .cletdon ." eeotn olby."
+		eeotoob(
+		akwi()		n
+	n)	le	i uoamoncinte
+	atFrCneto:icnet)		uoamoncin=nl	ed	pit"rkHb uoFr tpe.Ttlcletd  .cletdon ."cis)	n
+n
+- =========PAE ADES=========
+oa atoepae=0lclrlUdtCneto  uSrieHatetCnetfnto(
+i o sEaldte euned		oa urnTm  ik)	fcretie-lsRlUdt =2te
+	atoepae=cretie	
+	o agtlyr bet npisepbet)d
+	i agtlyradtrePae.aette
+		paeS(agtlyr
+	ed	ed	n
+n)
+oa ucinoPaeAddtrePae)	ftrePae =pae hnrtr n
 
-for i, categoryName in ipairs(categories) do
-	local catButton = Instance.new("TextButton")
-	catButton.Name = categoryName .. "_Button"
-	catButton.Size = UDim2.new(1 / #categories, -2, 1, -4)
-	catButton.Position = UDim2.new((i - 1) / #categories, 0, 0, 2)
-	catButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	catButton.BorderSizePixel = 0
-	catButton.Font = Enum.Font.GothamSemibold
-	catButton.Text = categoryName
-	catButton.TextColor3 = Color3.fromRGB(150, 150, 150)
-	catButton.TextSize = 13
-	catButton.AutoButtonColor = false
-	catButton.Parent = categoryPanel
-	
-	local catFrame = Instance.new("Frame")
-	catFrame.Name = categoryName .. "_Frame"
-	catFrame.Size = UDim2.new(1, 0, 1, 0)
-	catFrame.BackgroundTransparency = 1
-	catFrame.BorderSizePixel = 0
-	catFrame.Visible = false
-	catFrame.Parent = contentContainer
-	
-	local uiListLayout = Instance.new("UIListLayout")
-	uiListLayout.Padding = UDim.new(0, 8)
-	uiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	uiListLayout.Parent = catFrame
-	
-	local uiPadding = Instance.new("UIPadding")
-	uiPadding.PaddingTop = UDim.new(0, 10)
-	uiPadding.PaddingLeft = UDim.new(0, 10)
-	uiPadding.PaddingRight = UDim.new(0, 10)
-	uiPadding.PaddingBottom = UDim.new(0, 10)
-	uiPadding.Parent = catFrame
-	
-	categoryButtons[categoryName] = catButton
-	categoryFrames[categoryName] = catFrame
-	
-	catButton.MouseButton1Click:Connect(function()
-		switchCategory(categoryName)
-	end)
-	
-	catButton.MouseEnter:Connect(function()
-		if currentCategory ~= categoryName then
-			catButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-		end
-	end)
-	
-	catButton.MouseLeave:Connect(function()
-		if currentCategory ~= categoryName then
-			catButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-		end
-	end)
-end
+trePae.hlAddCnetfnto(hl)	i hl.ae= Bcpc"adepnbe hn		akwi(.)		fepbet[agtlyr hn		udtEPtrePae)		
+		oa bet  sOjcstrePae]		i bet n bet.oncin hn			al.netojcsCnetos hl.hlAddCnetfnto(tm
+			fie:s(To" hn				akwi(.)				paeS(agtlyr
+			n
+		ed)						al.netojcsCnetos hl.hlRmvdCnetfnto(tm
+			fie:s(To" hn				akwi(.)				paeS(agtlyr
+			n
+		ed)		ed		n
+	n
+ed
 
-switchCategory("Main")
+lclfnto nhrceAddcaatr
+	fntepnbe hnrtr n
+	akwi(.)	rmvEPtrePae)	i hrce n hrce.aette
+	cetEPtrePae)	ed	n
 
--- ================== DRAGGING ==================
-local dragging = false
-local dragStartPos = nil
-local frameStartPos = nil
+i agtlyrCaatradepnbe hn	oCaatrde(agtlyrCaatr
+ed		agtlyrCaatrde:onc(nhrceAdd
+n
+lclfnto nlyreoigtrePae)	eoeS(agtlyr
+n
+lclpaeAddoncin=PaesPaeAddCnetoPaeAdd
+oa lyreoigoncin=PaesPaeRmvn:onc(nlyreoig
+lcllclhrceCneto  lyrCaatrde:onc(ucin)	fepnbe hn	ts.at05
+	eoelEP)	fr_ agtlyri pisPaesGtlyr()d
+	i agtlyr~ lyrte
+		raeS(agtlyr
+	ed	ed	n
+n)
+-========= PE AK=========
+oa peHcEald=flelclcretpe  6lclsedoncin=nllcltoCnetos={
+oa peUdtCneto  i
+lclfnto plSedsed
+lcltreSed=sedo urnSed	urnSed=treSed		fpae.hrce hn	lclhmni  lyrCaatrFnFrthl(Hmni"
+	fhmni hn		uaodWlSed=treSed	ed	n
+n
+lclfnto paepe(pe)	urnSed=sed	plSedsed
+n
+lclfnto laToCnetos)	o ,cneto niar(oloncin)d
+	oncinDsonc(
+ed	oloncin  }ed
+oa ucinstpolrcigcaatr
+i o hrce hnrtr n
 
-topBar.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
-		dragging = true
-		dragStartPos = input.Position
-		frameStartPos = mainFrame.Position
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
-			end
-		end)
-	end
-end)
+ceroloncin(
 
-UserInputService.InputChanged:Connect(function(input)
-	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-		local delta = input.Position - dragStartPos
-		mainFrame.Position = UDim2.new(
-			frameStartPos.X.Scale,
-			frameStartPos.X.Offset + delta.X,
-			frameStartPos.Y.Scale,
-			frameStartPos.Y.Offset + delta.Y
-		)
-	end
-end)
+lclciddeCn  hrce.hlAddCnetfnto(hl)	i hl:s(To" n peHcEaldte
+	lclsatie=tc(
+	lclrsoeoncin		etrCneto  uSrieHatetCnetfnto(
+		ftc(  trTm  . hn			etrCneto:icnet)			eun		ed		i peHcEaldadpae.hrce hn			oa uaod=pae.hrce:idisCid"uaod)			fhmni n uaodWlSed~ urnSedte
+			uaodWlSed=cretpe
+		ed		ed		n)	ed	n)		oa hlRmvdon=caatrCideoe:onc(ucincid
+	fcidIA"ol)adsedaknbe hn		oa trTm  ik)		oa etrCneto
+	rsoeoncin=Rnevc.erba:onc(ucin)		i ik)-satie>05te
+		rsoeoncinDsonc(
+		rtr
+		n
+		fsedaknbe n lyrCaatrte
+		lclhmni  lyrCaatrFnFrthl(Hmni"
+		i uaodadhmni.akpe =cretpe hn			hmni.akpe  urnSed			n
+		n
+	ed
+	n
+ed
 
--- ================== TOGGLE SECTION CREATOR ==================
-local function createToggleSection(categoryName, name, defaultState, callback)
-	local targetFrame = categoryFrames[categoryName]
-	if not targetFrame then return end
+tbeisr(oloncin,ciddeCn)	al.nettoCnetos hlRmvdon
+n
+lclfnto ogepeHc(tt,sed
+sedaknbe  tt
+
+i tt hn	lcltreSed=sedo urnSed	cretpe  agtpe
+		apype(agtpe)	
+	fpae.hrce hn		euToTakn(lyrCaatr
+	n
+		i peUdtCneto hnsedpaeoncinDsonc( n
+		sedpaeoncin=Rnevc.erba:onc(ucin)		fntsedaknbe hn		sedpaeoncinDsonc(
+		eun		n
 	
-	local sectionFrame = Instance.new("Frame")
-	sectionFrame.Name = name .. "_Section"
-	sectionFrame.Size = UDim2.new(1, -20, 0, 40)
-	sectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	sectionFrame.BorderSizePixel = 0
-	sectionFrame.Parent = targetFrame
+	i lyrCaatrte
+		oa uaod=pae.hrce:idisCid"uaod)		i uaodadhmni.akpe =cretpe hn			uaodWlSed=cretpe
+		n
+	ed	ed
+		i peCneto hnsedoncinDsonc( n
+		sedoncin=pae.hrceAddCnetfnto(hrce)		akwi(.)		fsedaknbe hn		apype(urnSed
+		euToTakn(hrce)		n
+	n)	le	i lyrCaatrte
+	lclhmni  lyrCaatrFnFrthl(Hmni"
+	i uaodte uaodWlSed=1 n
+	n
+		ceroloncin(
+		i peUdtCneto hn		peUdtCneto:icnet)		peUdtCneto  i
+	n
+		i peCneto hn		peCneto:icnet)		peCneto  i
+	n
+eded
+-========= OLP=========
+oa olpnbe  as
+oa olponcin=nl
+oa ucintglNci(tt)	olpnbe  tt
 
-	local nameLabel = Instance.new("TextLabel")
-	nameLabel.Size = UDim2.new(1, -110, 1, 0)
-	nameLabel.Position = UDim2.new(0, 12, 0, 0)
-	nameLabel.BackgroundTransparency = 1
-	nameLabel.Font = Enum.Font.GothamSemibold
-	nameLabel.Text = name
-	nameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
-	nameLabel.TextSize = 15
-	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-	nameLabel.Parent = sectionFrame
+i tt hn	i lyrCaatrte
+	fr_ ati pispae.hrce:eDsedns) o		i atIA"aeat)te
+		pr.aClie=fle		ed		n
+	n
+		i olponcinte olponcinDsonc( n
+		nciCneto  uSrieSepdCnetfnto(
+	i o olpnbe hn		nciCneto:icnet)		rtr
+	ed				fpae.hrce hn		fr_ ati pispae.hrce:eDsedns) o			fpr:s(BsPr" n atCnold =tu hn			pr.aClie=fle			n
+		n
+	ed	ed
+es
+	fpae.hrce hn		o ,pr niar(lyrCaatrGtecnat()d
+		fpr:s(BsPr" hn			atCnold  re		ed		n
+	n
+		i olponcinte
+	nciCneto:icnet)		olponcin=nl	ed	n
+n
+- =========FY=========
+oa lEald=flelclfyoncin=nllclfype  0
+oa ucintglFysae
+fynbe  tt
 
-	local toggleButton = Instance.new("TextButton")
-	toggleButton.Name = "Toggle"
-	toggleButton.Size = UDim2.new(0, 50, 0, 24)
-	toggleButton.Position = UDim2.new(1, -58, 0.5, -12)
-	toggleButton.BackgroundColor3 = defaultState and Color3.fromRGB(0, 170, 100) or Color3.fromRGB(80, 80, 80)
-	toggleButton.BorderSizePixel = 0
-	toggleButton.Font = Enum.Font.GothamBold
-	toggleButton.Text = ""
-	toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-	toggleButton.TextSize = 11
-	toggleButton.AutoButtonColor = false
-	toggleButton.Parent = sectionFrame
-
-	local toggleFrame = Instance.new("Frame")
-	toggleFrame.Name = "ToggleKnob"
-	toggleFrame.Size = UDim2.new(0, 20, 0, 20)
-	toggleFrame.Position = defaultState and UDim2.new(1, -22, 0.5, -10) or UDim2.new(0, 2, 0.5, -10)
-	toggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	toggleFrame.BorderSizePixel = 0
-	toggleFrame.Parent = toggleButton
-
-	local statusLabel = Instance.new("TextLabel")
-	statusLabel.Size = UDim2.new(0, 45, 0, 16)
-	statusLabel.Position = UDim2.new(1, -110, 0.5, -8)
-	statusLabel.BackgroundTransparency = 1
-	statusLabel.Font = Enum.Font.Gotham
-	statusLabel.Text = defaultState and "ON" or "OFF"
-	statusLabel.TextColor3 = defaultState and Color3.fromRGB(0, 170, 100) or Color3.fromRGB(150, 150, 150)
-	statusLabel.TextSize = 12
-	statusLabel.TextXAlignment = Enum.TextXAlignment.Right
-	statusLabel.Parent = sectionFrame
-
-	local state = defaultState
-
-	local function updateVisual()
-		if state then
-			toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 100)
-			statusLabel.Text = "ON"
-			statusLabel.TextColor3 = Color3.fromRGB(0, 170, 100)
-			toggleFrame:TweenPosition(
-				UDim2.new(1, -22, 0.5, -10),
-				Enum.EasingDirection.Out,
-				Enum.EasingStyle.Quad,
-				0.15,
-				true
-			)
-		else
-			toggleButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-			statusLabel.Text = "OFF"
-			statusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
-			toggleFrame:TweenPosition(
-				UDim2.new(0, 2, 0.5, -10),
-				Enum.EasingDirection.Out,
-				Enum.EasingStyle.Quad,
-				0.15,
-				true
-			)
-		end
-	end
-
-	toggleButton.MouseButton1Click:Connect(function()
-		state = not state
-		updateVisual()
-		if callback then
-			callback(state)
-		end
-	end)
-
-	return {
-		ToggleButton = toggleButton,
-		ToggleFrame = toggleFrame,
-		StatusLabel = statusLabel,
-		GetState = function() return state end,
-		SetState = function(newState)
-			state = newState
-			updateVisual()
-		end,
-	}
-end
-
--- ================== INPUT SECTION CREATOR ==================
-local function createInputSection(categoryName, name, defaultValue, minValue, maxValue, callback)
-	local targetFrame = categoryFrames[categoryName]
-	if not targetFrame then return end
+i tt hn	i lyrCaatrte
+	lclhmni  lyrCaatrFnFrthl(Hmni"
+	lclroPr  lyrCaatrFnFrthl(HmniRoPr"
 	
-	local sectionFrame = Instance.new("Frame")
-	sectionFrame.Name = name .. "_Section"
-	sectionFrame.Size = UDim2.new(1, -20, 0, 40)
-	sectionFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	sectionFrame.BorderSizePixel = 0
-	sectionFrame.Parent = targetFrame
-
-	local nameLabel = Instance.new("TextLabel")
-	nameLabel.Size = UDim2.new(0, 140, 1, 0)
-	nameLabel.Position = UDim2.new(0, 12, 0, 0)
-	nameLabel.BackgroundTransparency = 1
-	nameLabel.Font = Enum.Font.GothamSemibold
-	nameLabel.Text = name
-	nameLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
-	nameLabel.TextSize = 15
-	nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-	nameLabel.Parent = sectionFrame
-
-	local inputBox = Instance.new("TextBox")
-	inputBox.Name = "InputBox"
-	inputBox.Size = UDim2.new(0, 70, 0, 24)
-	inputBox.Position = UDim2.new(1, -80, 0.5, -12)
-	inputBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-	inputBox.BorderSizePixel = 0
-	inputBox.Font = Enum.Font.Gotham
-	inputBox.Text = tostring(defaultValue)
-	inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	inputBox.TextSize = 14
-	inputBox.PlaceholderText = minValue .. "-" .. maxValue
-	inputBox.PlaceholderColor3 = Color3.fromRGB(100, 100, 100)
-	inputBox.Parent = sectionFrame
-
-	local currentValue = defaultValue
-
-	inputBox:GetPropertyChangedSignal("Text"):Connect(function()
-		local num = tonumber(inputBox.Text)
-		if num and num >= minValue and num <= maxValue then
-			currentValue = num
-			inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-			if callback then
-				callback(num)
-			end
-		end
-	end)
-
-	inputBox.FocusLost:Connect(function(enterPressed)
-		local num = tonumber(inputBox.Text)
-		if not num or num < minValue or num > maxValue then
-			inputBox.Text = tostring(currentValue)
-			inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-	end)
-
-	return {
-		InputBox = inputBox,
-		GetValue = function() return currentValue end,
-		SetValue = function(val)
-			if val >= minValue and val <= maxValue then
-				currentValue = val
-				inputBox.Text = tostring(val)
-			end
-		end,
-	}
-end
-
--- ================== BUTTON SECTION CREATOR ==================
-local function createButtonSection(categoryName, name, callback)
-	local targetFrame = categoryFrames[categoryName]
-	if not targetFrame then return end
-	
-	local button = Instance.new("TextButton")
-	button.Name = name .. "_Button"
-	button.Size = UDim2.new(1, -20, 0, 42)
-	button.BackgroundColor3 = Color3.fromRGB(0, 140, 200)
-	button.BorderSizePixel = 0
-	button.Font = Enum.Font.GothamSemibold
-	button.Text = name
-	button.TextColor3 = Color3.fromRGB(255, 255, 255)
-	button.TextSize = 15
-	button.AutoButtonColor = false
-	button.Parent = targetFrame
-
-	button.MouseEnter:Connect(function()
-		button.BackgroundColor3 = Color3.fromRGB(0, 160, 220)
-	end)
-
-	button.MouseLeave:Connect(function()
-		button.BackgroundColor3 = Color3.fromRGB(0, 140, 200)
-	end)
-
-	button.MouseButton1Click:Connect(function()
-		if callback then
-			callback()
-		end
-		button.BackgroundColor3 = Color3.fromRGB(0, 120, 180)
-		task.wait(0.1)
-		button.BackgroundColor3 = Color3.fromRGB(0, 160, 220)
-	end)
-
-	return button
-end
-
--- ================== ESP SYSTEM ==================
-local espEnabled = false
-local espFolder = Instance.new("Folder")
-espFolder.Name = "ESP_Folder"
-espFolder.Parent = workspace
-
-local espObjects = {}
-
-local function getPlayerRole(targetPlayer)
-	local character = targetPlayer.Character
-	if not character then return "Innocent" end
-	
-	for _, child in ipairs(character:GetChildren()) do
-		if child:IsA("Tool") then
-			local toolName = child.Name:lower()
-			if toolName:find("knife") then return "Murder" end
-			if toolName:find("gun") then return "Sheriff" end
-		end
-	end
-	
-	local backpack = targetPlayer:FindFirstChild("Backpack")
-	if backpack then
-		for _, child in ipairs(backpack:GetChildren()) do
-			if child:IsA("Tool") then
-				local toolName = child.Name:lower()
-				if toolName:find("knife") then return "Murder" end
-				if toolName:find("gun") then return "Sheriff" end
-			end
-		end
-	end
-	
-	return "Innocent"
-end
-
-local function getRoleColor(role)
-	if role == "Murder" then return Color3.fromRGB(255, 50, 50)
-	elseif role == "Sheriff" then return Color3.fromRGB(50, 100, 255)
-	else return Color3.fromRGB(50, 255, 50) end
-end
-
-local function updateESP(targetPlayer)
-	local objects = espObjects[targetPlayer]
-	if not objects then return end
-	
-	local role = getPlayerRole(targetPlayer)
-	local color = getRoleColor(role)
-	
-	if objects.Highlight and objects.Highlight.Parent then
-		objects.Highlight.OutlineColor = color
-		objects.Highlight.FillColor = color
-	end
-	
-	if objects.NameLabel and objects.NameLabel.Parent then
-		objects.NameLabel.Text = targetPlayer.Name .. " [" .. role .. "]"
-		objects.NameLabel.TextColor3 = color
-	end
-	
-	objects.CurrentRole = role
-end
-
-local function createESP(targetPlayer)
-	if targetPlayer == player then return end
-	
-	if espObjects[targetPlayer] then
-		local oldData = espObjects[targetPlayer]
-		if oldData.Highlight and oldData.Highlight.Parent then
-			updateESP(targetPlayer)
-			return
-		else
-			if oldData.Highlight then oldData.Highlight:Destroy() end
-			if oldData.BillboardGui then oldData.BillboardGui:Destroy() end
-			if oldData.Connections then
-				for _, connection in ipairs(oldData.Connections) do
-					connection:Disconnect()
-				end
-			end
-			espObjects[targetPlayer] = nil
-		end
-	end
-	
-	local character = targetPlayer.Character
-	if not character then return end
-	
-	local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-	local head = character:FindFirstChild("Head")
-	local humanoid = character:FindFirstChild("Humanoid")
-	
-	if not humanoidRootPart or not head or not humanoid then return end
-	
-	local role = getPlayerRole(targetPlayer)
-	local color = getRoleColor(role)
-	
-	local highlight = Instance.new("Highlight")
-	highlight.Name = "ESP_Highlight"
-	highlight.FillColor = color
-	highlight.FillTransparency = 1
-	highlight.OutlineColor = color
-	highlight.OutlineTransparency = 0
-	highlight.Adornee = character
-	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-	highlight.Parent = espFolder
-	
-	local billboardGui = Instance.new("BillboardGui")
-	billboardGui.Name = "ESP_NameTag"
-	billboardGui.Size = UDim2.new(0, 300, 0, 30)
-	billboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
-	billboardGui.AlwaysOnTop = true
-	billboardGui.MaxDistance = 1000
-	billboardGui.Adornee = head
-	billboardGui.Parent = espFolder
-	
-	local nameLabel = Instance.new("TextLabel")
-	nameLabel.Size = UDim2.new(1, 0, 1, 0)
-	nameLabel.BackgroundTransparency = 1
-	nameLabel.Font = Enum.Font.GothamBold
-	nameLabel.Text = targetPlayer.Name .. " [" .. role .. "]"
-	nameLabel.TextColor3 = color
-	nameLabel.TextSize = 14
-	nameLabel.TextStrokeTransparency = 0.5
-	nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-	nameLabel.Parent = billboardGui
-	
-	local connections = {}
-	
-	table.insert(connections, humanoid.Died:Connect(function()
-		removeESP(targetPlayer)
-	end))
-	
-	local function onToolChanged()
-		task.wait(0.1)
-		if espObjects[targetPlayer] then
-			updateESP(targetPlayer)
-		end
-	end
-	
-	table.insert(connections, character.ChildAdded:Connect(function(child)
-		if child:IsA("Tool") then onToolChanged() end
-	end))
-	
-	table.insert(connections, character.ChildRemoved:Connect(function(child)
-		if child:IsA("Tool") then onToolChanged() end
-	end))
-	
-	local backpack = targetPlayer:FindFirstChild("Backpack")
-	if backpack then
-		table.insert(connections, backpack.ChildAdded:Connect(function(child)
-			if child:IsA("Tool") then onToolChanged() end
-		end))
-		table.insert(connections, backpack.ChildRemoved:Connect(function(child)
-			if child:IsA("Tool") then onToolChanged() end
-		end))
-	end
-	
-	espObjects[targetPlayer] = {
-		Highlight = highlight,
-		BillboardGui = billboardGui,
-		NameLabel = nameLabel,
-		Connections = connections,
-		Character = character,
-		CurrentRole = role,
-	}
-end
-
-local function removeESP(targetPlayer)
-	local objects = espObjects[targetPlayer]
-	if not objects then return end
-	
-	if objects.Connections then
-		for _, connection in ipairs(objects.Connections) do
-			connection:Disconnect()
-		end
-	end
-	
-	if objects.Highlight then objects.Highlight:Destroy() end
-	if objects.BillboardGui then objects.BillboardGui:Destroy() end
-	
-	espObjects[targetPlayer] = nil
-end
-
-local function removeAllESP()
-	for targetPlayer, _ in pairs(espObjects) do
-		removeESP(targetPlayer)
-	end
-end
-
-local function toggleESP(state)
-	espEnabled = state
-	
-	if state then
-		for _, targetPlayer in ipairs(Players:GetPlayers()) do
-			if targetPlayer ~= player then
-				createESP(targetPlayer)
-			end
-		end
-	else
-		removeAllESP()
-	end
-end
-
--- ================== COIN ESP ==================
-local coinESPEnabled = false
-local coinHighlights = {}
-local coinESPConnection = nil
-
-local function highlightCoin(coin)
-	if not coin:IsA("BasePart") then return end
-	
-	if coin.Name:lower():find("coin") then
-		if not coinHighlights[coin] then
-			local highlightColor = Color3.fromRGB(255, 215, 0)
+	i uaodadroPr hn		hmni.ltomtn  re		
+		lCneto  uSrieHatetCnetfnto(
+		i o lEaldte
+			lCneto:icnet)			rtr
+		ed						fpae.hrce hn			lclcretot=pae.hrce:idisCid"uaodotat)			lclcretuaod=pae.hrce:idisCid"uaod)			
+			fcretotadcretuaodte
+			cretuaodPafrSad=tu
 			
-			local highlight = Instance.new("Highlight")
-			highlight.Name = "CoinESP"
-			highlight.FillColor = highlightColor
-			highlight.FillTransparency = 0.5
-			highlight.OutlineColor = highlightColor
-			highlight.OutlineTransparency = 0
-			highlight.Adornee = coin
-			highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-			highlight.Parent = espFolder
+			lclmvDrcin=Vco3nw0 ,0
 			
-			local billboardGui = Instance.new("BillboardGui")
-			billboardGui.Name = "CoinESP_Label"
-			billboardGui.Size = UDim2.new(0, 100, 0, 20)
-			billboardGui.StudsOffset = Vector3.new(0, 1, 0)
-			billboardGui.AlwaysOnTop = true
-			billboardGui.MaxDistance = 500
-			billboardGui.Adornee = coin
-			billboardGui.Parent = espFolder
+			i srnuSrieIKyonEu.eCd.)te
+				oeieto  oeieto  wrsaeCretaeaCrm.oketr*Vco3nw1 ,1)Ui
+			ed				fUeIptevc:seDw(nmKyoeS hn				mvDrcin=mvDrcin+(wrsaeCretaeaCrm.oketr*Vco3nw1 ,1)Ui
+			ed				fUeIptevc:seDw(nmKyoeA hn				mvDrcin=mvDrcin+(wrsaeCretaeaCrm.ihVco  etr.e(,0 ).nt				n
+			i srnuSrieIKyonEu.eCd.)te
+				oeieto  oeieto  wrsaeCretaeaCrm.ihVco  etr.e(,0 ).nt				n
+			i srnuSrieIKyonEu.eCd.pc)te
+				oeieto  oeieto  etr.e(,1 )				n
+			i srnuSrieIKyonEu.eCd.ethf)te
+				oeieto  oeieto  etr.e(,-,0
+			ed								fmvDrcinMgiue>0te
+				urnRo.eoiy=mvDrcinUi  lSed				le				cretotVlct  etr.e(,0 )				n
+			n
+		ed		ed
+	ed	ed	le	i lyrCaatrte
+	lclhmni  lyrCaatrFnFrthl(Hmni"
+	i uaodte uaodPafrSad=fleed	ed	
+	ffyoncinte
+	fyoncinDsonc(
+	fyoncin=nl	ed	n
+n
+- =========TLPR UCIN =========lclfnto eeotolyr)	oa tePaes={
+fr_  niar(lyr:ePaes) o	i  =pae n .hrce n .hrce:idisCid"uaodotat)te
+	tbeisr(tePaes )	ed	n
+
+i ohrlyr   hn	lclrnoPae  tePaesmt.adm1 ohrlyr)
+	fpae.hrce hn		lyrCaatrMvT(admlyrCaatrHmniRoPr.oiin
+	pit"rkHb eeotdt:". admlyrNm)	ed	le	pit"rkHb opaesaalbe)	n
+n
+- =========CTGR OTN =========
+-==MI =
+oa norm  ntnenw"rm"
+norm.ae="norm"ifFaeSz  Dm.e(,-0 ,30
+norm.akrudoo3=Clr.rmG(0 0 0
+norm.odrieie  
+norm.aet=ctgrFae[Mi"
+lclifTte=Isac.e(TxLbl)ifTteSz  Dm.e(,-0 ,3)ifTtePsto  Dm.e(,1,0 2
+noil.akrudrnprny=1ifTteFn  nmFn.ohmodifTteTx  rkHbv."ifTteTxClr  oo3foRB0 7,25
+noil.etie=1
+noil.etAinet=Eu.etAinetLf
+noil.aet=ifFae
+oa noiie  ntnenw"rm"
+noiie.ie=Ui2nw1 2,0 )ifDvdrPsto  Dm.e(,1,0 8
+noiie.akrudoo3=Clr.rmG(0 0 0
+noiie.odrieie  
+noiie.aet=ifFae
+oa paeoTte=Isac.e(TxLbl)udtLgil.ie=Ui2nw1 2,0 2
+paeoTtePsto  Dm.e(,1,0 5
+paeoTteBcgonTasaec  
+paeoTteFn  nmFn.ohmodudtLgil.et="Udt o]
+paeoTteTxClr  oo3foRB25 0,5)udtLgil.etie=1
+paeoTteTxXlgmn  nmTxXlgmn.etudtLgil.aet=ifFae
+oa paeoTx  ntnenw"etae"
+paeoTx.ie=Ui2nw1 2,0 7)udtLgetPsto  Dm.e(,1,0 2
+paeoTx.akrudrnprny=1udtLgetFn  nmFn.ohmudtLgetTx  [16+Mn pncoeaiain+Sudatrito+[LTHD a nAt am+Udt o eein
+15+Ifnt uoFr
+ l asspot
+14+Sot oeetAt am+Itoaiain
+10+Iiilrlae+EPPaes&Cis+SedHc,Fy eeot]udtLgetTxClr  oo3foRB10 6,10
+paeoTx.etie=1
+paeoTx.etAinet=Eu.etAinetLf
+paeoTx.etAinet=Eu.etAinetTpudtLgetTxWapd=tu
+paeoTx.aet=ifFae
+oa esoLbl=Isac.e(TxLbl)vrinae.ie=Ui2nw1 2,0 8
+esoLblPsto  Dm.e(,1,0 2)vrinae.akrudrnprny=1vrinae.ot=Eu.otGta
+esoLblTx  b m  rs  otgl"vrinae.etoo3=Clr.rmG(0,10 0)vrinae.etie=1
+esoLblTxXlgmn  nmTxXlgmn.etvrinae.aet=ifFae
+-==GNRL==cetTglScin"eea" EPPaes,fle ucinsae ogeS(tt)ed
+raeogeeto(Gnrl,"S on,fle ucinsae ogeonS(tt)ed
+raeogeeto(Gnrl,"uoFr" as,fnto(tt)tglAtFr(tt)ed re
+lcldsryutn=Isac.e(TxBto"
+etoBto.ae="etoBto"dsryutnSz  Dm.e(,-0 ,4)dsryutnBcgonClr  oo3foRB10 0 0
+etoBto.odrieie  
+etoBto.ot=Eu.otGtaBl
+etoBto.et="ETO U"dsryutnTxClr  oo3foRB25 5,25
+etoBto.etie=1
+etoBto.uoutnoo  as
+etoBto.aet=ctgrFae[Gnrl]
+etoBto.osEtrCnetfnto( etoBto.akrudoo3=Clr.rmG(2,5,5)ed
+etoBto.osLaeCnetfnto( etoBto.akrudoo3=Clr.rmG(8,4,4)ed
+dsryutnMueutnCikCnetfnto(
+rmvAlS(
+i onSEaldte ogeonS(as)ed	fatFrEaldte ogeuoamfle n
+i peHcEaldte ogepeHc(as)ed	ffynbe hntglFyfle n
+i olpnbe hntglNci(as)ed	frlUdtCneto hnrlUdtCneto:icnet)ed	fpaeAddoncinte lyrdeCneto:icnet)ed	fpaeRmvnCneto hnpaeRmvnCneto:icnet)ed	flclhrceCneto hnlclhrceCneto:icnet)ed	fepodradepodrPrn hnepodrDsry)ed	cenu:eto(
+pit"rkHb U etoe,alfntosdsbe.)ed
+- = OEET==lclsednu  raenuScin"oeet,"pe" 6 6 0 ucinvle
+i peHcEaldte paepe(au)eded
+cetTglScin"oeet,"nbeSed,fle ucinsae
+tglSedaksae peIptGtau()ed
+cetTglScin"oeet,"olp,fle ucinsae ogeolpsae n)cetTglScin"oeet,"l" as,fnto(tt)tglFysae n)
+-==TLPR =
+raeutneto(Tlpr" Tlpr oLby,fnto( eeotoob( n)cetBtoScin"eeot,"eeott lyr,fnto( eeotolyr)ed
+- =========TGL IIIIYWT  AIAE)=========
+srnuSrieIptea:onc(ucinipt aercse)	fgmPoesdte euned	fiptKyoe= nmKyoeKte
+	euiil  o euiil
+	fmnVsbete
+	miFaeVsbe=tu
+	soMn(
+	le		ieeu)		akdly02 ucin)		i o euiil hn			anrm.iil  as
+		n
+	ed
+	n
+eded
+- =========ITOAIAIN=========
+weSrieCet(nrBx weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{akrudrnprny=0)Pa(
+weSrieCet(nrSao,Tennonw04 nmEsnSyeQa,Eu.aigieto.u) BcgonTasaec  }:ly)ts.at03
+weSrieCet(ilTx,Tennonw06 nmEsnSyeQa,Eu.aigieto.u) TxTasaec  }:ly)ts.at01)Tenevc:raesbilTx,Tennonw05 nmEsnSyeQa,Eu.aigieto.u) TxTasaec  }:ly)ts.at02
+weSrieCet(odnBrg weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{akrudrnprny=0)Pa(
+weSrieCet(odnTx,Tennonw03 nmEsnSyeQa,Eu.aigieto.u) TxTasaec  }:ly)Tenevc:raevrinet weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{etrnprny=0)Pa(
+akwi(.)
+oa oaTm  .
+oa tp  0lclseTm  oaTm  tp
+o   ,sesd
+lclpors    tp
+laigaFl.ie=Ui2nwpors,0 ,0
+laigetTx  Laig.  .mt.lo(rges*10 .""	akwi(tpie
+n
+odnTx.et="opee"ts.at03
+Tenevc:raeitoo,Tennonw04 nmEsnSyeQa,Eu.aigieto.n,{akrudrnprny=1)Pa(
+weSrieCet(nrSao,Tennonw04 nmEsnSyeQa,Eu.aigieto.n,{akrudrnprny=1)Pa(
+akwi(.)
+nrGiDsry)sreGiEald=tu
+- lysudatritolclsud=Isac.e(Sud)sudSudd="bastd/92363"- M ob ui  oiiainsudsudVlm  .
+on.aet=paeGisudPa(
+- hwmn ihaiainmiFaeVsbe=tu
+hweu)
+rn([m u]Lae.PesKt oge"
+rn([m u]At am attlpr ocis(niie l as"-[	m u  M 16	 nr ihlaigbfr anh	 rgb o a
+•Tgl iiiiywt  wt nmto)	 aeois an eea,Mvmn,Tlpr
+•EPwt oe:Mre rd,Seif(le,Incn gen
+•EPfrcis	 uoFr  attlpr ocis(niie l as GICE]	 pe akwt ofgrbesed(65)	 olp-wl hog al
+•Fy-fih
+•Tlpr ihbtos	 etoGIbto
+•Sudatrito-]
+lclUeIptevc  aeGtevc(UeIptevc"
+oa lyr  aeGtevc(Paes)lclTenevc  aeGtevc(Tenevc"
+oa uSrie=gm:eSrie"uSrie)lclSudevc  aeGtevc(Sudevc"
+lclpae  lyr.oaPae
+oa lyru  lyrWiFrhl(PaeGi)
+-AlM2mp
+oa aNms={	Bn2,"iLb,"atr" Hsia3,"oe2,"os2,	Mnin" Mlae,"fie" PlcSain,"eerhaiiy,	Wrpae,"ecRsr" Yct,"ir,}
+-========= NR =========lclitou  ntnenw"cenu"
+nrGiNm  rku_nr"itou.eeOSan=fleitou.aet=paeGi
+oa nrBx=Isac.e(Fae)itoo.ae="nrBx
+nrBxSz  Dm.e(,30 ,10
+nrBxPsto  Dm.e(.,-7,05 7)itoo.akrudoo3=Clr.rmG(0 0 0
+nrBxBreSzPxl=0itoo.akrudrnprny=1itoo.aet=itou
+lclitoonr=Isac.e(UCre"
+nrCre.onrais=Ui.e(,1)itoonrPrn  nrBx
+oa nrSao  ntnenw"rm"
+nrSao.ae="nrSao"itohdwSz  Dm.e(,4 ,4
+nrSao.oiin=Ui2nw0 2 ,-)itohdwBcgonClr  oo3foRB1,1,1)itohdwBreSzPxl=0itohdwZne  
+nrSao.akrudrnprny=1itohdwPrn  nrBx
+oa nrSaoCre  ntnenw"Ionr)itohdwonrCreRdu  Dmnw0 0
+nrSaoCre.aet=itohdw
+oa ilTx  ntnenw"etae"
+ilTx.ae="ilTx"tteetSz  Dm.e(,-0 ,4)tteetPsto  Dm.e(,1,0 5
+ilTx.akrudrnprny=1tteetFn  nmFn.ohmlc
+ilTx.et="m u"tteetTxClr  oo3foRB25 5,25
+ilTx.etie=3
+ilTx.etrnprny=1tteetPrn  nrBx
+oa utteet=Isac.e(TxLbl)sbilTx.ae="utteet
+utteetSz  Dm.e(,-0 ,2)sbilTx.oiin=Ui2nw0 0 ,5)sbilTx.akrudrnprny=1sbilTx.ot=Eu.otGtaSmbl
+utteetTx  Mre ytr "sbilTx.etoo3=Clr.rmG(0,5,5)sbilTx.etie=1
+utteetTxTasaec  
+utteetPrn  nrBx
+oa odnBrg=Isac.e(Fae)laigaB.ae="odnBrg
+odnBrgSz  Dm.e(,-0 ,4
+odnBrgPsto  Dm.e(,2,0 0
+odnBrgBcgonClr  oo3foRB5,5,5)laigaB.odrieie  
+odnBrgBcgonTasaec  
+odnBrgPrn  nrBx
+oa odnBrgonr=Isac.e(UCre"
+odnBrgonrCreRdu  Dmnw0 )laigaBCre.aet=laigaB
+lcllaigaFl  ntnenw"rm"
+odnBrilNm  LaigaFl"laigaFl.ie=Ui2nw0 ,1 )laigaFl.akrudoo3=Clr.rmG(0,5,5)laigaFl.odrieie  
+odnBrilPrn  odnBrg
+oa odnBrilonr=Isac.e(UCre"
+odnBrilonrCreRdu  Dmnw0 )laigaFlCre.aet=laigaFl
+lcllaiget=Isac.e(TxLbl)laigetNm  Laiget
+odnTx.ie=Ui2nw1 2,0 8
+odnTx.oiin=Ui2nw0 0 ,10
+odnTx.akrudrnprny=1laigetFn  nmFn.ohmlaigetTx  Laig. %
+odnTx.etoo3=Clr.rmG(5,10 5)laigetTxSz  3laigetTxTasaec  
+odnTx.aet=itoo
+lclvrinet=Isac.e(TxLbl)vrinetNm  Vrinet
+esoTx.ie=Ui2nw1 2,0 6
+esoTx.oiin=Ui2nw0 0 ,15
+esoTx.akrudrnprny=1vrinetFn  nmFn.ohmvrinetTx  v."vrinetTxClr  oo3foRB10 0,10
+esoTx.etie=1
+esoTx.etrnprny=1vrinetPrn  nrBx
+-========= ANMN =========lclsreGi=Isac.e(SreGi)sreGiNm  rku"sreGiRstnpw  as
+cenu.nbe  as
+cenu.aet=paeGi
+oa anrm  ntnenw"rm"
+anrm.ae="anrm"miFaeSz  Dm.e(,40 ,50
+anrm.oiin=Ui2nw05 20 .,-7)miFaeBcgonClr  oo3foRB3,3,3)miFaeBreSzPxl=0miFaeCisecnat  remiFaeBcgonTasaec  
+anrm.ie=Ui2nw0 ,0 )- tr ml o nmto
+anrm.oiin=Ui2nw05 ,05 )- etrmiFaePrn  cenu
+lclsao  ntnenw"rm"
+hdwNm  Sao"sao.ie=Ui2nw1 ,1 )sao.oiin=Ui2nw0 2 ,-)sao.akrudoo3=Clr.rmG(5 5 5
+hdwBreSzPxl=0sao.Idx=0sao.akrudrnprny=1sao.aet=miFae
+oa oBr=Isac.e(Fae)tpa.ae="oBr
+oBrSz  Dm.e(,0 ,4)tpa.akrudoo3=Clr.rmG(0 0 0
+oBrBreSzPxl=0tpa.aet=miFae
+oa ilLbl=Isac.e(TxLbl)tteae.ae="il"tteae.ie=Ui2nw1 8,1 )tteae.oiin=Ui2nw0 5 ,0
+ilLblBcgonTasaec  
+ilLblFn  nmFn.ohmodtteae.et="m u  M"tteae.etoo3=Clr.rmG(2,20 2)tteae.etie=1
+ilLblTxXlgmn  nmTxXlgmn.ettteae.aet=tpa
+lclcoeutn=Isac.e(TxBto"
+lsBto.ae="lsBto"coeutnSz  Dm.e(,4,0 0
+lsBto.oiin=Ui2nw1 4,0 )coeutnBcgonClr  oo3foRB4,4,4)coeutnBreSzPxl=0coeutnFn  nmFn.ohmodcoeutnTx  X
+lsBto.etoo3=Clr.rmG(8,10 8)coeutnTxSz  8coeutnPrn  oBr
+lsBto.osEtrCnetfnto(
+coeutnBcgonClr  oo3foRB20 0 0
+coeutnTxClr  oo3foRB25 5,25
+n)
+lsBto.osLaeCnetfnto(
+coeutnBcgonClr  oo3foRB4,4,4)	lsBto.etoo3=Clr.rmG(8,10 8)ed
+coeutnMueutnCikCnetfnto(
+miFaeVsbe=fleed
+lcldvdr=Isac.e(Fae)dvdrNm  Dvdr
+iie.ie=Ui2nw1 ,0 )dvdrPsto  Dm.e(,0 ,4)dvdrBcgonClr  oo3foRB6,6,6)dvdrBreSzPxl=0dvdrPrn  anrm
+- =========CTGRE =========lclctgre  "an,"eea" Mvmn" Tlpr"
+oa aeoyutn  }lclctgrFae  }lclcretaeoy="an
+lclctgrPnl=Isac.e(Fae)ctgrPnlNm  CtgrPnl
+aeoyae.ie=Ui2nw1 ,0 5
+aeoyae.oiin=Ui2nw0 ,0 1
+aeoyae.akrudoo3=Clr.rmG(5 5 5
+aeoyae.odrieie  
+aeoyae.aet=miFae
+oa aeoyiie  ntnenw"rm"
+aeoyiie.ae="aeoyiie"ctgrDvdrSz  Dm.e(,0 ,1
+aeoyiie.oiin=Ui2nw0 ,0 6
+aeoyiie.akrudoo3=Clr.rmG(0 0 0
+aeoyiie.odrieie  
+aeoyiie.aet=miFae
+oa otnCnanr=Isac.e(Fae)cnetotie.ae="otnCnanr
+otnCnanrSz  Dm.e(,0 ,-7
+otnCnanrPsto  Dm.e(,0 ,7)cnetotie.akrudrnprny=1cnetotie.odrieie  
+otnCnanrPrn  anrm
+lclfnto wthaeoyctgrNm)	fcretaeoy= aeoyaete euned		o ,faei ar(aeoyrms o	faeVsbe=fle	n
+
+fr_ utni ar(aeoyutn)d
+	utnBcgonClr  oo3foRB4,4,4)	bto.etoo3=Clr.rmG(5,10 5)	n
+
+i aeoyrmsctgrNm]te
+	aeoyrmsctgrNm]Vsbe=tu
+ed		fctgrBtosctgrNm]te
+	aeoyutn[aeoyae.akrudoo3=Clr.rmG(0 0 0
+	aeoyutn[aeoyae.etoo3=Clr.rmG(5,25 5)	n
+
+cretaeoy=ctgrNm
+n
+fri aeoyaei pisctgre)d
+lclctutn=Isac.e(TxBto"
+ctutnNm  aeoyae. _utn
+ctutnSz  Dm.e(  ctgre,-,1 4
+ctutnPsto  Dm.e(i-1  ctgre,0 ,2
+ctutnBcgonClr  oo3foRB4,4,4)	aBto.odrieie  
+ctutnFn  nmFn.ohmeiod	aBto.et=ctgrNm
+ctutnTxClr  oo3foRB10 5,10
+ctutnTxSz  3	aBto.uoutnoo  as
+ctutnPrn  aeoyae
+
+lclctrm  ntnenw"rm"
+ctrm.ae=ctgrNm ."Fae
+ctrm.ie=Ui2nw1 ,1 )	aFaeBcgonTasaec  
+ctrm.odrieie  
+ctrm.iil  as
+ctrm.aet=cnetotie
+
+lcluLsLyu  ntnenw"Iitaot)	iitaotPdig=Ui.e(,8
+uLsLyu.oiotllgmn  nmHrznaAinetCne
+uLsLyu.otre  nmSrOdrLyuOdr	iitaotPrn  aFae		oa iadn  ntnenw"Iadn"
+uPdigPdigo  Dmnw0 0
+uPdigPdiget=Ui.e(,1)	iadn.adnRgt=Ui.e(,1)	iadn.adnBto  Dmnw0 0
+uPdigPrn  aFae		aeoyutn[aeoyae  aBto
+ctgrFae[aeoyae  aFae		aBto.osBto1lc:onc(ucin)	sicCtgr(aeoyae
+ed
+
+ctutnMuene:onc(ucin)	i urnCtgr =ctgrNm hn		aBto.akrudoo3=Clr.rmG(0 0 0
+	n
+ed
+
+ctutnMueev:onc(ucin)	i urnCtgr =ctgrNm hn		aBto.akrudoo3=Clr.rmG(0 0 0
+	n
+ed
+n
+sicCtgr(Mi"
+- =========MN NMTO =========lclmnVsbe=tu
+lclfnto hweu)	weSrieCet(anrm,Tennonw03 nmEsnSyeBc,Eu.aigieto.u) 
+	ie=Ui2nw0 2,0 4)
+	oiin=Ui2nw05 20 .,-7)
+	akrudrnprny=0	)Pa(
+Tenevc:raesao,Tennonw03 nmEsnSyeBc,Eu.aigieto.u) 
+	akrudrnprny=0	)Pa(
+n
+lclfnto ieeu)	weSrieCet(anrm,Tennonw02 nmEsnSyeQa,Eu.aigieto.n,{	Sz  Dm.e(,0 ,0,	Psto  Dm.e(.,0 .,0,	BcgonTasaec  
+}:ly)	weSrieCet(hdw weIf.e(.,Eu.aigtl.ud nmEsnDrcinI) 
+	akrudrnprny=1	)Pa(
+n
+- =========DAGN =========lcldagn  as
+oa rgtrPs=nllclfaetrPs=nl
+oBrIptea:onc(ucinipt
+i nu.srnuTp =Eu.srnuTp.osBto1te
+	rgig=tu
+	rgtrPs=iptPsto
+	rmSato  anrm.oiin	iptCagdCnetfnto(
+	i nu.srnuSae= nmUeIpttt.n hn		dagn  as
+	ed	ed
+eded
+UeIptevc.nuCagdCnetfnto(nu)	fdagn n nu.srnuTp =Eu.srnuTp.osMvmn hn	lcldla=iptPsto  rgtrPs	miFaePsto  Dm.e(		rmSato..cl,		rmSato..fst+dlaX
+	faetrPsYSae
+	faetrPsYOfe  et.
+	
+eded
+- =========TGL ETO RAO =========lclfnto raeogeeto(aeoyae ae ealSae alak lthd
+lcltreFae=ctgrFae[aeoyae
+i o agtrm hnrtr n
+
+lclscinrm  ntnenw"rm"
+scinrm.ae=nm ."Scin
+scinrm.ie=Ui2nw1 2,0 0
+scinrm.akrudoo3=Clr.rmG(0 0 0
+scinrm.odrieie  
+scinrm.aet=treFae
+lclnmLbl=Isac.e(TxLbl)	aeae.ie=Ui2nw1 10 ,0
+nmLblPsto  Dm.e(,1,0 )	aeae.akrudrnprny=1	aeae.ot=Eu.otGtaSmbl
+nmLblTx  ae	aeae.etoo3=Clr.rmG(2,20 2)	aeae.etie=1
+nmLblTxXlgmn  nmTxXlgmn.et	aeae.aet=scinrm
+
+- lthdlbl	fgice hn	lclgiceLbl=Isac.e(TxLbl)	giceLblSz  Dm.e(,6,0 6
+	lthdae.oiin=Ui2nw0 0 ,2)	giceLblBcgonTasaec  
+	lthdae.ot=Eu.otGta
+	lthdae.et="GICE]
+	lthdae.etoo3=Clr.rmG(5,10 0
+	lthdae.etie=1
+	lthdae.etAinet=Eu.etAinetLf
+	lthdae.aet=scinrm
+ed
+lcltglBto  ntnenw"etutn)	ogeutnNm  Tgl"	ogeutnSz  Dm.e(,5,0 4
+tglBto.oiin=Ui2nw1 5,05 1)	ogeutnBcgonClr  ealSaeadClr.rmG(,10 0)o oo3foRB8,8,8)	ogeutnBreSzPxl=0	ogeutnFn  nmFn.ohmod	ogeutnTx  "	ogeutnTxClr  oo3foRB25 5,25
+tglBto.etie=1
+tglBto.uoutnoo  as
+tglBto.aet=scinrm
+	oa ogerm  ntnenw"rm"
+tglFaeNm  TglKo"	ogerm.ie=Ui2nw0 0 ,2)	ogerm.oiin=dfuttt n Dm.e(,-2 .,-0 rUi2nw0 ,05 1)	ogerm.akrudoo3=Clr.rmG(5,25 5)	ogerm.odrieie  
+tglFaePrn  ogeutn
+lclsauLbl=Isac.e(TxLbl)	ttsae.ie=Ui2nw0 5 ,1)	ttsae.oiin=Ui2nw1 10 .,-)	ttsae.akrudrnprny=1	ttsae.ot=Eu.otGta
+sauLblTx  ealSaead"N r"F"	ttsae.etoo3=dfuttt n oo3foRB0 7,10 rClr.rmG(5,10 5)	ttsae.etie=1
+sauLblTxXlgmn  nmTxXlgmn.ih
+sauLblPrn  etoFae
+lclsae=dfuttt
+	oa ucinudtVsa(
+	fsaete
+	tglBto.akrudoo3=Clr.rmG(,10 0)		ttsae.et="N
+	sauLblTxClr  oo3foRB0 7,10
+	tglFaeTenoiin
+		Dm.e(,-2 .,-0,		Eu.aigieto.u,		Eu.aigtl.ud
+		.5
+		re		
+	le		ogeutnBcgonClr  oo3foRB8,8,8)		ttsae.et="F"		ttsae.etoo3=Clr.rmG(5,10 5)		ogerm:wePsto(		Ui2nw0 ,05 1)
+		nmEsnDrcinOt
+		nmEsnSyeQa,		01,		tu
+	)	ed	n
+	ogeutnMueutnCikCnetfnto(
+	tt  o tt
+	paeiul)	i alakte
+	clbc(tt)	ed	n)
+rtr 
+	ogeutn=tglBto,	TglFae=tglFae
+	ttsae  ttsae,	Gttt  ucin)rtr tt n,	Sttt  ucinnwtt)		tt  eSae		paeiul)	ed
+}ed
+-========= NU ETO RAO =========lclfnto raenuScinctgrNm,nm,dfutau,mnau,mxau,clbc)	oa agtrm  aeoyrmsctgrNm]	fnttreFaete euned		oa etoFae=Isac.e(Fae)	etoFaeNm  ae. _eto"	etoFaeSz  Dm.e(,-0 ,4)	etoFaeBcgonClr  oo3foRB4,4,4)	etoFaeBreSzPxl=0	etoFaePrn  agtrm
+	oa aeae  ntnenw"etae"
+nmLblSz  Dm.e(,10 ,0
+nmLblPsto  Dm.e(,1,0 )	aeae.akrudrnprny=1	aeae.ot=Eu.otGtaSmbl
+nmLblTx  ae	aeae.etoo3=Clr.rmG(2,20 2)	aeae.etie=1
+nmLblTxXlgmn  nmTxXlgmn.et	aeae.aet=scinrm
+	oa nuBx=Isac.e(TxBx)	nuBxNm  Ipto"	nuBxSz  Dm.e(,7,0 4
+ipto.oiin=Ui2nw1 8,05 1)	nuBxBcgonClr  oo3foRB5,5,5)	nuBxBreSzPxl=0	nuBxFn  nmFn.ohm	nuBxTx  otigdfutau)	nuBxTxClr  oo3foRB25 5,25
+ipto.etie=1
+ipto.lchleTx  iVle. - .mxau
+ipto.lchleClr  oo3foRB10 0,10
+ipto.aet=scinrm
+	oa urnVle=dfutau
+	nuBxGtrpryhneSga(Tx":onc(ucin)	lclnm=tnme(nuBxTx)	i u n u =mnau n u =mxau hn		urnVle=nm		nuBxTxClr  oo3foRB25 5,25
+	i alakte
+		alaknm
+	ed	ed	n)
+ipto.ouLs:onc(ucinetrrse)	lclnm=tnme(nuBxTx)	i o u rnm<mnau rnm>mxau hn		nuBxTx  otigcretau)		nuBxTxClr  oo3foRB25 5,25
+	n
+ed
+	eun{	Ipto  nuBx
+	eVle=fnto( euncretau n,	Stau  ucinvl
+	i a =mnau n a =mxau hn		cretau  a
+		nuBxTx  otigvl
+	ed	ed
+}ed
+-========= UTNSCINCETR=========
+oa ucincetBtoScinctgrNm,nm,clbc)	oa agtrm  aeoyrmsctgrNm]	fnttreFaete euned		oa utn=Isac.e(TxBto"
+bto.ae=nm ."Bto"	utnSz  Dm.e(,-0 ,4)	utnBcgonClr  oo3foRB0 4,20
+bto.odrieie  
+bto.ot=Eu.otGtaSmbl
+bto.et=nm
+bto.etoo3=Clr.rmG(5,25 5)	utnTxSz  5	utnAtBtoClr=fle	utnPrn  agtrm
+	utnMuene:onc(ucin)	bto.akrudoo3=Clr.rmG(,10 2)	n)
+bto.osLaeCnetfnto(
+	utnBcgonClr  oo3foRB0 4,20
+ed
+	utnMueutnCikCnetfnto(
+	fclbc hn		alak)	ed	bto.akrudoo3=Clr.rmG(,10 8)	ts.at01
+	utnBcgonClr  oo3foRB0 6,20
+ed
+	eunbto
+n
+- =========EPSSE =========lclepnbe  as
+oa sFle  ntnenw"odr)epodrNm  EPFle"epodrPrn  okpc
+lclepbet  }
+oa ucingtlyroetrePae)	oa hrce  agtlyrCaatr	fntcaatrte eun"noet n
+
+fr_ hl niar(hrce:eCide()d
+	fcidIA"ol)te
+	lcltoNm  hl.aelwr)		ftoNm:id"nf" hnrtr Mre"ed		ftoNm:id"u" hnrtr Seif n
+	n
+ed		oa akak=trePae:idisCid"akak)	fbcpc hn	fr_ hl niar(akakGthlrn) o		fcidIA"ol)te
+		oa olae=cidNm:oe(
+		ftoNm:id"nf" hnrtr Mre"ed		i olaefn(gn)te eun"hrf"ed		n
+	n
+ed		eun"noet
+n
+lclfnto eRlClrrl)	frl ="udr hnrtr oo3foRB25 0 0
+esi oe= Seif hnrtr oo3foRB5,10 5)	lertr oo3foRB5,25 0 n
+n
+lclfnto paeS(agtlyr
+lclojcs=epbet[agtlyr
+i o bet hnrtr n
+
+lclrl  ePaeRl(agtlyr
+lclclr=gtoeoo(oe
+
+i bet.ihih n bet.ihih.aette
+	bet.ihih.ulnClr=clr	ojcsHglgtFlClr=clr	n
+
+i bet.aeae n bet.aeae.aette
+	bet.aeae.et=trePae.ae.  ". oe. ]
+	bet.aeae.etoo3=clr	n
+
+ojcsCretoe=rl
+n
+lclfnto raeS(agtlyr
+i agtlyr= lyrte euned		fepbet[agtlyr hn	lclodaa=epbet[agtlyr
+	fodaaHglgtadodaaHglgtPrn hn		paeS(agtlyr
+	rtr
+	le		fodaaHglgtte lDt.ihih:eto( n
+	i lDt.ilorGite lDt.ilorGiDsry)ed		fodaaCnetoste
+		o ,cneto niar(lDt.oncin)d
+		cneto:icnet)		ed		n
+	epbet[agtlyr  i
+	n
+ed		oa hrce  agtlyrCaatr	fntcaatrte euned		oa uaodotat=caatrFnFrthl(HmniRoPr"
+lclha  hrce:idisCid"ed)	oa uaod=caatrFnFrthl(Hmni"
+
+i o uaodotato o edo o uaodte euned		oa oe=gtlyroetrePae)	oa oo  eRlClrrl)		oa ihih  ntnenw"ihih"
+hglgtNm  EPHglgt
+hglgtFlClr=clr	ihih.ilrnprny=1	ihih.ulnClr=clr	ihih.ulnTasaec  
+hglgtAone=caatr	ihih.etMd  nmHglgtetMd.lasno
+hglgtPrn  sFle
+
+lclblbadu  ntnenw"ilorGi)	ilorGiNm  EPNmTg
+blbadu.ie=Ui2nw0 0,0 0
+blbadu.tdOfe  etr.e(,25 )	ilorGiAwyOTp=tu
+blbadu.aDsac  00	ilorGiAone=ha
+blbadu.aet=epodr		oa aeae  ntnenw"etae"
+nmLblSz  Dm.e(,0 ,0
+nmLblBcgonTasaec  
+nmLblFn  nmFn.ohmod	aeae.et=trePae.ae.  ". oe. ]
+nmLblTxClr  oo
+nmLblTxSz  4	aeae.ettoernprny=05	aeae.ettoeoo3=Clr.rmG(,0 )	aeae.aet=blbadu
+
+lclcnetos={
+
+tbeisr(oncin,hmni.idCnetfnto(
+	eoeS(agtlyr
+ed)		oa ucinoToCagd)	ts.at01
+	fepbet[agtlyr hn		paeS(agtlyr
+	n
+ed		al.netcnetos hrce.hlAddCnetfnto(hl)	i hl:s(To" hnoToCagd)ed	n)
+
+tbeisr(oncin,caatrCideoe:onc(ucincid
+	fcidIA"ol)te nolhne( n
+ed)		oa akak=trePae:idisCid"akak)	fbcpc hn	tbeisr(oncin,bcpc.hlAddCnetfnto(hl)		fcidIA"ol)te nolhne( n
+	n)
+	al.netcnetos akakCideoe:onc(ucincid
+	i hl:s(To" hnoToCagd)ed	ed)	n
+
+epbet[agtlyr  
+	ihih  ihih,	Blbadu  ilorGi
+	aeae  aeae,	Cnetos=cnetos
+	hrce  hrce,	Cretoe=rl,	
+n
+lclfnto eoeS(agtlyr
+lclojcs=epbet[agtlyr
+i o bet hnrtr n
+
+i bet.oncin hn	fr_ oncini pisojcsCnetos o		oncinDsonc(
+	n
+ed		fojcsHglgtte bet.ihih:eto( n
+i bet.ilorGite bet.ilorGiDsry)ed		sOjcstrePae]=nled
+oa ucinrmvAlS(
+frtrePae,_i ar(sOjcs o	rmvEPtrePae)	n
+n
+lclfnto ogeS(tt)	sEald=sae		fsaete
+	o ,trePae niar(lyr:ePaes) o		ftrePae =pae hn		cetEPtrePae)		n
+	n
+es
+	eoelEP)	n
+n
+- =========CI S =========lclciEPnbe  as
+oa onihihs={
+oa onSCneto  i
+lclfnto ihihCi(on
+i o onIA"aeat)te euned		fci.aelwr)fn(ci" hn	i o onihihsci]te
+	lclhglgtoo  oo3foRB25 1,0
+	
+	lclhglgt=Isac.e(Hglgt)		ihih.ae="onS"		ihih.iloo  ihihClr		ihih.ilrnprny=05		ihih.ulnClr=hglgtoo
+	hglgtOtiernprny=0		ihih.dre  on		ihih.etMd  nmHglgtetMd.lasno
+	hglgtPrn  sFle
+	
+	lclblbadu  ntnenw"ilorGi)		ilorGiNm  CiEPLbl
+	blbadu.ie=Ui2nw0 0,0 0
+	blbadu.tdOfe  etr.e(,1 )		ilorGiAwyOTp=tu
+	blbadu.aDsac  0
+	blbadu.dre  on		ilorGiPrn  sFle
+	
+	lclnmLbl=Isac.e(TxLbl)		aeae.ie=Ui2nw1 ,1 )		aeae.akrudrnprny=1		aeae.ot=Eu.otGtaBl
+	nmLblTx  Ci"		aeae.etoo3=hglgtoo
+	nmLblTxSz  2		aeae.ettoernprny=05		aeae.ettoeoo3=Clr.rmG(,0 )		aeae.aet=blbadu
+	
+	ciHglgt[on  
+		ihih  ihih,		Blbadu  ilorGi
+	}	ed	n
+n
+lclfnto cnoCis)	o ,ojc niar(okpc:eDsedns) o	i betIA"aeat)adojc.aelwr)fn(ci" hn		ihihCi(bet
+	n
+eded
+oa ucinrmvAlonihihs)	o on aai ar(onihihs o	i aaHglgtte aaHglgtDsry)ed	i aaBlbadu hndt.ilorGiDsry)ed	n
+ciHglgt  }ed
+oa ucintglCiEPsae
+ciEPnbe  tt
+
+i tt hn	saFron(
+	fciEPoncinte onSCneto:icnet)ed	
+	onSCneto  okpc.ecnatde:onc(ucindsedn)		fntciEPnbe hnrtr n
+	i ecnatIA"aeat)addsedn.aelwr)fn(ci" hn		ts.at01
+		ihihCi(ecnat
+	ed	ed
+es
+	eoelCiHglgt(
+	fciEPoncinte
+	ciEPoncinDsonc(
+	ciEPoncin=nl	ed	n
+n
+- =========AT AM=========
+oa uoamnbe  as
+oa uoamoncin=nllclcletdon  
+oa amea  .3
+oa ucinfnCiCnanr)	o ,mpaei pismpae)d
+	oa a  okpc:idisCidmpae
+	fmpte
+	lclciCnanr=mpFnFrthl(CiCnanr)		fciCnanrte
+		eunciCnanr		n
+	n
+ed		o ,ojc niar(okpc:eDsedns) o	i betNm ="onotie"ad(betIA"odr)o betIA"oe")te
+	rtr bet	ed	n
+
+rtr i
+n
+lclfnto idersCi(
+lclciCnanr=fnCiCnanr)	fntciCnanrte eunnled		oa ersCi  i
+lclnaetitne=mt.ue		fpae.hrce hn	lclroPr  lyrCaatrFnFrthl(HmniRoPr"
+	froPr hn		o ,ci niar(onotie:eCide()d
+		fci:s(BsPr" n onNm:id"on)te
+		lcldsac  roPr.oiin-ci.oiin.antd
+		i itne<naetitnete
+			ersCi  on			naetitne=dsac
+		ed		ed		n
+	n
+ed		eunnaetoned
+oa ucintlprTLby)	oa ob  okpc:idisCid"ob"
+i ob hn	lclsan=lbyFnFrthl(San)	i pw hn		oa pwLcto  pw:idisCid"pwLcto"
+	i pwLcto n lyrCaatrte
+		lyrCaatrMvT(pwLcto.oiin
+		euntu
+	ed	ed	
+	oa nSanoain=lbyFnFrthl(Sanoain)	i nSanoainadpae.hrce hn		lyrCaatrMvT(nSanoainPsto)		euntu
+	n
+		lclpr  ob:idisCidhcIA"at)o ob:idisCidhcIA"aeat)	i atadpae.hrce hn		lyrCaatrMvT(atPsto)		euntu
+	n
+ed		eunfleed
+oa ucintglAtFr(tt)	uoamnbe  tt
+
+i tt hn	cletdon  
+	rn([m u]At amsatd(eeot at GICE])	
+	uoamoncin=Rnevc.erba:onc(ucin)		fntatFrEaldte
+		uoamoncinDsonc(
+		eun		n
+	
+	i o lyrCaatrte euned				oa uaod=pae.hrce:idisCid"uaod)		fnthmni rhmni.elh<  hnrtr n
+	
+	lclnaeton=fnNaeton)				fnaetonte
+		oa otat=pae.hrce:idisCid"uaodotat)		i otatte
+		roPr.Fae=naetonCrm  etr.e(,3 )						olceCis=cletdon  
+		
+		i olceCis%5 =0te
+			rn([m u]Ciscletd  .cletdon)			n
+		
+		ts.atfrDly
+		n
+	es
+		rn([m u]N oecis olce:". olceCis. .Tlprigt ob..)		tlprTLby)		ts.at2
+	ed	ed
+es
+	fatFrCneto hn		uoamoncinDsonc(
+	atFrCneto  i
+	n
+	rn([m u]At amsopd oa olce:". olceCis.  on"
+eded
+-========= LYRHNLR =========lcllsRlUdt  
+oa oepaeoncin=Rnevc.erba:onc(ucin)	fntepnbe hnrtr n
+
+lclcretie=tc(
+i urnTm  atoepae>  hn	lsRlUdt  urnTm
+		frtrePae,ojcsi ar(sOjcs o		ftrePae n agtlyrPrn hn		udtEPtrePae)		n
+	n
+eded
+lclfnto nlyrde(agtlyr
+i agtlyr= lyrte euned		agtlyrCidde:onc(ucincid
+	fcidNm ="akak n sEaldte
+	ts.at01
+	i sOjcstrePae]te
+		paeS(agtlyr
+				lclojcs=epbet[agtlyr
+		fojcsadojcsCnetoste
+		tbeisr(bet.oncin,cidCidde:onc(ucinie)			i tmIA"ol)te
+			ts.at01
+			udtEPtrePae)			ed			n)
+		
+		tbeisr(bet.oncin,cidCideoe:onc(ucinie)			i tmIA"ol)te
+			ts.at01
+			udtEPtrePae)			ed			n)
+		n
+	ed	ed	n)		oa ucinoCaatrde(hrce)	i o sEaldte euned	ts.at03
+	eoeS(agtlyr
+	fcaatradcaatrPrn hn		raeS(agtlyr
+	n
+ed		ftrePae.hrce n sEaldte
+	nhrceAddtrePae.hrce)	n
+
+trePae.hrceAddCnetoCaatrde)ed
+oa ucinoPaeRmvn(agtlyr
+rmvEPtrePae)ed
+oa lyrdeCneto  lyr.lyrde:onc(nlyrde)lclpaeRmvnCneto  lyr.lyreoigCnetoPaeRmvn)
+oa oaCaatroncin=pae.hrceAddCnetfnto(
+i sEaldte
+	akwi(.)	rmvAlS(
+	o ,trePae niar(lyr:ePaes) o		ftrePae =pae hn		cetEPtrePae)		n
+	n
+eded
+- =========SEDHC =========lclsedaknbe  as
+oa urnSed=1
+oa peCneto  i
+oa oloncin  }lclsedpaeoncin=nl
+oa ucinapype(pe)	oa agtpe  pe rcretpe
+cretpe  agtpe
+
+i lyrCaatrte
+	oa uaod=pae.hrce:idisCid"uaod)	i uaodte
+	hmni.akpe  agtpe
+	n
+eded
+oa ucinudtSedsed
+cretpe  pe
+apype(pe)ed
+oa ucinceroloncin(
+fr_ oncini pistoCnetos o	cneto:icnet)	n
+toCnetos={
+n
+lclfnto euToTakn(hrce)	fntcaatrte euned		laToCnetos)		oa hlAddon=caatrCidde:onc(ucincid
+	fcidIA"ol)adsedaknbe hn		oa trTm  ik)		oa etrCneto
+	rsoeoncin=Rnevc.erba:onc(ucin)		i ik)-satie>05te
+		rsoeoncinDsonc(
+		rtr
+		n
+		fsedaknbe n lyrCaatrte
+		lclhmni  lyrCaatrFnFrthl(Hmni"
+		i uaodadhmni.akpe =cretpe hn			hmni.akpe  urnSed			n
+		n
+	ed
+	n
+ed
+
+lclcideoeCn  hrce.hlRmvdCnetfnto(hl)	i hl:s(To" n peHcEaldte
+	lclsatie=tc(
+	lclrsoeoncin		etrCneto  uSrieHatetCnetfnto(
+		ftc(  trTm  . hn			etrCneto:icnet)			eun		ed		i peHcEaldadpae.hrce hn			oa uaod=pae.hrce:idisCid"uaod)			fhmni n uaodWlSed~ urnSedte
+			uaodWlSed=cretpe
+		ed		ed		n)	ed	n)		al.nettoCnetos hlAddon
+tbeisr(oloncin,cideoeCn)ed
+oa ucintglSedaksae pe)	peHcEald=sae		fsaete
+	oa agtpe  pe rcretpe
+	urnSed=treSed	
+	plSedtreSed
+		i lyrCaatrte
+	stpolrcigpae.hrce)	ed	
+	fsedpaeoncinte peUdtCneto:icnet)ed	
+	peUdtCneto  uSrieHatetCnetfnto(
+	i o peHcEaldte
+		peUdtCneto:icnet)		rtr
+	ed				fpae.hrce hn		lclhmni  lyrCaatrFnFrthl(Hmni"
+		fhmni n uaodWlSed~ urnSedte
+		hmni.akpe  urnSed		ed		n
+	n)	
+	fsedoncinte peCneto:icnet)ed	
+	peCneto  lyrCaatrde:onc(ucincaatr
+	ts.at01
+	i peHcEaldte
+		plSedcretpe)		stpolrcigcaatr
+	ed	ed
+es
+	fpae.hrce hn		oa uaod=pae.hrce:idisCid"uaod)		fhmni hnhmni.akpe  6ed	ed	
+	laToCnetos)	
+	fsedpaeoncinte
+	sedpaeoncinDsonc(
+	sedpaeoncin=nl	ed	
+	fsedoncinte
+	sedoncinDsonc(
+	sedoncin=nl	ed	n
+n
+- =========NCI =========lclnciEald=flelclnciCneto  i
+lclfnto ogeolpsae
+nciEald=sae		fsaete
+	fpae.hrce hn		o ,pr niar(lyrCaatrGtecnat()d
+		fpr:s(BsPr" hn			atCnold  as
+		n
+	ed	ed	
+	fnciCneto hnnciCneto:icnet)ed	
+	olponcin=Rnevc.tpe:onc(ucin)		fntnciEaldte
+		olponcinDsonc(
+		eun		n
+	
+	i lyrCaatrte
+		o ,pr niar(lyrCaatrGtecnat()d
+		i atIA"aeat)adpr.aClie= rete
+			atCnold  as
+		ed		ed		n
+	n)	le	i lyrCaatrte
+	fr_ ati pispae.hrce:eDsedns) o		i atIA"aeat)te
+		pr.aClie=tu
+		n
+	ed	ed	
+	fnciCneto hn		olponcinDsonc(
+	nciCneto  i
+	n
+eded
+-========= L =========lclfynbe  as
+oa lCneto  i
+oa lSed=5
+lclfnto ogel(tt)	lEald=sae		fsaete
+	fpae.hrce hn		oa uaod=pae.hrce:idisCid"uaod)		oa otat=pae.hrce:idisCid"uaodotat)				fhmni n otatte
+		uaodPafrSad=tu
+				fyoncin=Rnevc.erba:onc(ucin)			fntfynbe hn			fyoncinDsonc(
+			eun			n
+		
+		i lyrCaatrte
+			oa urnRo  lyrCaatrFnFrthl(HmniRoPr"
+			oa urnHmni  lyrCaatrFnFrthl(Hmni"
+						i urnRo n urnHmni hn				urnHmni.ltomtn  re								oa oeieto  etr.e(,0 )								fUeIptevc:seDw(nmKyoeW hn				mvDrcin=mvDrcin+(okpc.urnCmr.FaeLoVco  etr.e(,0 ).nt				n
+			i srnuSrieIKyonEu.eCd.)te
+				oeieto  oeieto  -okpc.urnCmr.FaeLoVco  etr.e(,0 ).nt				n
+			i srnuSrieIKyonEu.eCd.)te
+				oeieto  oeieto  -okpc.urnCmr.FaeRgtetr*Vco3nw1 ,1)Ui
+			ed				fUeIptevc:seDw(nmKyoeD hn				mvDrcin=mvDrcin+(okpc.urnCmr.FaeRgtetr*Vco3nw1 ,1)Ui
+			ed				fUeIptevc:seDw(nmKyoeSae hn				mvDrcin=mvDrcin+Vco3nw0 ,0
+			ed				fUeIptevc:seDw(nmKyoeLfSit hn				mvDrcin=mvDrcin+Vco3nw0 1 )				n
 			
-			local nameLabel = Instance.new("TextLabel")
-			nameLabel.Size = UDim2.new(1, 0, 1, 0)
-			nameLabel.BackgroundTransparency = 1
-			nameLabel.Font = Enum.Font.GothamBold
-			nameLabel.Text = "Coin"
-			nameLabel.TextColor3 = highlightColor
-			nameLabel.TextSize = 12
-			nameLabel.TextStrokeTransparency = 0.5
-			nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-			nameLabel.Parent = billboardGui
-			
-			coinHighlights[coin] = {
-				Highlight = highlight,
-				BillboardGui = billboardGui,
-			}
-		end
-	end
-end
-
-local function scanForCoins()
-	for _, object in ipairs(workspace:GetDescendants()) do
-		if object:IsA("BasePart") and object.Name:lower():find("coin") then
-			highlightCoin(object)
-		end
-	end
-end
-
-local function removeAllCoinHighlights()
-	for coin, data in pairs(coinHighlights) do
-		if data.Highlight then data.Highlight:Destroy() end
-		if data.BillboardGui then data.BillboardGui:Destroy() end
-	end
-	coinHighlights = {}
-end
-
-local function toggleCoinESP(state)
-	coinESPEnabled = state
-	
-	if state then
-		scanForCoins()
-		if coinESPConnection then coinESPConnection:Disconnect() end
-		
-		coinESPConnection = workspace.DescendantAdded:Connect(function(descendant)
-			if not coinESPEnabled then return end
-			if descendant:IsA("BasePart") and descendant.Name:lower():find("coin") then
-				task.wait(0.1)
-				highlightCoin(descendant)
-			end
-		end)
-	else
-		removeAllCoinHighlights()
-		if coinESPConnection then
-			coinESPConnection:Disconnect()
-			coinESPConnection = nil
-		end
-	end
-end
-
--- ================== AUTO FARM ==================
-local autoFarmEnabled = false
-local autoFarmConnection = nil
-local collectedCoins = 0
-local farmDelay = 0.03
-
-local function findCoinContainer()
-	for _, mapName in ipairs(mapNames) do
-		local map = workspace:FindFirstChild(mapName)
-		if map then
-			local coinContainer = map:FindFirstChild("CoinContainer")
-			if coinContainer then
-				return coinContainer
-			end
-		end
-	end
-	
-	for _, object in ipairs(workspace:GetDescendants()) do
-		if object.Name == "CoinContainer" and (object:IsA("Folder") or object:IsA("Model")) then
-			return object
-		end
-	end
-	
-	return nil
-end
-
-local function findNearestCoin()
-	local coinContainer = findCoinContainer()
-	if not coinContainer then return nil end
-	
-	local nearestCoin = nil
-	local nearestDistance = math.huge
-	
-	if player.Character then
-		local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
-		if rootPart then
-			for _, coin in ipairs(coinContainer:GetChildren()) do
-				if coin:IsA("BasePart") and coin.Name:find("Coin") then
-					local distance = (rootPart.Position - coin.Position).Magnitude
-					if distance < nearestDistance then
-						nearestCoin = coin
-						nearestDistance = distance
-					end
-				end
-			end
-		end
-	end
-	
-	return nearestCoin
-end
-
-local function teleportToLobby()
-	local lobby = workspace:FindFirstChild("Lobby")
-	if lobby then
-		local spawn = lobby:FindFirstChild("Spawn")
-		if spawn then
-			local spawnLocation = spawn:FindFirstChild("SpawnLocation")
-			if spawnLocation and player.Character then
-				player.Character:MoveTo(spawnLocation.Position)
-				return true
-			end
-		end
-		
-		local anySpawnLocation = lobby:FindFirstChild("SpawnLocation")
-		if anySpawnLocation and player.Character then
-			player.Character:MoveTo(anySpawnLocation.Position)
-			return true
-		end
-		
-		local part = lobby:FindFirstChildWhichIsA("Part") or lobby:FindFirstChildWhichIsA("BasePart")
-		if part and player.Character then
-			player.Character:MoveTo(part.Position)
-			return true
-		end
-	end
-	
-	return false
-end
-
-local function toggleAutoFarm(state)
-	autoFarmEnabled = state
-	
-	if state then
-		collectedCoins = 0
-		print("[rmk Hub] Auto Farm started (teleport, fast)")
-		
-		autoFarmConnection = RunService.Heartbeat:Connect(function()
-			if not autoFarmEnabled then
-				autoFarmConnection:Disconnect()
-				return
-			end
-			
-			if not player.Character then return end
-			
-			local humanoid = player.Character:FindFirstChild("Humanoid")
-			if not humanoid or humanoid.Health <= 0 then return end
-			
-			local nearestCoin = findNearestCoin()
-			
-			if nearestCoin then
-				local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
-				if rootPart then
-					rootPart.CFrame = nearestCoin.CFrame + Vector3.new(0, 3, 0)
-					
-					collectedCoins = collectedCoins + 1
-					
-					if collectedCoins % 50 == 0 then
-						print("[rmk Hub] Coins collected: " .. collectedCoins)
-					end
-					
-					task.wait(farmDelay)
-				end
-			else
-				print("[rmk Hub] No more coins! Collected: " .. collectedCoins .. ". Teleporting to lobby...")
-				teleportToLobby()
-				task.wait(2)
-			end
-		end)
-	else
-		if autoFarmConnection then
-			autoFarmConnection:Disconnect()
-			autoFarmConnection = nil
-		end
-		print("[rmk Hub] Auto Farm stopped. Total collected: " .. collectedCoins .. " coins")
-	end
-end
-
--- ================== PLAYER HANDLERS ==================
-local lastRoleUpdate = 0
-local roleUpdateConnection = RunService.Heartbeat:Connect(function()
-	if not espEnabled then return end
-	
-	local currentTime = tick()
-	if currentTime - lastRoleUpdate >= 2 then
-		lastRoleUpdate = currentTime
-		
-		for targetPlayer, objects in pairs(espObjects) do
-			if targetPlayer and targetPlayer.Parent then
-				updateESP(targetPlayer)
-			end
-		end
-	end
-end)
-
-local function onPlayerAdded(targetPlayer)
-	if targetPlayer == player then return end
-	
-	targetPlayer.ChildAdded:Connect(function(child)
-		if child.Name == "Backpack" and espEnabled then
-			task.wait(0.1)
-			if espObjects[targetPlayer] then
-				updateESP(targetPlayer)
-				
-				local objects = espObjects[targetPlayer]
-				if objects and objects.Connections then
-					table.insert(objects.Connections, child.ChildAdded:Connect(function(item)
-						if item:IsA("Tool") then
-							task.wait(0.1)
-							updateESP(targetPlayer)
-						end
-					end))
-					
-					table.insert(objects.Connections, child.ChildRemoved:Connect(function(item)
-						if item:IsA("Tool") then
-							task.wait(0.1)
-							updateESP(targetPlayer)
-						end
-					end))
-				end
-			end
-		end
-	end)
-	
-	local function onCharacterAdded(character)
-		if not espEnabled then return end
-		task.wait(0.3)
-		removeESP(targetPlayer)
-		if character and character.Parent then
-			createESP(targetPlayer)
-		end
-	end
-	
-	if targetPlayer.Character and espEnabled then
-		onCharacterAdded(targetPlayer.Character)
-	end
-	
-	targetPlayer.CharacterAdded:Connect(onCharacterAdded)
-end
-
-local function onPlayerRemoving(targetPlayer)
-	removeESP(targetPlayer)
-end
-
-local playerAddedConnection = Players.PlayerAdded:Connect(onPlayerAdded)
-local playerRemovingConnection = Players.PlayerRemoving:Connect(onPlayerRemoving)
-
-local localCharacterConnection = player.CharacterAdded:Connect(function()
-	if espEnabled then
-		task.wait(0.5)
-		removeAllESP()
-		for _, targetPlayer in ipairs(Players:GetPlayers()) do
-			if targetPlayer ~= player then
-				createESP(targetPlayer)
-			end
-		end
-	end
-end)
-
--- ================== SPEED HACK ==================
-local speedHackEnabled = false
-local currentSpeed = 16
-local speedConnection = nil
-local toolConnections = {}
-local speedUpdateConnection = nil
-
-local function applySpeed(speed)
-	local targetSpeed = speed or currentSpeed
-	currentSpeed = targetSpeed
-	
-	if player.Character then
-		local humanoid = player.Character:FindFirstChild("Humanoid")
-		if humanoid then
-			humanoid.WalkSpeed = targetSpeed
-		end
-	end
-end
-
-local function updateSpeed(speed)
-	currentSpeed = speed
-	applySpeed(speed)
-end
-
-local function clearToolConnections()
-	for _, connection in ipairs(toolConnections) do
-		connection:Disconnect()
-	end
-	toolConnections = {}
-end
-
-local function setupToolTracking(character)
-	if not character then return end
-	
-	clearToolConnections()
-	
-	local childAddedConn = character.ChildAdded:Connect(function(child)
-		if child:IsA("Tool") and speedHackEnabled then
-			local startTime = tick()
-			local restoreConnection
-			restoreConnection = RunService.Heartbeat:Connect(function()
-				if tick() - startTime > 0.5 then
-					restoreConnection:Disconnect()
-					return
-				end
-				if speedHackEnabled and player.Character then
-					local humanoid = player.Character:FindFirstChild("Humanoid")
-					if humanoid and humanoid.WalkSpeed ~= currentSpeed then
-						humanoid.WalkSpeed = currentSpeed
-					end
-				end
-			end)
-		end
-	end)
-	
-	local childRemovedConn = character.ChildRemoved:Connect(function(child)
-		if child:IsA("Tool") and speedHackEnabled then
-			local startTime = tick()
-			local restoreConnection
-			restoreConnection = RunService.Heartbeat:Connect(function()
-				if tick() - startTime > 0.5 then
-					restoreConnection:Disconnect()
-					return
-				end
-				if speedHackEnabled and player.Character then
-					local humanoid = player.Character:FindFirstChild("Humanoid")
-					if humanoid and humanoid.WalkSpeed ~= currentSpeed then
-						humanoid.WalkSpeed = currentSpeed
-					end
-				end
-			end)
-		end
-	end)
-	
-	table.insert(toolConnections, childAddedConn)
-	table.insert(toolConnections, childRemovedConn)
-end
-
-local function toggleSpeedHack(state, speed)
-	speedHackEnabled = state
-	
-	if state then
-		local targetSpeed = speed or currentSpeed
-		currentSpeed = targetSpeed
-		
-		applySpeed(targetSpeed)
-		
-		if player.Character then
-			setupToolTracking(player.Character)
-		end
-		
-		if speedUpdateConnection then speedUpdateConnection:Disconnect() end
-		
-		speedUpdateConnection = RunService.Heartbeat:Connect(function()
-			if not speedHackEnabled then
-				speedUpdateConnection:Disconnect()
-				return
-			end
-			
-			if player.Character then
-				local humanoid = player.Character:FindFirstChild("Humanoid")
-				if humanoid and humanoid.WalkSpeed ~= currentSpeed then
-					humanoid.WalkSpeed = currentSpeed
-				end
-			end
-		end)
-		
-		if speedConnection then speedConnection:Disconnect() end
-		
-		speedConnection = player.CharacterAdded:Connect(function(character)
-			task.wait(0.1)
-			if speedHackEnabled then
-				applySpeed(currentSpeed)
-				setupToolTracking(character)
-			end
-		end)
-	else
-		if player.Character then
-			local humanoid = player.Character:FindFirstChild("Humanoid")
-			if humanoid then humanoid.WalkSpeed = 16 end
-		end
-		
-		clearToolConnections()
-		
-		if speedUpdateConnection then
-			speedUpdateConnection:Disconnect()
-			speedUpdateConnection = nil
-		end
-		
-		if speedConnection then
-			speedConnection:Disconnect()
-			speedConnection = nil
-		end
-	end
-end
-
--- ================== NOCLIP ==================
-local noclipEnabled = false
-local noclipConnection = nil
-
-local function toggleNoclip(state)
-	noclipEnabled = state
-	
-	if state then
-		if player.Character then
-			for _, part in ipairs(player.Character:GetDescendants()) do
-				if part:IsA("BasePart") then
-					part.CanCollide = false
-				end
-			end
-		end
-		
-		if noclipConnection then noclipConnection:Disconnect() end
-		
-		noclipConnection = RunService.Stepped:Connect(function()
-			if not noclipEnabled then
-				noclipConnection:Disconnect()
-				return
-			end
-			
-			if player.Character then
-				for _, part in ipairs(player.Character:GetDescendants()) do
-					if part:IsA("BasePart") and part.CanCollide == true then
-						part.CanCollide = false
-					end
-				end
-			end
-		end)
-	else
-		if player.Character then
-			for _, part in ipairs(player.Character:GetDescendants()) do
-				if part:IsA("BasePart") then
-					part.CanCollide = true
-				end
-			end
-		end
-		
-		if noclipConnection then
-			noclipConnection:Disconnect()
-			noclipConnection = nil
-		end
-	end
-end
-
--- ================== FLY ==================
-local flyEnabled = false
-local flyConnection = nil
-local flySpeed = 50
-
-local function toggleFly(state)
-	flyEnabled = state
-	
-	if state then
-		if player.Character then
-			local humanoid = player.Character:FindFirstChild("Humanoid")
-			local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
-			
-			if humanoid and rootPart then
-				humanoid.PlatformStand = true
-				
-				flyConnection = RunService.Heartbeat:Connect(function()
-					if not flyEnabled then
-						flyConnection:Disconnect()
-						return
-					end
-					
-					if player.Character then
-						local currentRoot = player.Character:FindFirstChild("HumanoidRootPart")
-						local currentHumanoid = player.Character:FindFirstChild("Humanoid")
-						
-						if currentRoot and currentHumanoid then
-							currentHumanoid.PlatformStand = true
-							
-							local moveDirection = Vector3.new(0, 0, 0)
-							
-							if UserInputService:IsKeyDown(Enum.KeyCode.W) then
-								moveDirection = moveDirection + (workspace.CurrentCamera.CFrame.LookVector * Vector3.new(1, 0, 1)).Unit
-							end
-							if UserInputService:IsKeyDown(Enum.KeyCode.S) then
-								moveDirection = moveDirection + (-workspace.CurrentCamera.CFrame.LookVector * Vector3.new(1, 0, 1)).Unit
-							end
-							if UserInputService:IsKeyDown(Enum.KeyCode.A) then
-								moveDirection = moveDirection + (-workspace.CurrentCamera.CFrame.RightVector * Vector3.new(1, 0, 1)).Unit
-							end
-							if UserInputService:IsKeyDown(Enum.KeyCode.D) then
-								moveDirection = moveDirection + (workspace.CurrentCamera.CFrame.RightVector * Vector3.new(1, 0, 1)).Unit
-							end
-							if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
-								moveDirection = moveDirection + Vector3.new(0, 1, 0)
-							end
-							if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
-								moveDirection = moveDirection + Vector3.new(0, -1, 0)
-							end
-							
-							if moveDirection.Magnitude > 0 then
-								currentRoot.Velocity = moveDirection.Unit * flySpeed
-							else
-								currentRoot.Velocity = Vector3.new(0, 0, 0)
-							end
-						end
-					end
-				end)
-			end
-		end
-	else
-		if player.Character then
-			local humanoid = player.Character:FindFirstChild("Humanoid")
-			if humanoid then humanoid.PlatformStand = false end
-		end
-		
-		if flyConnection then
-			flyConnection:Disconnect()
-			flyConnection = nil
-		end
-	end
-end
-
--- ================== TELEPORT FUNCTIONS ==================
-local function teleportToPlayer()
-	local otherPlayers = {}
-	for _, p in ipairs(Players:GetPlayers()) do
-		if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-			table.insert(otherPlayers, p)
-		end
-	end
-	
-	if #otherPlayers > 0 then
-		local randomPlayer = otherPlayers[math.random(1, #otherPlayers)]
-		if player.Character then
-			player.Character:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
-			print("[rmk Hub] Teleported to: " .. randomPlayer.Name)
-		end
-	else
-		print("[rmk Hub] No players available")
-	end
-end
-
--- ================== CATEGORY CONTENT ==================
-
--- === MAIN ===
-local infoFrame = Instance.new("Frame")
-infoFrame.Name = "InfoFrame"
-infoFrame.Size = UDim2.new(1, -20, 0, 340)
-infoFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-infoFrame.BorderSizePixel = 0
-infoFrame.Parent = categoryFrames["Main"]
-
-local infoTitle = Instance.new("TextLabel")
-infoTitle.Size = UDim2.new(1, -20, 0, 30)
-infoTitle.Position = UDim2.new(0, 12, 0, 12)
-infoTitle.BackgroundTransparency = 1
-infoTitle.Font = Enum.Font.GothamBold
-infoTitle.Text = "rmk Hub v1.6"
-infoTitle.TextColor3 = Color3.fromRGB(0, 170, 255)
-infoTitle.TextSize = 18
-infoTitle.TextXAlignment = Enum.TextXAlignment.Left
-infoTitle.Parent = infoFrame
-
-local infoDivider = Instance.new("Frame")
-infoDivider.Size = UDim2.new(1, -20, 0, 1)
-infoDivider.Position = UDim2.new(0, 10, 0, 48)
-infoDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-infoDivider.BorderSizePixel = 0
-infoDivider.Parent = infoFrame
-
-local updateLogTitle = Instance.new("TextLabel")
-updateLogTitle.Size = UDim2.new(1, -20, 0, 22)
-updateLogTitle.Position = UDim2.new(0, 12, 0, 55)
-updateLogTitle.BackgroundTransparency = 1
-updateLogTitle.Font = Enum.Font.GothamBold
-updateLogTitle.Text = "[Update Log]"
-updateLogTitle.TextColor3 = Color3.fromRGB(255, 200, 50)
-updateLogTitle.TextSize = 13
-updateLogTitle.TextXAlignment = Enum.TextXAlignment.Left
-updateLogTitle.Parent = infoFrame
-
-local updateLogText = Instance.new("TextLabel")
-updateLogText.Size = UDim2.new(1, -20, 0, 270)
-updateLogText.Position = UDim2.new(0, 12, 0, 82)
-updateLogText.BackgroundTransparency = 1
-updateLogText.Font = Enum.Font.Gotham
-updateLogText.Text = [[v1.6
-+ Auto Farm: fast teleport to coins
-+ Infinite mode (all 15 maps)
-+ ESP with roles
-+ Speed Hack (16-50)
-+ Fly (WASD, Space, Shift)
-+ NoClip
-
-v1.5
-+ Infinite Auto Farm
-+ All maps support
-
-v1.4
-+ Smooth movement Auto Farm
-+ Intro animation
-
-v1.0
-+ Initial release
-+ ESP Players & Coins
-+ Speed Hack, Fly, Teleport]]
-updateLogText.TextColor3 = Color3.fromRGB(160, 160, 160)
-updateLogText.TextSize = 11
-updateLogText.TextXAlignment = Enum.TextXAlignment.Left
-updateLogText.TextYAlignment = Enum.TextYAlignment.Top
-updateLogText.TextWrapped = true
-updateLogText.Parent = infoFrame
-
-local versionLabel = Instance.new("TextLabel")
-versionLabel.Size = UDim2.new(1, -20, 0, 18)
-versionLabel.Position = UDim2.new(0, 12, 0, 320)
-versionLabel.BackgroundTransparency = 1
-versionLabel.Font = Enum.Font.Gotham
-versionLabel.Text = "by rmk | Press K to toggle"
-versionLabel.TextColor3 = Color3.fromRGB(100, 100, 100)
-versionLabel.TextSize = 10
-versionLabel.TextXAlignment = Enum.TextXAlignment.Left
-versionLabel.Parent = infoFrame
-
--- === GENERAL ===
-createToggleSection("General", "ESP Players", false, function(state) toggleESP(state) end)
-createToggleSection("General", "ESP Coin", false, function(state) toggleCoinESP(state) end)
-createToggleSection("General", "Auto Farm", false, function(state) toggleAutoFarm(state) end)
-
-local destroyButton = Instance.new("TextButton")
-destroyButton.Name = "DestroyButton"
-destroyButton.Size = UDim2.new(1, -20, 0, 44)
-destroyButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
-destroyButton.BorderSizePixel = 0
-destroyButton.Font = Enum.Font.GothamBold
-destroyButton.Text = "DESTROY GUI"
-destroyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-destroyButton.TextSize = 15
-destroyButton.AutoButtonColor = false
-destroyButton.Parent = categoryFrames["General"]
-
-destroyButton.MouseEnter:Connect(function() destroyButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50) end)
-destroyButton.MouseLeave:Connect(function() destroyButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40) end)
-
-destroyButton.MouseButton1Click:Connect(function()
-	removeAllESP()
-	if coinESPEnabled then toggleCoinESP(false) end
-	if autoFarmEnabled then toggleAutoFarm(false) end
-	if speedHackEnabled then toggleSpeedHack(false) end
-	if flyEnabled then toggleFly(false) end
-	if noclipEnabled then toggleNoclip(false) end
-	if roleUpdateConnection then roleUpdateConnection:Disconnect() end
-	if playerAddedConnection then playerAddedConnection:Disconnect() end
-	if playerRemovingConnection then playerRemovingConnection:Disconnect() end
-	if localCharacterConnection then localCharacterConnection:Disconnect() end
-	if espFolder and espFolder.Parent then espFolder:Destroy() end
-	screenGui:Destroy()
-	print("[rmk Hub] GUI destroyed, all functions disabled.")
-end)
-
--- === MOVEMENT ===
-local speedInput = createInputSection("Movement", "Speed", 16, 16, 50, function(value)
-	if speedHackEnabled then updateSpeed(value) end
-end)
-
-createToggleSection("Movement", "Enable Speed", false, function(state)
-	toggleSpeedHack(state, speedInput.GetValue())
-end)
-
-createToggleSection("Movement", "NoClip", false, function(state) toggleNoclip(state) end)
-createToggleSection("Movement", "Fly", false, function(state) toggleFly(state) end)
-
--- === TELEPORT ===
-createButtonSection("Teleport", "Teleport to Lobby", function() teleportToLobby() end)
-createButtonSection("Teleport", "Teleport to Player", function() teleportToPlayer() end)
-
--- ================== TOGGLE VISIBILITY WITH K ==================
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then return end
-	if input.KeyCode == Enum.KeyCode.K then
-		mainFrame.Visible = not mainFrame.Visible
-	end
-end)
-
-mainFrame.Visible = true
-
--- ================== INTRO ANIMATION ==================
-TweenService:Create(introBox, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-TweenService:Create(introShadow, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-task.wait(0.3)
-TweenService:Create(titleText, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-task.wait(0.15)
-TweenService:Create(subtitleText, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-task.wait(0.2)
-TweenService:Create(loadingBarBg, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-TweenService:Create(loadingText, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-TweenService:Create(versionText, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-task.wait(0.2)
-
-local totalTime = 1.2
-local steps = 20
-local stepTime = totalTime / steps
-for i = 1, steps do
-	local progress = i / steps
-	loadingBarFill.Size = UDim2.new(progress, 0, 1, 0)
-	loadingText.Text = "Loading... " .. math.floor(progress * 100) .. "%"
-	task.wait(stepTime)
-end
-loadingText.Text = "Complete!"
-task.wait(0.3)
-
-TweenService:Create(introBox, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
-TweenService:Create(introShadow, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
-task.wait(0.4)
-
-introGui:Destroy()
-screenGui.Enabled = true
-
-print("[rmk Hub] Loaded. Press K to toggle.")
-print("[rmk Hub] Auto Farm: fast teleport to coins (infinite, all maps)")
+			i oeieto.antd   hn				cretotVlct  oeieto.nt*fype
+			es
+				urnRo.eoiy=Vco3nw0 ,0
+			ed			ed			n
+		n)		n
+	n
+es
+	fpae.hrce hn		oa uaod=pae.hrce:idisCid"uaod)		fhmni hnhmni.ltomtn  as n
+	n
+		i lCneto hn		lCneto:icnet)		lCneto  i
+	n
+eded
+-========= EEOTFNTOS=========
+oa ucintlprTPae(
+lclohrlyr  }	o ,pi pisPaesGtlyr()d
+	fp~ lyradpCaatradpCaatrFnFrthl(HmniRoPr" hn		al.netohrlyr,p
+	n
+ed		f#tePaes>0te
+	oa admlyr=ohrlyr[ahrno(,#tePaes]	i lyrCaatrte
+	pae.hrce:oeornoPae.hrce.uaodotatPsto)		rn([m u]Tlpre o  .rnoPae.ae
+	n
+es
+	rn([m u]N lyr vial"
+eded
+-========= AEOYCNET=========
+- = AN==lclifFae=Isac.e(Fae)ifFaeNm  IfFae
+norm.ie=Ui2nw1 2,0 4)ifFaeBcgonClr  oo3foRB4,4,4)ifFaeBreSzPxl=0ifFaePrn  aeoyrms"an]
+oa noil  ntnenw"etae"
+noil.ie=Ui2nw1 2,0 0
+noil.oiin=Ui2nw0 2 ,1)ifTteBcgonTasaec  
+noil.ot=Eu.otGtaBl
+noil.et="m u 16
+noil.etoo3=Clr.rmG(,10 5)ifTteTxSz  8ifTteTxXlgmn  nmTxXlgmn.etifTtePrn  norm
+lclifDvdr=Isac.e(Fae)ifDvdrSz  Dm.e(,-0 ,1
+noiie.oiin=Ui2nw0 0 ,4)ifDvdrBcgonClr  oo3foRB6,6,6)ifDvdrBreSzPxl=0ifDvdrPrn  norm
+lcludtLgil  ntnenw"etae"
+paeoTteSz  Dm.e(,-0 ,2)udtLgil.oiin=Ui2nw0 2 ,5)udtLgil.akrudrnprny=1udtLgil.ot=Eu.otGtaBl
+paeoTteTx  [paeLg"udtLgil.etoo3=Clr.rmG(5,20 0
+paeoTteTxSz  3udtLgil.etAinet=Eu.etAinetLf
+paeoTtePrn  norm
+lcludtLget=Isac.e(TxLbl)udtLgetSz  Dm.e(,-0 ,20
+paeoTx.oiin=Ui2nw0 2 ,8)udtLgetBcgonTasaec  
+paeoTx.ot=Eu.otGta
+paeoTx.et=[v.
+ euoe/ls nmto
+ on fe nr
+ GICE]tgo uoFr
+ paelgrdsg
+v.
+ niieAt am+Almp upr
+v.
+ mohmvmn uoFr
+ nr nmto
+v.
+ nta ees
+ S lyr  on
+ pe ak l,Tlpr]
+paeoTx.etoo3=Clr.rmG(6,10 6)udtLgetTxSz  1udtLgetTxXlgmn  nmTxXlgmn.etudtLgetTxYlgmn  nmTxYlgmn.o
+paeoTx.etrpe  reudtLgetPrn  norm
+lclvrinae  ntnenw"etae"
+esoLblSz  Dm.e(,-0 ,1)vrinae.oiin=Ui2nw0 2 ,30
+esoLblBcgonTasaec  
+esoLblFn  nmFn.ohmvrinae.et="yrk|PesKt oge
+esoLblTxClr  oo3foRB10 0,10
+esoLblTxSz  0vrinae.etAinet=Eu.etAinetLf
+esoLblPrn  norm
+- = EEA =
+raeogeeto(Gnrl,"S lyr" as,fnto(tt)tglEPsae n)cetTglScin"eea" EPCi" as,fnto(tt)tglCiEPsae n)cetTglScin"eea" At am,fle ucinsae ogeuoamsae n,tu)
+oa etoBto  ntnenw"etutn)dsryutnNm  Dsryutn
+etoBto.ie=Ui2nw1 2,0 4
+etoBto.akrudoo3=Clr.rmG(8,4,4)dsryutnBreSzPxl=0dsryutnFn  nmFn.ohmoddsryutnTx  DSRYGI
+etoBto.etoo3=Clr.rmG(5,25 5)dsryutnTxSz  5dsryutnAtBtoClr=fledsryutnPrn  aeoyrms"eea"
+dsryutnMuene:onc(ucin)dsryutnBcgonClr  oo3foRB20 0 0 n)dsryutnMueev:onc(ucin)dsryutnBcgonClr  oo3foRB10 0 0 n)
+etoBto.osBto1lc:onc(ucin)	eoelEP)	fciEPnbe hntglCiEPfle n
+i uoamnbe hntglAtFr(as)ed	fsedaknbe hntglSedakfle n
+i lEaldte ogel(as)ed	fnciEaldte ogeolpfle n
+i oepaeoncinte oepaeoncinDsonc( n
+i lyrdeCneto hnpaeAddoncinDsonc( n
+i lyreoigoncinte lyreoigoncinDsonc( n
+i oaCaatroncinte oaCaatroncinDsonc( n
+i sFle n sFle.aette sFle:eto( n
+sreGiDsry)	rn([m u]GIdsryd l ucin iald"
+n)
+-==MVMN =
+oa peIpt=cetIpteto(Mvmn" Sed,1,1,5,fnto(au)	fsedaknbe hnudtSedvle n
+n)
+raeogeeto(Mvmn" Eal pe" as,fnto(tt)	ogepeHc(tt,sednu.eVle)
+n)
+raeogeeto(Mvmn" NCi" as,fnto(tt)tglNci(tt)ed
+raeogeeto(Mvmn" Fy,fle ucinsae ogel(tt)ed
+- = EEOT==cetBtoScin"eeot,"eeott ob" ucin)tlprTLby)ed
+raeutneto(Tlpr" Tlpr oPae" ucin)tlprTPae( n)
+-========= OGEVSBLT IHK(NMTD =========UeIptevc.nuBgnCnetfnto(nu,gmPoesd
+i aercse hnrtr n
+i nu.eCd =Eu.eCd. hn	mnVsbe=ntmnVsbe	i euiil hn		anrm.iil  re		hweu)	es
+	hdMn(
+	ts.ea(.,fnto(
+		fntmnVsbete
+		miFaeVsbe=fle		ed		n)	ed	n
+n)
+-========= NR NMTO =========Tenevc:raeitoo,Tennonw04 nmEsnSyeQa,Eu.aigieto.u) BcgonTasaec  }:ly)Tenevc:raeitohdw weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{akrudrnprny=0)Pa(
+akwi(.)Tenevc:raetteet weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{etrnprny=0)Pa(
+akwi(.5
+weSrieCet(utteet weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{etrnprny=0)Pa(
+akwi(.)Tenevc:raelaigaB,Tennonw03 nmEsnSyeQa,Eu.aigieto.u) BcgonTasaec  }:ly)Tenevc:raelaiget weIf.e(.,Eu.aigtl.ud nmEsnDrcinOt,{etrnprny=0)Pa(
+weSrieCet(esoTx,Tennonw03 nmEsnSyeQa,Eu.aigieto.u) TxTasaec  }:ly)ts.at02
+lclttlie=12lclses=2
+oa tpie=ttlie/sesfri=1 tp o	oa rges=i/ses	odnBrilSz  Dm.e(rges ,1 )	odnTx.et="odn..". ahforpors  0). %
+ts.atseTm)edlaigetTx  Cmlt!
+akwi(.)
+weSrieCet(nrBx weIf.e(.,Eu.aigtl.ud nmEsnDrcinI) BcgonTasaec  }:ly)Tenevc:raeitohdw weIf.e(.,Eu.aigtl.ud nmEsnDrcinI) BcgonTasaec  }:ly)ts.at04
+itou:eto(
+cenu.nbe  re
+-Pa on fe nr
+oa on  ntnenw"on"
+on.onI  rxsei:/10846 -M2lbymsc/ntfcto on
+on.oue=05sudPrn  lyru
+on:ly)
+-So euwt nmto
+anrm.iil  resoMn(
+pit"rkHb odd rs  otgl.)pit"rkHb uoFr:fs eeott on ifnt,almp))
