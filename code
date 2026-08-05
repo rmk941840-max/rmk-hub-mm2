@@ -1,0 +1,129 @@
+-- ================== AUTO FARM (ТЕЛЕПОРТ, БЕСКОНЕЧНЫЙ, БЫСТРЫЙ) ==================
+local autoFarmEnabled = false
+local autoFarmConnection = nil
+local collectedCoins = 0
+local farmDelay = 0.03 -- Задержка между телепортами (было 0.1)
+
+local function findCoinContainer()
+	for _, mapName in ipairs(mapNames) do
+		local map = workspace:FindFirstChild(mapName)
+		if map then
+			local coinContainer = map:FindFirstChild("CoinContainer")
+			if coinContainer then
+				return coinContainer
+			end
+		end
+	end
+	
+	for _, object in ipairs(workspace:GetDescendants()) do
+		if object.Name == "CoinContainer" and (object:IsA("Folder") or object:IsA("Model")) then
+			return object
+		end
+	end
+	
+	return nil
+end
+
+local function findNearestCoin()
+	local coinContainer = findCoinContainer()
+	if not coinContainer then return nil end
+	
+	local nearestCoin = nil
+	local nearestDistance = math.huge
+	
+	if player.Character then
+		local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
+		if rootPart then
+			for _, coin in ipairs(coinContainer:GetChildren()) do
+				if coin:IsA("BasePart") and coin.Name:find("Coin") then
+					local distance = (rootPart.Position - coin.Position).Magnitude
+					if distance < nearestDistance then
+						nearestCoin = coin
+						nearestDistance = distance
+					end
+				end
+			end
+		end
+	end
+	
+	return nearestCoin
+end
+
+local function teleportToLobby()
+	local lobby = workspace:FindFirstChild("Lobby")
+	if lobby then
+		local spawn = lobby:FindFirstChild("Spawn")
+		if spawn then
+			local spawnLocation = spawn:FindFirstChild("SpawnLocation")
+			if spawnLocation and player.Character then
+				player.Character:MoveTo(spawnLocation.Position)
+				return true
+			end
+		end
+		
+		local anySpawnLocation = lobby:FindFirstChild("SpawnLocation")
+		if anySpawnLocation and player.Character then
+			player.Character:MoveTo(anySpawnLocation.Position)
+			return true
+		end
+		
+		local part = lobby:FindFirstChildWhichIsA("Part") or lobby:FindFirstChildWhichIsA("BasePart")
+		if part and player.Character then
+			player.Character:MoveTo(part.Position)
+			return true
+		end
+	end
+	
+	return false
+end
+
+local function toggleAutoFarm(state)
+	autoFarmEnabled = state
+	
+	if state then
+		collectedCoins = 0
+		print("[rmk Hub] Auto Farm запущен (телепорт, быстрый)")
+		
+		autoFarmConnection = RunService.Heartbeat:Connect(function()
+			if not autoFarmEnabled then
+				autoFarmConnection:Disconnect()
+				return
+			end
+			
+			if not player.Character then return end
+			
+			local humanoid = player.Character:FindFirstChild("Humanoid")
+			if not humanoid or humanoid.Health <= 0 then return end
+			
+			local nearestCoin = findNearestCoin()
+			
+			if nearestCoin then
+				local rootPart = player.Character:FindFirstChild("HumanoidRootPart")
+				if rootPart then
+					-- Телепорт к монетке
+					rootPart.CFrame = nearestCoin.CFrame + Vector3.new(0, 3, 0)
+					
+					collectedCoins = collectedCoins + 1
+					
+					if collectedCoins % 50 == 0 then
+						print("[rmk Hub] Собрано монеток: " .. collectedCoins)
+					end
+					
+					-- Минимальная задержка для скорости
+					task.wait(farmDelay)
+				end
+			else
+				-- Монеток нет, телепорт в лобби
+				print("[rmk Hub] Монетки закончились! Собрано: " .. collectedCoins .. ". Телепорт в лобби...")
+				teleportToLobby()
+				task.wait(2)
+			end
+		end)
+	else
+		if autoFarmConnection then
+			autoFarmConnection:Disconnect()
+			autoFarmConnection = nil
+		end
+		print("[rmk Hub] Auto Farm остановлен. Всего собрано: " .. collectedCoins .. " монеток")
+	end
+end
