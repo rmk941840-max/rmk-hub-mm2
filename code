@@ -1,17 +1,17 @@
 --[[
 	rmk Hub - MM2 v1.6
-	• Интро с загрузкой перед запуском
-	• Перетаскивание за верхнюю панель
-	• Открытие/закрытие по K
-	• Категории: Main, General, Movement, Teleport
-	• ESP с ролями: Murder (красный), Sheriff (синий), Innocent (зелёный)
-	• ESP для монеток
-	• Auto Farm - быстрый телепорт к монеткам (бесконечный, все карты)
-	• Speed Hack с настраиваемой скоростью (16-50)
-	• NoClip - прохождение сквозь стены
-	• Fly - полёт
-	• Teleport с кнопками
-	• Кнопка DestroyGUI
+	• Intro with loading before launch
+	• Drag by top bar
+	• Toggle visibility with K
+	• Categories: Main, General, Movement, Teleport
+	• ESP with roles: Murder (red), Sheriff (blue), Innocent (green)
+	• ESP for coins
+	• Auto Farm - fast teleport to coins (infinite, all maps)
+	• Speed Hack with configurable speed (16-50)
+	• NoClip - walk through walls
+	• Fly - flight
+	• Teleport with buttons
+	• DestroyGUI button
 --]]
 
 local UserInputService = game:GetService("UserInputService")
@@ -22,14 +22,14 @@ local RunService = game:GetService("RunService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
--- Список всех карт в MM2
+-- All MM2 maps
 local mapNames = {
 	"Bank2", "BioLab", "Factory", "Hospital3", "Hotel2", "House2",
 	"Mansion2", "MilBase", "Office3", "PoliceStation", "ResearchFacility",
 	"Workplace", "BeachResort", "Yacht", "Pier",
 }
 
--- ================== СОЗДАНИЕ ИНТРО ==================
+-- ================== INTRO ==================
 local introGui = Instance.new("ScreenGui")
 introGui.Name = "rmkHub_Intro"
 introGui.ResetOnSpawn = false
@@ -134,7 +134,7 @@ versionText.TextSize = 11
 versionText.TextTransparency = 1
 versionText.Parent = introBox
 
--- ================== ОСНОВНОЕ МЕНЮ ==================
+-- ================== MAIN MENU ==================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "rmkHub"
 screenGui.ResetOnSpawn = false
@@ -212,7 +212,7 @@ divider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 divider.BorderSizePixel = 0
 divider.Parent = mainFrame
 
--- ================== КАТЕГОРИИ ==================
+-- ================== CATEGORIES ==================
 local categories = {"Main", "General", "Movement", "Teleport"}
 local categoryButtons = {}
 local categoryFrames = {}
@@ -323,7 +323,7 @@ end
 
 switchCategory("Main")
 
--- ================== ПЕРЕТАСКИВАНИЕ ==================
+-- ================== DRAGGING ==================
 local dragging = false
 local dragStartPos = nil
 local frameStartPos = nil
@@ -353,7 +353,7 @@ UserInputService.InputChanged:Connect(function(input)
 	end
 end)
 
--- ================== ФУНКЦИЯ СОЗДАНИЯ ТОГГЛ-СЕКЦИИ ==================
+-- ================== TOGGLE SECTION CREATOR ==================
 local function createToggleSection(categoryName, name, defaultState, callback)
 	local targetFrame = categoryFrames[categoryName]
 	if not targetFrame then return end
@@ -456,7 +456,7 @@ local function createToggleSection(categoryName, name, defaultState, callback)
 	}
 end
 
--- ================== ФУНКЦИЯ СОЗДАНИЯ СЕКЦИИ С ВВОДОМ ==================
+-- ================== INPUT SECTION CREATOR ==================
 local function createInputSection(categoryName, name, defaultValue, minValue, maxValue, callback)
 	local targetFrame = categoryFrames[categoryName]
 	if not targetFrame then return end
@@ -526,7 +526,7 @@ local function createInputSection(categoryName, name, defaultValue, minValue, ma
 	}
 end
 
--- ================== ФУНКЦИЯ СОЗДАНИЯ КНОПКИ ==================
+-- ================== BUTTON SECTION CREATOR ==================
 local function createButtonSection(categoryName, name, callback)
 	local targetFrame = categoryFrames[categoryName]
 	if not targetFrame then return end
@@ -563,7 +563,7 @@ local function createButtonSection(categoryName, name, callback)
 	return button
 end
 
--- ================== ESP СИСТЕМА С РОЛЯМИ ==================
+-- ================== ESP SYSTEM ==================
 local espEnabled = false
 local espFolder = Instance.new("Folder")
 espFolder.Name = "ESP_Folder"
@@ -762,7 +762,7 @@ local function toggleESP(state)
 	end
 end
 
--- ================== ESP ДЛЯ МОНЕТОК ==================
+-- ================== COIN ESP ==================
 local coinESPEnabled = false
 local coinHighlights = {}
 local coinESPConnection = nil
@@ -851,7 +851,7 @@ local function toggleCoinESP(state)
 	end
 end
 
--- ================== AUTO FARM (ТЕЛЕПОРТ, БЕСКОНЕЧНЫЙ, БЫСТРЫЙ) ==================
+-- ================== AUTO FARM ==================
 local autoFarmEnabled = false
 local autoFarmConnection = nil
 local collectedCoins = 0
@@ -935,7 +935,7 @@ local function toggleAutoFarm(state)
 	
 	if state then
 		collectedCoins = 0
-		print("[rmk Hub] Auto Farm запущен (телепорт, быстрый)")
+		print("[rmk Hub] Auto Farm started (teleport, fast)")
 		
 		autoFarmConnection = RunService.Heartbeat:Connect(function()
 			if not autoFarmEnabled then
@@ -958,13 +958,13 @@ local function toggleAutoFarm(state)
 					collectedCoins = collectedCoins + 1
 					
 					if collectedCoins % 50 == 0 then
-						print("[rmk Hub] Собрано монеток: " .. collectedCoins)
+						print("[rmk Hub] Coins collected: " .. collectedCoins)
 					end
 					
 					task.wait(farmDelay)
 				end
 			else
-				print("[rmk Hub] Монетки закончились! Собрано: " .. collectedCoins .. ". Телепорт в лобби...")
+				print("[rmk Hub] No more coins! Collected: " .. collectedCoins .. ". Teleporting to lobby...")
 				teleportToLobby()
 				task.wait(2)
 			end
@@ -974,11 +974,11 @@ local function toggleAutoFarm(state)
 			autoFarmConnection:Disconnect()
 			autoFarmConnection = nil
 		end
-		print("[rmk Hub] Auto Farm остановлен. Всего собрано: " .. collectedCoins .. " монеток")
+		print("[rmk Hub] Auto Farm stopped. Total collected: " .. collectedCoins .. " coins")
 	end
 end
 
--- ================== ОБРАБОТЧИКИ ИГРОКОВ ==================
+-- ================== PLAYER HANDLERS ==================
 local lastRoleUpdate = 0
 local roleUpdateConnection = RunService.Heartbeat:Connect(function()
 	if not espEnabled then return end
@@ -1316,7 +1316,7 @@ local function toggleFly(state)
 	end
 end
 
--- ================== TELEPORT ФУНКЦИИ ==================
+-- ================== TELEPORT FUNCTIONS ==================
 local function teleportToPlayer()
 	local otherPlayers = {}
 	for _, p in ipairs(Players:GetPlayers()) do
@@ -1329,14 +1329,14 @@ local function teleportToPlayer()
 		local randomPlayer = otherPlayers[math.random(1, #otherPlayers)]
 		if player.Character then
 			player.Character:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
-			print("[rmk Hub] Телепорт к игроку: " .. randomPlayer.Name)
+			print("[rmk Hub] Teleported to: " .. randomPlayer.Name)
 		end
 	else
-		print("[rmk Hub] Нет доступных игроков для телепорта")
+		print("[rmk Hub] No players available")
 	end
 end
 
--- ================== КОНТЕНТ КАТЕГОРИЙ ==================
+-- ================== CATEGORY CONTENT ==================
 
 -- === MAIN ===
 local infoFrame = Instance.new("Frame")
@@ -1364,75 +1364,48 @@ infoDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 infoDivider.BorderSizePixel = 0
 infoDivider.Parent = infoFrame
 
-local lastUpdateTitle = Instance.new("TextLabel")
-lastUpdateTitle.Size = UDim2.new(1, -20, 0, 22)
-lastUpdateTitle.Position = UDim2.new(0, 12, 0, 55)
-lastUpdateTitle.BackgroundTransparency = 1
-lastUpdateTitle.Font = Enum.Font.GothamBold
-lastUpdateTitle.Text = "[Последнее обновление]"
-lastUpdateTitle.TextColor3 = Color3.fromRGB(255, 200, 50)
-lastUpdateTitle.TextSize = 13
-lastUpdateTitle.TextXAlignment = Enum.TextXAlignment.Left
-lastUpdateTitle.Parent = infoFrame
+local updateLogTitle = Instance.new("TextLabel")
+updateLogTitle.Size = UDim2.new(1, -20, 0, 22)
+updateLogTitle.Position = UDim2.new(0, 12, 0, 55)
+updateLogTitle.BackgroundTransparency = 1
+updateLogTitle.Font = Enum.Font.GothamBold
+updateLogTitle.Text = "[Update Log]"
+updateLogTitle.TextColor3 = Color3.fromRGB(255, 200, 50)
+updateLogTitle.TextSize = 13
+updateLogTitle.TextXAlignment = Enum.TextXAlignment.Left
+updateLogTitle.Parent = infoFrame
 
-local lastUpdateText = Instance.new("TextLabel")
-lastUpdateText.Size = UDim2.new(1, -20, 0, 20)
-lastUpdateText.Position = UDim2.new(0, 12, 0, 78)
-lastUpdateText.BackgroundTransparency = 1
-lastUpdateText.Font = Enum.Font.Gotham
-lastUpdateText.Text = "+ Auto Farm: быстрый телепорт"
-lastUpdateText.TextColor3 = Color3.fromRGB(150, 255, 150)
-lastUpdateText.TextSize = 11
-lastUpdateText.TextXAlignment = Enum.TextXAlignment.Left
-lastUpdateText.Parent = infoFrame
+local updateLogText = Instance.new("TextLabel")
+updateLogText.Size = UDim2.new(1, -20, 0, 270)
+updateLogText.Position = UDim2.new(0, 12, 0, 82)
+updateLogText.BackgroundTransparency = 1
+updateLogText.Font = Enum.Font.Gotham
+updateLogText.Text = [[v1.6
++ Auto Farm: fast teleport to coins
++ Infinite mode (all 15 maps)
++ ESP with roles
++ Speed Hack (16-50)
++ Fly (WASD, Space, Shift)
++ NoClip
 
-local lastUpdateText2 = Instance.new("TextLabel")
-lastUpdateText2.Size = UDim2.new(1, -20, 0, 20)
-lastUpdateText2.Position = UDim2.new(0, 12, 0, 98)
-lastUpdateText2.BackgroundTransparency = 1
-lastUpdateText2.Font = Enum.Font.Gotham
-lastUpdateText2.Text = "+ Бесконечный режим (все карты)"
-lastUpdateText2.TextColor3 = Color3.fromRGB(150, 255, 150)
-lastUpdateText2.TextSize = 11
-lastUpdateText2.TextXAlignment = Enum.TextXAlignment.Left
-lastUpdateText2.Parent = infoFrame
+v1.5
++ Infinite Auto Farm
++ All maps support
 
-local updateDivider = Instance.new("Frame")
-updateDivider.Size = UDim2.new(1, -20, 0, 1)
-updateDivider.Position = UDim2.new(0, 10, 0, 125)
-updateDivider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-updateDivider.BorderSizePixel = 0
-updateDivider.Parent = infoFrame
+v1.4
++ Smooth movement Auto Farm
++ Intro animation
 
-local allUpdatesTitle = Instance.new("TextLabel")
-allUpdatesTitle.Size = UDim2.new(1, -20, 0, 22)
-allUpdatesTitle.Position = UDim2.new(0, 12, 0, 132)
-allUpdatesTitle.BackgroundTransparency = 1
-allUpdatesTitle.Font = Enum.Font.GothamBold
-allUpdatesTitle.Text = "[Все функции]"
-allUpdatesTitle.TextColor3 = Color3.fromRGB(200, 200, 200)
-allUpdatesTitle.TextSize = 13
-allUpdatesTitle.TextXAlignment = Enum.TextXAlignment.Left
-allUpdatesTitle.Parent = infoFrame
-
-local updateLog = Instance.new("TextLabel")
-updateLog.Size = UDim2.new(1, -20, 0, 175)
-updateLog.Position = UDim2.new(0, 12, 0, 158)
-updateLog.BackgroundTransparency = 1
-updateLog.Font = Enum.Font.Gotham
-updateLog.Text = [[ESP Players - подсвечивает игроков и роль
-ESP Coins - подсвечивает монетки на карте
-Auto Farm - быстрый телепорт к монеткам
-Speed Hack - меняет скорость от 16 до 50
-Fly - полёт (WASD, Space, Shift)
-NoClip - позволяет проходить сквозь стены
-Teleport - меню телепортаций]]
-updateLog.TextColor3 = Color3.fromRGB(160, 160, 160)
-updateLog.TextSize = 12
-updateLog.TextXAlignment = Enum.TextXAlignment.Left
-updateLog.TextYAlignment = Enum.TextYAlignment.Top
-updateLog.TextWrapped = true
-updateLog.Parent = infoFrame
+v1.0
++ Initial release
++ ESP Players & Coins
++ Speed Hack, Fly, Teleport]]
+updateLogText.TextColor3 = Color3.fromRGB(160, 160, 160)
+updateLogText.TextSize = 11
+updateLogText.TextXAlignment = Enum.TextXAlignment.Left
+updateLogText.TextYAlignment = Enum.TextYAlignment.Top
+updateLogText.TextWrapped = true
+updateLogText.Parent = infoFrame
 
 local versionLabel = Instance.new("TextLabel")
 versionLabel.Size = UDim2.new(1, -20, 0, 18)
@@ -1478,7 +1451,7 @@ destroyButton.MouseButton1Click:Connect(function()
 	if localCharacterConnection then localCharacterConnection:Disconnect() end
 	if espFolder and espFolder.Parent then espFolder:Destroy() end
 	screenGui:Destroy()
-	print("[rmk Hub] GUI уничтожен, все функции отключены.")
+	print("[rmk Hub] GUI destroyed, all functions disabled.")
 end)
 
 -- === MOVEMENT ===
@@ -1497,7 +1470,7 @@ createToggleSection("Movement", "Fly", false, function(state) toggleFly(state) e
 createButtonSection("Teleport", "Teleport to Lobby", function() teleportToLobby() end)
 createButtonSection("Teleport", "Teleport to Player", function() teleportToPlayer() end)
 
--- ================== УПРАВЛЕНИЕ ВИДИМОСТЬЮ ПО K ==================
+-- ================== TOGGLE VISIBILITY WITH K ==================
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if gameProcessed then return end
 	if input.KeyCode == Enum.KeyCode.K then
@@ -1507,7 +1480,7 @@ end)
 
 mainFrame.Visible = true
 
--- ================== АНИМАЦИЯ ИНТРО ==================
+-- ================== INTRO ANIMATION ==================
 TweenService:Create(introBox, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 TweenService:Create(introShadow, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 task.wait(0.3)
@@ -1539,5 +1512,5 @@ task.wait(0.4)
 introGui:Destroy()
 screenGui.Enabled = true
 
-print("[rmk Hub] Загружено. Нажми K для скрытия/показа.")
-print("[rmk Hub] Auto Farm: быстрый телепорт к монеткам (бесконечный, все карты)")
+print("[rmk Hub] Loaded. Press K to toggle.")
+print("[rmk Hub] Auto Farm: fast teleport to coins (infinite, all maps)")
